@@ -13,7 +13,7 @@ class AddRequest extends FormRequest
      */
     public function authorize()
     {
-        return ;
+        return true;
     }
 
     /**
