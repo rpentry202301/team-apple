@@ -2,73 +2,77 @@
 <html lang="ja">
 
 <head>
-  <!--Import Google Icon Font-->
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-  <!-- Import Materialize CSS -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
-  <!-- Import Font Wesome -->
-  <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet" />
-  <link rel="stylesheet" href="css/common.css" />
-  <link rel="stylesheet" href="css/header.css" />
-  <link rel="stylesheet" href="css/footer.css" />
-  <link rel="stylesheet" href="css/register_admin.css" />
-  <link rel="stylesheet" href="css/login.css" />
-  <link rel="stylesheet" href="css/item_list.css" />
-  <link rel="stylesheet" href="css/item_detail.css" />
-  <link rel="stylesheet" href="css/cart_list.css" />
-  <link rel="stylesheet" href="css/order_confirm.css" />
-  <link rel="stylesheet" href="css/order_finished.css" />
-  <link rel="stylesheet" href="css/responsive.css" />
-  <meta charset="UTF-8" />
+  <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ラクラクアロハ</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ピザ屋のネット注文</title>
+  <link href="../css/bootstrap.css" rel="stylesheet" />
+  <link href="../css/piza.css" rel="stylesheet" />
+  <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
 </head>
 
 <body>
-  <header>
-    <div class="container">
-      <div class="header">
-        <div class="header-left">
-          <a href="top.html">
-            <img class="logo" src="img/header_logo.png" />
+  <div class="container">
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+            data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span> <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="item_list_pizza.html">
+            <!-- 企業ロゴ -->
+            <img alt="main log" src="../images/header_logo.png" height="35" />
           </a>
         </div>
 
-        <div class="header-right">
-          <a href="item_list.html">商品一覧</a>
-          <a href="register_admin.html">会員登録</a>
-          <a href="#"><i class="fas fa-shopping-cart"></i>カート</a>
-          <a href="login.html" class="login">
-            <i class="fas fa-sign-in-alt"></i>ログイン
-          </a>
-
-          <a href="order_history.html">注文履歴</a>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <p class="navbar-text navbar-right">
+            <a href="cart_list.html" class="navbar-link">ショッピングカート</a>&nbsp;&nbsp;
+            <a href="order_history.html" class="navbar-link">注文履歴</a>&nbsp;&nbsp;
+            <a href="login.html" class="navbar-link">ログイン</a>&nbsp;&nbsp;
+            <a href="item_list_pizza.html" class="navbar-link">ログアウト</a>
+          </p>
         </div>
+        <!-- /.navbar-collapse -->
       </div>
-    </div>
-  </header>
-  <div class="top-wrapper">
-    <div class="container">
-      <h1 class="page-title">注文内容確認</h1>
-      <!-- table -->
-      <div class="row">
-        <table class="striped">
-          <thead>
-            <tr>
-              <th class="cart-table-th">商品名</th>
-              <th>サイズ、価格(税抜)、数量</th>
-              <th>トッピング、価格(税抜)</th>
-              <th>小計</th>
-            </tr>
-          </thead>
+      <!-- /.container-fluid -->
+    </nav>
+
+    <!-- table -->
+    <div class="row">
+      <div class="table-responsive col-lg-offset-1 col-lg-10 col-md-offset-1 col-md-10 col-sm-10 col-xs-12">
+        <h3 class="text-center">注文内容確認</h3>
+        <table class="table table-striped item-list-table">
           <tbody>
             <tr>
-              <td class="cart-item-name">
-                <div class="cart-item-icon">
-                  <img src="img/1.jpg" />
+              <th>
+                <div class="text-center">商品名</div>
+              </th>
+              <th>
+                <div class="text-center">サイズ、価格(税抜)、数量</div>
+              </th>
+              <th>
+                <div class="text-center">トッピング、価格(税抜)</div>
+              </th>
+              <th>
+                <div class="text-center">小計</div>
+              </th>
+            </tr>
+            <tr>
+              <td>
+                <div class="center">
+                  <img src="../images/1.jpg" class="img-responsive img-rounded item-img-center" width="100"
+                    height="300" /><br />
+                  じゃがバターベーコン
                 </div>
-                <span>ハワイアンパラダイス</span>
               </td>
               <td>
                 <span class="price">&nbsp;Ｌ</span>&nbsp;&nbsp;2,380円
@@ -86,11 +90,12 @@
               </td>
             </tr>
             <tr>
-              <td class="cart-item-name">
-                <div class="cart-item-icon">
-                  <img src="img/1.jpg" />
+              <td>
+                <div class="center">
+                  <img src="../images/1.jpg" class="img-responsive img-rounded item-img-center" width="100"
+                    height="300" /><br />
+                  じゃがバターベーコン
                 </div>
-                <span>ハワイアンパラダイス</span>
               </td>
               <td>
                 <span class="price">&nbsp;Ｌ</span>&nbsp;&nbsp;2,380円
@@ -108,11 +113,12 @@
               </td>
             </tr>
             <tr>
-              <td class="cart-item-name">
-                <div class="cart-item-icon">
-                  <img src="img/1.jpg" />
+              <td>
+                <div class="center">
+                  <img src="../images/1.jpg" class="img-responsive img-rounded item-img-center" width="100"
+                    height="300" /><br />
+                  じゃがバターベーコン
                 </div>
-                <span>ハワイアンパラダイス</span>
               </td>
               <td>
                 <span class="price">&nbsp;Ｌ</span>&nbsp;&nbsp;2,380円
@@ -132,121 +138,174 @@
           </tbody>
         </table>
       </div>
+    </div>
 
-      <div class="row cart-total-price">
-        <div>消費税：8,000円</div>
-        <div>ご注文金額合計：38,000円 (税込)</div>
-      </div>
-
-      <h2 class="page-title">お届け先情報</h2>
-      <div class="order-confirm-delivery-info">
-        <div class="row">
-          <div class="input-field">
-            <input id="name" type="text" />
-            <label for="name">お名前</label>
-          </div>
+    <div class="row">
+      <div class="col-xs-offset-2 col-xs-8">
+        <div class="form-group text-center">
+          <span id="total-price">消費税：8,000円</span><br />
+          <span id="total-price">ご注文金額合計：38,000円 (税込)</span>
         </div>
-        <div class="row">
-          <div class="input-field">
-            <input id="email" type="email" />
-            <label for="email">メールアドレス</label>
-          </div>
-        </div>
-        <div class="row">
-          <div class="input-field">
-            <input id="zipcode" type="text" maxlength="7" />
-            <label for="zipcode">郵便番号</label>
-            <button class="btn" type="button">
-              <span>住所検索</span>
-            </button>
-          </div>
-        </div>
-        <div class="row">
-          <div class="input-field">
-            <input id="address" type="text" />
-            <label for="address">住所</label>
-          </div>
-        </div>
-        <div class="row">
-          <div class="input-field">
-            <input id="tel" type="tel" />
-            <label for="tel">電話番号</label>
-          </div>
-        </div>
-        <div class="row order-confirm-delivery-datetime">
-          <div class="input-field">
-            <input id="deliveryDate" type="date" />
-            <label for="address">配達日時</label>
-          </div>
-          <label class="order-confirm-delivery-time">
-            <input name="deliveryTime" type="radio" value="10時" checked="checked" />
-            <span>10時</span>
-          </label>
-          <label class="order-confirm-delivery-time">
-            <input name="deliveryTime" type="radio" value="11時" />
-            <span>11時</span>
-          </label>
-          <label class="order-confirm-delivery-time">
-            <input name="deliveryTime" type="radio" value="12時" />
-            <span>12時</span>
-          </label>
-          <label class="order-confirm-delivery-time">
-            <input name="deliveryTime" type="radio" value="13時" />
-            <span>13時</span>
-          </label>
-          <label class="order-confirm-delivery-time">
-            <input name="deliveryTime" type="radio" value="14時" />
-            <span>14時</span>
-          </label>
-          <label class="order-confirm-delivery-time">
-            <input name="deliveryTime" type="radio" value="15時" />
-            <span>15時</span>
-          </label>
-          <label class="order-confirm-delivery-time">
-            <input name="deliveryTime" type="radio" value="16時" />
-            <span>16時</span>
-          </label>
-          <label class="order-confirm-delivery-time">
-            <input name="deliveryTime" type="radio" value="17時" />
-            <span>17時</span>
-          </label>
-          <label class="order-confirm-delivery-time">
-            <input name="deliveryTime" type="radio" value="18時" />
-            <span>18時</span>
-          </label>
-        </div>
-      </div>
-
-      <h2 class="page-title">お支払い方法</h2>
-      <div class="row order-confirm-payment-method">
-        <span>
-          <label class="order-confirm-payment-method-radio">
-            <input name="paymentMethod" type="radio" value="1" checked="checked" />
-            <span>代金引換</span>
-          </label>
-          <label class="order-confirm-payment-method-radio">
-            <input name="paymentMethod" type="radio" value="2" />
-            <span>クレジットカード</span>
-          </label>
-        </span>
-      </div>
-      <div class="row order-confirm-btn">
-        <button class="btn" type="button" onclick="location.href='order_finished.html'">
-          <span>この内容で注文する</span>
-        </button>
       </div>
     </div>
-    <!-- end container -->
+
+    <!-- table -->
+    <form action="order_finished.html">
+      <div class="row">
+        <div class="table-responsive col-lg-offset-3 col-lg-6 col-md-offset-1 col-md-10 col-sm-10 col-xs-12">
+          <h3 class="text-center">お届け先情報</h3>
+          <table class="table table-striped item-list-table">
+            <tbody>
+              <tr>
+                <td>
+                  <div class="text-center">お名前</div>
+                </td>
+                <td>
+                  <input type="text" />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="text-center">メールアドレス</div>
+                </td>
+                <td>
+                  <input type="text" />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="text-center">郵便番号</div>
+                </td>
+                <td>
+                  <input type="text" />&nbsp;&nbsp;<button>住所検索</button>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="text-center">住所</div>
+                </td>
+                <td>
+                  <input type="text" />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="text-center">電話番号</div>
+                </td>
+                <td>
+                  <input type="text" />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="text-center">配達日時</div>
+                </td>
+                <td>
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <label class="control-label" style="color: red" for="inputPeriod">配達日時を入力してください</label>
+                      </div>
+                      <div class="col-sm-5">
+                        <input type="date" name="name" id="name" class="form-control input-sm" />
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <label class="radio-inline">
+                          <input type="radio" name="responsibleCompany" checked="checked" />
+                          10時
+                        </label>
+                        <label class="radio-inline">
+                          <input type="radio" name="responsibleCompany" />
+                          11時
+                        </label>
+                        <label class="radio-inline">
+                          <input type="radio" name="responsibleCompany" />
+                          12時 </label><br />
+                        <label class="radio-inline">
+                          <input type="radio" name="responsibleCompany" />
+                          13時
+                        </label>
+                        <label class="radio-inline">
+                          <input type="radio" name="responsibleCompany" />
+                          14時
+                        </label>
+                        <label class="radio-inline">
+                          <input type="radio" name="responsibleCompany" />
+                          15時 </label><br />
+                        <label class="radio-inline">
+                          <input type="radio" name="responsibleCompany" />
+                          16時
+                        </label>
+                        <label class="radio-inline">
+                          <input type="radio" name="responsibleCompany" />
+                          17時
+                        </label>
+                        <label class="radio-inline">
+                          <input type="radio" name="responsibleCompany" />
+                          18時 </label><br />
+                      </div>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- table -->
+      <div class="row">
+        <div class="table-responsive col-lg-offset-3 col-lg-6 col-md-offset-1 col-md-10 col-sm-10 col-xs-12">
+          <h3 class="text-center">お支払い方法</h3>
+          <table class="table table-striped item-list-table">
+            <tbody>
+              <tr>
+                <td>
+                  <div class="text-center">代金引換</div>
+                </td>
+                <td>
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <label class="radio-inline">
+                        <input type="radio" name="responsibleCompany" checked="checked" />
+                        代金引換
+                      </label>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="text-center">クレジットカード決済</div>
+                </td>
+                <td align="center">
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <label class="radio-inline">
+                        <input type="radio" name="responsibleCompany" checked="checked" />
+                        クレジットカード </label><br /><br />
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-offset-4 col-xs-4">
+          <div class="form-group">
+            <input class="form-control btn btn-warning btn-block" type="submit" value="この内容で注文する" />
+          </div>
+        </div>
+      </div>
+    </form>
   </div>
-  <!-- end top-wrapper -->
-  <footer>
-    <div class="container">
-      <img src="img/header_logo.png" />
-      <p>アロハな気分をあなたにお届け！</p>
-    </div>
-  </footer>
-  <!-- Compiled and minified JavaScript -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <!-- end container -->
+  {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="../static/js/bootstrap.min.js"></script> --}}
 </body>
 
 </html>
