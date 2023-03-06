@@ -4,14 +4,19 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\OrderTopping;
+use App\Models\CartTopping;
 
-class Topping extends Model
+class CartItem extends Model
 {
     use HasFactory;
 
-    public function orderToppings()
+    public function cartTopppings()
     {
         return $this->hasMany(OrderTopping::class);
+    }
+
+    public function items()
+    {
+        return $this->hasMany(Item::class);
     }
 }
