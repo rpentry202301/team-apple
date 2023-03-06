@@ -70,6 +70,9 @@ return new class extends Migration
             $table->integer('order_id');
             $table->integer('quantity');
             $table->char('size'); //charなのでエラー出るかもしれません
+            $table->integer('order_price');
+            $table->String('order_name');
+            $table->boolean('deleted');
 
             $table->timestamps();
         });
@@ -87,6 +90,33 @@ return new class extends Migration
             $table->id();
             $table->integer('topping_id');
             $table->integer('order_item_id');
+            $table->integer('order_topping_price');
+            $table->String('order_topping_name');
+            $table->boolean('deleted');
+
+
+            $table->timestamps();
+        });
+
+        Schema::create('carts', function (Blueprint $table) {
+            $table->id();
+            $table->integer('user_id');
+
+            $table->timestamps();
+        });
+
+        Schema::create('cart_items', function (Blueprint $table) {
+            $table->id();
+            $table->integer('cart_id');
+            $table->integer('item_id');
+
+            $table->timestamps();
+        });
+
+        Schema::create('cart_toppings', function (Blueprint $table) {
+            $table->id();
+            $table->integer('cart_item_id');
+            $table->integer('topping_id');
 
             $table->timestamps();
         });
