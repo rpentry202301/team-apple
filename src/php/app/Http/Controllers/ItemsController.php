@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Item;
+use App\Models\Topping;
 use Illuminate\Http\Request;
 
 class ItemsController extends Controller
@@ -23,6 +24,24 @@ class ItemsController extends Controller
  
          return view('items.item_list')
          ->with('items',$items);
-     }
+   }
+
  
+ /**
+ * 商品詳細画面を表示するメソッド
+ *
+ * @param Item $item  ルートモデルバインディングでurlで指定されたidに対応したitemオブジェクトと自動取得
+ * @return 商品詳細画面
+ */
+    public function showItemDetail(Item $item)
+    {
+       $toppings = Topping::all();
+
+       return view('items.item_detail')
+            ->with([
+               'item' => $item,
+               'toppings' => $toppings,
+           ]);
+    }
 }
+
