@@ -5,7 +5,6 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\ItemsController;
 use App\Http\Controllers\OrderController;
 
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,8 +19,8 @@ use App\Http\Controllers\OrderController;
 Auth::routes();
 Route::get('/', [ItemsController::class, 'showItems'])->name('top');
 
-Route::get('/search', [ItemsController::class, 'searchItems'])->name('search');
-Route::get('/item/{id}', [ItemsController::class, 'showItemDetail'])->name('item');
+Route::get('/search', [ItemsController::class, 'showItems'])->name('search');
+Route::get('/item/{item}', [ItemsController::class, 'showItemDetail'])->name('item');
 
 Route::get('/cart', [CartController::class, 'showCartItems'])->name('cart');
 Route::post('/cart/add', [CartController::class, 'addCartItems'])->name('cart.add');

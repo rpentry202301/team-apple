@@ -32,7 +32,7 @@ return new class extends Migration
 
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id');
+            $table->unsignedBigInteger('user_id');
             $table->integer('status');
             $table->integer('total_price');
             $table->date('order_date');
@@ -48,6 +48,8 @@ return new class extends Migration
             $table->integer('payment_method')->nullable();
 
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users');
         });
 
         Schema::create('items', function (Blueprint $table) {
@@ -65,8 +67,8 @@ return new class extends Migration
 
         Schema::create('order_items', function (Blueprint $table) {
             $table->id();
-            $table->integer('item_id');
-            $table->integer('order_id');
+            $table->unsignedBigInteger('item_id');
+            $table->unsignedBigInteger('order_id');
             $table->integer('quantity');
             $table->char('size'); //charなのでエラー出るかもしれません
             $table->integer('order_price');
@@ -74,6 +76,9 @@ return new class extends Migration
             $table->boolean('deleted');
 
             $table->timestamps();
+
+            $table->foreign('item_id')->references('id')->on('items');
+            $table->foreign('order_id')->references('id')->on('orders');
         });
 
         Schema::create('toppings', function (Blueprint $table) {
@@ -87,37 +92,47 @@ return new class extends Migration
 
         Schema::create('order_toppings', function (Blueprint $table) {
             $table->id();
-            $table->integer('topping_id');
-            $table->integer('order_item_id');
+            $table->unsignedBigInteger('topping_id');
+            $table->unsignedBigInteger('order_item_id');
             $table->integer('order_topping_price');
             $table->String('order_topping_name');
             $table->boolean('deleted');
 
-
             $table->timestamps();
+
+            $table->foreign('topping_id')->references('id')->on('toppings');
+            $table->foreign('order_item_id')->references('id')->on('order_items');
         });
 
         Schema::create('carts', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id');
+            $table->unsignedBigInteger('user_id');
 
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users');
         });
 
         Schema::create('cart_items', function (Blueprint $table) {
             $table->id();
-            $table->integer('cart_id');
-            $table->integer('item_id');
+            $table->unsignedBigInteger('cart_id');
+            $table->unsignedBigInteger('item_id');
 
             $table->timestamps();
+
+            $table->foreign('cart_id')->references('id')->on('carts');
+            $table->foreign('item_id')->references('id')->on('items');
         });
 
         Schema::create('cart_toppings', function (Blueprint $table) {
             $table->id();
-            $table->integer('cart_item_id');
-            $table->integer('topping_id');
+            $table->unsignedBigInteger('cart_item_id');
+            $table->unsignedBigInteger('topping_id');
 
             $table->timestamps();
+
+            $table->foreign('cart_item_id')->references('id')->on('cart_items');
+            $table->foreign('topping_id')->references('id')->on('toppings');
         });
     }
 
@@ -134,5 +149,9 @@ return new class extends Migration
         Schema::dropIfExists('order_items');
         Schema::dropIfExists('toppings');
         Schema::dropIfExists('order_toppings');
+        Schema::dropIfExists('carts');
+        Schema::dropIfExists('cart_items');
+        Schema::dropIfExists('cart_toppings');
+
     }
 };
