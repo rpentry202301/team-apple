@@ -16,7 +16,7 @@
           <div class="form-group">
             <label for="code" class="control-label col-sm-2">商品名</label>
             <div class="col-sm-9">
-              <input type="text" name="code" id="code" class="form-control input-sm" />
+              <input type="text" name="keyword" id="keyword" class="form-control input-sm" />
             </div>
           </div>
           <div class="text-center">
