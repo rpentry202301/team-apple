@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('name', 100);
             $table->string('email', 100)->unique();
             $table->string('password');
-            $table->string('password_verified');
             $table->string('zipcode', 8);
             $table->string('prefecture', 200);
             $table->string('municipalities', 200);
