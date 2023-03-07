@@ -5,7 +5,6 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\ItemsController;
 use App\Http\Controllers\OrderController;
 
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
