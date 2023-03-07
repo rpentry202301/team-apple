@@ -32,5 +32,4 @@ Route::middleware('auth')->group(function () {
     Route::get('/order/complete', [OrderController::class, 'showOrderComplete'])->name('order.complete');
 });
 
-
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

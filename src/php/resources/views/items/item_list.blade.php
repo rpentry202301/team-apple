@@ -12,7 +12,7 @@
         <div class="panel-title">商品を検索する</div>
       </div>
       <div class="panel-body">
-        <form method="post" action="/" class="form-horizontal">
+        <form action="/search" class="form-horizontal">
           <div class="form-group">
             <label for="code" class="control-label col-sm-2">商品名</label>
             <div class="col-sm-9">
