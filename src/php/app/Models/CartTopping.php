@@ -9,8 +9,8 @@ class CartTopping extends Model
 {
     use HasFactory;
 
-    public function toppings()
+    public function topping()
     {
-        return $this->hasMany(Topping::class);
+        return $this->belongsTo(Topping::class);
     }
 }

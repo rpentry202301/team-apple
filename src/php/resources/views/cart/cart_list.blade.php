@@ -50,6 +50,9 @@
     <div class="row">
       <div class="table-responsive col-lg-offset-1 col-lg-10 col-md-offset-1 col-md-10 col-sm-10 col-xs-12">
         <h3 class="text-center">ショッピングカート</h3>
+        @if(!$items == empty([]))
+        <p><strong>カートに商品が存在しません</strong></p>
+        @else
         <table class="table table-striped item-list-table">
           <tbody>
             @foreach($items as $item)
@@ -64,23 +67,27 @@
                 </div>
               </td>
               <td>
-                <span class="price">&nbsp;{{$item->size}}</span>&nbsp;&nbsp;円
+                <span class="price">&nbsp;{{$item->size}}</span>&nbsp;&nbsp;{{$item->item->price_m}}円
                 &nbsp;&nbsp;{{$item->quantity}}個
               </td>
               <td>
                 @foreach($toppings as $topping)
                 <ul>
-                  <li></li>
+                  <li>{{$topping->topping->name}}</li>
                 </ul>
                 @endforeach
               </td>
               <td>
-                <div class="text-center">円</div>
+                <div class="text-center">{{$topping->total_topping_price}}円</div>
               </td>
               <td>
-                <div class="text-center">
-                  <button type="submit" class="btn btn-primary">削除</button>
-                </div>
+                <form method="POST" action="{{route('cart.delete')}}">
+                  @csrf
+                  <div class="text-center">
+                    <input type="hidden" name="id" value="{{$item->id}}">
+                    <button type="submit" class="btn btn-primary">削除</button>
+                  </div>
+                </form>
               </td>
             </tr>
           </tbody>
@@ -92,8 +99,8 @@
     <div class="row">
       <div class="col-xs-offset-2 col-xs-8">
         <div class="form-group text-center">
-          <span id="total-price">消費税：円</span><br />
-          <span id="total-price">ご注文金額合計：円 (税込)</span>
+          <span id="total-price">消費税：{{$tax}}円</span><br />
+          <span id="total-price">ご注文金額合計：{{$total_price}}円 (税込)</span>
         </div>
       </div>
     </div>
@@ -101,12 +108,14 @@
     <div class="row">
       <div class="col-xs-offset-5 col-xs-3">
         <div class="form-group">
-          <form action="order_confirm.html">
+          <form action="{{route('order.confirm')}}">
             <input class="form-control btn btn-warning btn-block" type="submit" value="注文に進む" />
           </form>
         </div>
       </div>
     </div>
+    @endif
+
   </div>
   <!-- end container -->
   {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>

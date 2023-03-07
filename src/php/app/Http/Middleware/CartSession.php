@@ -19,9 +19,18 @@ class CartSession
      */
     public function handle(Request $request, Closure $next)
     {
-        if(!Session::has('cart')) {
-            $cart = Cart::create();
-            Session::put('cart', $cart->id);
+        $user = $request->user(); // ログインしているユーザーを取得
+        $cartId = Session::get('cart');
+
+        // カートがセッションに存在しない場合、カートを作成する
+        if (!$cartId) {
+            $cart = new Cart();
+            if ($user) {
+                $cart->user_id = $user->id; // ログインしているユーザーのIDを設定する
+            }
+            $cart->save();
+            $cartId = $cart->id;
+            Session::put('cart', $cartId);
         }
 
         return $next($request);

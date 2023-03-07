@@ -25,17 +25,28 @@ class CartController extends Controller
         $cart_id = Session::get('cart');
         
         // 商品の情報を元に、カートの中身を構築する
-        $items = CartItem::find(1);
-        $toppings = CartTopping::where('cart_id', $cart_id);
+        $items = CartItem::where('id', 11)->get();
+        $toppings = CartTopping::where('cart_item_id', 11)->get();
 
+        $total_price = 0;
+        $tax = 0;
+        foreach($items as $item) {
+            if($item->item->price_m) {
+                $total_price += $item->item->price_m * $item->quantity;
+            } else {
+                $total_price += $item->item->price_l * $items->quantity;
+            }
+            $tax += $total_price * 0.1;
+        }
 
         // 商品の情報をビューに渡す
         return view('cart.cart_list', [
             'items' => $items,
-            'toppings' => $toppings
+            'toppings' => $toppings,
+            'total_price' => $total_price,
+            'tax' => $tax,
         ]);
     }
-
 
     /**
      * ショッピングカートに商品を追加
@@ -44,12 +55,54 @@ class CartController extends Controller
      */
     public function addCartItems(AddRequest $request)
     {
-        // カート情報をセッションから取得する
-        $cart = session()->get('cart', []);
 
-        // カート情報をセッションに保存する
-        session()->put('cart', $cart);
+        // dd($request->input('size'));
+
+        // カート情報をセッションから取得する
+        $cart_id = Session::get('cart');
         
+        $items = CartItem::where('cart_id', $cart_id)
+        ->where('item_id', $request->input('id'))
+        ->first();
+
+        // $topping = CartTopping::where('cart_item_id', $item->id)
+        //     ->where('topping_id', $request->topping)
+        //     ->first();
+
+
+        if($items) {
+            $items->quantity += $request->input('quantity');
+            if($request->input('price_m')) {
+                $items->order_price += $request->input('price_m');
+            } else {
+                $items->order_price += $request->input('price_l');
+            }
+            $items->save();
+        } else {
+            $cart_item = new CartItem();
+            $cart_item->cart_id = $cart_id;
+            $cart_item->item_id = $request->input('id');
+            $cart_item->size = $request->input('size');
+            $cart_item->quantity = $request->input('quantity');
+            if($request->input('size_m')) {
+                $cart_item->order_price = $request->input('size_m');
+            } else {
+                $cart_item->order_price = $request->input('size_l');
+            }
+            $cart_item->save();
+        }
+
+        return view('cart.cart_list', [
+            'items' => $items
+        ]);
+
+        // // fillableに設定する
+        // if($topping) {
+        //     CartTopping::create([
+        //         'cart_item_id',
+        //         ''
+        //     ]);
+        // }
     }
 
     /**
@@ -59,18 +112,15 @@ class CartController extends Controller
      */
     public function deleteCartItems(DeleteRequest $request)
     {
-        // カート情報をセッションから取得する
-        $cart = session()->get('cart', []);
 
-        // 削除する商品のidを取得する
-        $item_id = $request->input('item_id');
+        $item_id = $request['id'];
 
-        // カートから指定された商品を削除する
-        if(isset($cart[$item_id])) {
-            unset($cart[$item_id]);
-        }
+        // 関連するCartToppingsテーブルのレコードを削除する
+        CartTopping::where('cart_item_id', $item_id)->delete();
 
-        // カート情報をセッションに保存する
-        session()->put('cart', $cart);
+        // CartItemsテーブルのレコードを削除する
+        CartItem::where('id', $item_id)->delete();
+
+        return redirect(route('cart'));
     }
 }
