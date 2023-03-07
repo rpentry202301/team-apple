@@ -45,7 +45,7 @@ return new class extends Migration
             $table->string('destination_address_line1', 200)->nullable();
             $table->string('destination_address_line2', 200)->nullable();
             $table->string('destination_tell', 15)->nullable();
-            $table->timestamp('delivery_time');
+            $table->timestamp('delivery_time')->nullable();
             $table->integer('payment_method')->nullable();
 
             $table->timestamps();
@@ -153,6 +153,5 @@ return new class extends Migration
         Schema::dropIfExists('carts');
         Schema::dropIfExists('cart_items');
         Schema::dropIfExists('cart_toppings');
-
     }
 };
