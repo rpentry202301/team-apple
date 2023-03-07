@@ -7,6 +7,7 @@
 @section('content')
 
 <form action="/cart/add" method="post" name="cart_list">
+  @csrf
   <div class="row">
         <div class=" col-xs-offset-2 col-xs-8 ">
     <h3 class="text-center">商品詳細</h3>
