@@ -12,6 +12,7 @@
         <div class="panel-title">商品を検索する</div>
       </div>
       <div class="panel-body">
+
         <form method="post" action="/" class="form-horizontal">
           @csrf
           <div class="form-group">
