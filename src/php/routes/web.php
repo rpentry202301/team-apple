@@ -26,8 +26,8 @@ Route::get('/cart', [CartController::class, 'showCartItems'])->name('cart');
 Route::post('/cart/add', [CartController::class, 'addCartItems'])->name('cart.add');
 Route::post('/cart/delete', [CartController::class, 'DeleteCartItems'])->name('cart.delete');
 
-Route::middleware('auth')->group(function () {
-    Route::get('/order/confirm', [OrderController::class, 'showOrderConfirm'])->name('order.confirm');
-    Route::post('/order/buy', [OrderController::class, 'buyOrderItems'])->name('order.buy');
-    Route::get('/order/complete', [OrderController::class, 'showOrderComplete'])->name('order.complete');
-});
+// Route::middleware('auth')->group(function () {
+Route::get('/order/confirm', [OrderController::class, 'showOrderConfirm'])->name('order.confirm');
+Route::post('/order/buy', [OrderController::class, 'buyOrderItems'])->name('order.buy'); //orderItemに保存
+Route::get('/order/complete', [OrderController::class, 'showOrderComplete'])->name('order.complete');
+// });
