@@ -5,7 +5,6 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\ItemsController;
 use App\Http\Controllers\OrderController;
 
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,33 +16,25 @@ use App\Http\Controllers\OrderController;
 |
 */
 
+Auth::routes();
 Route::get('/', [ItemsController::class, 'showItems'])->name('top');
 
-<<<<<<< Updated upstream
-Route::get('/search', [ItemsController::class, 'searchItems'])->name('search');
-Route::get('/item/{id}', [ItemsController::class, 'showItemDetail'])->name('item');
-=======
 
 Route::get('/search', [ItemsController::class, 'showItems'])->name('search');
 Route::get('/item/{item}', [ItemsController::class, 'showItemDetail'])->name('item');
->>>>>>> Stashed changes
+Route::get('/search', [ItemsController::class, 'showItems'])->name('search');
+Route::get('/item/{item}', [ItemsController::class, 'showItemDetail'])->name('item');
 
 Route::get('/cart', [CartController::class, 'showCartItems'])->name('cart');
 Route::post('/cart/add', [CartController::class, 'addCartItems'])->name('cart.add');
 Route::post('/cart/delete', [CartController::class, 'DeleteCartItems'])->name('cart.delete');
 
-<<<<<<< Updated upstream
-// Route::middleware('auth')->group(function () {
-Route::get('/order/confirm', [OrderController::class, 'showOrderConfirm'])->name('order.confirm');
-Route::post('/order/buy', [OrderController::class, 'buyOrderItems'])->name('order.buy'); //orderItemに保存
-Route::get('/order/complete', [OrderController::class, 'showOrderComplete'])->name('order.complete');
-// });
-=======
 Route::middleware('auth')->group(function () {
     Route::get('/order/confirm', [OrderController::class, 'showOrderConfirm'])->name('order.confirm');
     Route::post('/order/buy', [OrderController::class, 'buyOrderItems'])->name('order.buy');
     Route::get('/order/complete', [OrderController::class, 'showOrderComplete'])->name('order.complete');
 });
 
+
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
->>>>>>> Stashed changes
+

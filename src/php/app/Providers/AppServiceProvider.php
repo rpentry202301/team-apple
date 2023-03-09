@@ -1,10 +1,9 @@
 <?php
 
 namespace App\Providers;
-
 use Illuminate\Support\ServiceProvider;
-use Payjp\Payjp;
 
+use Illuminate\Pagination\Paginator;
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -24,6 +23,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Payjp::setApiKey(config('payjp.secret_key'));
+        Paginator::useBootstrap();
     }
 }
