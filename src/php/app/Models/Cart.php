@@ -11,7 +11,6 @@ class Cart extends Model
     use HasFactory;
 
     protected $items = [];
-    protected $totalPrice = 0;
 
     public function cartItems()
     {
@@ -35,7 +34,6 @@ class Cart extends Model
             if ($item->order_price == 1380) {
                 $total_price += $item->item->price_m * $item->quantity;
             } else {
-                // dd($item);
                 $total_price += $item->item->price_l * $item->quantity;
             }
         }
@@ -66,5 +64,15 @@ class Cart extends Model
         $tax = $total_price * 0.1;
 
         return $tax;
+    }
+
+    public function total_price()
+    {
+      $items = $this->items;
+      $total_price = 0;
+
+      foreach($items as $item) {
+        
+      }
     }
 }

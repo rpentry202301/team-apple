@@ -6,6 +6,7 @@ use App\Models\Cart;
 use App\Models\CartItem;
 use App\Models\CartTopping;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Cart\AddRequest;
 use Illuminate\Support\Facades\Session;
 use App\Http\Requests\Cart\DeleteRequest;
@@ -93,6 +94,7 @@ class CartController extends Controller
             }
         } else {
             $item = new CartItem();
+            $item->user_id = Auth::user()->id;
             $item->cart_id = $cart_id;
             $item->item_id = $request->input('id');
             $item->size = $request->input('size');
@@ -107,6 +109,7 @@ class CartController extends Controller
             foreach ($topping_ids as $topping_id) {
                 $topping = new CartTopping();
                 $topping->cart_item_id = $item->id;
+                $topping->user_id = Auth::user()->id;
                 $topping->topping_id = $topping_id;
                 if ($request->input('size') == 'M') {
                     $topping->total_topping_price = $request->input('topping_m');
