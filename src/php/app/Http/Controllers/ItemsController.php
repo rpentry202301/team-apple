@@ -20,7 +20,7 @@ class ItemsController extends Controller
      public function showItems(Request $request)
      {
             $query = Item::query();
-         
+
     //キーワード検索機能の実装
             if ($request->filled('keyword')) {
                 $keyword = '%' . $this->escape($request->input('keyword')) . '%';

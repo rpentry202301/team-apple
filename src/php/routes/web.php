@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ItemsController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ContactsController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -33,3 +35,10 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+Route::get('/contact', [ContactsController::class, 'index'])->name('contact.index');
+Route::post('/contact/confirm', [ContactsController::class, 'confirm'])->name('contact.confirm');
+Route::get('/contact/confirm', [ContactsController::class, 'index'])->name('contact.index');
+Route::post('/contact/thanks',[ContactsController::class, 'send'])->name('contact.send');
+Route::get('/contact/thanks',[ContactsController::class, 'index'])->name('contact.index');

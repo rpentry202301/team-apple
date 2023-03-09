@@ -23,11 +23,10 @@ class CartController extends Controller
     {
         // セッションからカート情報を取得する
         $cart_id = Session::get('cart');
-        
+
         // 商品の情報を元に、カートの中身を構築する
         $items = CartItem::find(1);
         $toppings = CartTopping::where('cart_id', $cart_id);
-
 
         // 商品の情報をビューに渡す
         return view('cart.cart_list', [
@@ -49,7 +48,6 @@ class CartController extends Controller
 
         // カート情報をセッションに保存する
         session()->put('cart', $cart);
-        
     }
 
     /**
