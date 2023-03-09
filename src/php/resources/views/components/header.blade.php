@@ -7,18 +7,27 @@
                     <span class="icon-bar"></span> <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="item_list_pizza.html">
+                <a class="navbar-brand" href="/">
                     <!-- 企業ロゴ -->
                     <img alt="main log" src="../images/header_logo.png" height="35" />
                 </a>
             </div>
-
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <p class="navbar-text navbar-right">
                     <a href="{{route('cart')}}" class="navbar-link">ショッピングカート</a>&nbsp;&nbsp;
+                    <a href="/cart" class="navbar-link">ショッピングカート</a>&nbsp;&nbsp;
+                    <!--注文履歴は機能実装後ルーティングを追加-->
                     <a href="order_history.html" class="navbar-link">注文履歴</a>&nbsp;&nbsp;
-                    <a href="login.html" class="navbar-link">ログイン</a>&nbsp;&nbsp;
-                    <a href="item_list_pizza.html" class="navbar-link">ログアウト</a>
+
+                    @guest
+
+                    <a href="/login" class="navbar-link">ログイン</a>&nbsp;&nbsp;
+                    @endguest
+
+                    @auth
+                    <a href="{{route('logout')}}" class="navbar-link">ログアウト</a>
+                    @endauth
+
                 </p>
             </div>
         </div>

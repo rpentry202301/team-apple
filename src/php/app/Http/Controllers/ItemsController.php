@@ -19,14 +19,41 @@ class ItemsController extends Controller
 
      public function showItems(Request $request)
      {
-         $items = Item::all()->sortby('id');
-         $items = Item::paginate(5);
- 
-         return view('items.item_list')
-         ->with('items',$items);
+            $query = Item::query();
+         
+    //キーワード検索機能の実装
+            if ($request->filled('keyword')) {
+                $keyword = '%' . $this->escape($request->input('keyword')) . '%';
+                $query->where(function ($query) use ($keyword) {
+                    $query->where('name', 'LIKE', $keyword);
+                    $query->orWhere('description', 'LIKE', $keyword);
+                });
+            }
+        
+            $items = $query->orderBy('price_m', 'asc')
+            ->paginate(5);
+
+            return view('items.item_list')
+            ->with('items', $items);
    }
 
- 
+   
+   /**
+    * キーワード検索機能のためのエスケープ処理
+    *
+    * @param string $value 入力されたキーワード
+    * @return エスケープ処理後のキーワード
+    */
+   private function escape(string $value)
+   {
+       return str_replace(
+           ['\\', '%', '_'],
+           ['\\\\', '\\%', '\\_'],
+           $value
+       );
+   }
+
+
  /**
  * 商品詳細画面を表示するメソッド
  *

@@ -12,7 +12,9 @@
         <div class="panel-title">商品を検索する</div>
       </div>
       <div class="panel-body">
+
         <form method="post" action="/" class="form-horizontal">
+          @csrf
           <div class="form-group">
             <label for="code" class="control-label col-sm-2">商品名</label>
             <div class="col-sm-9">
@@ -40,7 +42,7 @@
         <tr>
           @foreach ($items as $item)
           <th>
-            <a href="item_detail.html">
+            <a href="/item/{{$item->id}}">
               <img src="../images/{{$item->id}}.jpg" class="img-responsive img-rounded item-img-center" width="200" height="600" /> </a><br />
             <a href="/item/{{$item->id}}">{{$item->name}}</a><br />
             <span class="price">&nbsp;М&nbsp;</span>&nbsp;&nbsp;{{$item->price_m}}(税抜)<br />

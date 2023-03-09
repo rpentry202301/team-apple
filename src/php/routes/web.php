@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ItemsController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\Auth\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +18,8 @@ use App\Http\Controllers\OrderController;
 */
 
 Auth::routes();
+Route::get('logout', [LoginController::class, 'logout']);
+
 Route::get('/', [ItemsController::class, 'showItems'])->name('top');
 
 Route::get('/search', [ItemsController::class, 'showItems'])->name('search');
@@ -31,6 +34,5 @@ Route::middleware('auth')->group(function () {
     Route::post('/order/buy', [OrderController::class, 'buyOrderItems'])->name('order.buy');
     Route::get('/order/complete', [OrderController::class, 'showOrderComplete'])->name('order.complete');
 });
-
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
