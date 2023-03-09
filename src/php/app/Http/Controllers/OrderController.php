@@ -33,38 +33,31 @@ class OrderController extends Controller
 
     private function saveOrderItems()
     {
-        $orderItem = new OrderItem;
+
         $cartItems = CartItem::where('user_id', Auth::user()->id)->get();
         $item = Item::all();
 
+
         foreach ($cartItems as $cartItem) {
+            $orderItem = new OrderItem;
 
-            $cartItems = CartItem::where('user_id', Auth::user()->id)->get();
-            $item = Item::all();
+            //Itemテーブルを経由しなくていける？
+            $orderItem->item_id =  $cartItem->item_id;
+            $orderItem->quantity =  $cartItem->quantity;
+            $orderItem->size =  $cartItem->size;
 
-
-            foreach ($cartItems as $cartItem) {
-                $orderItem = new OrderItem;
-
-                //Itemテーブルを経由しなくていける？
-                $orderItem->item_id =  $cartItem->item_id;
-                $orderItem->quantity =  $cartItem->quantity;
-                $orderItem->size =  $cartItem->size;
-
-                if ($cartItem->size === 'm') {
-                    $order->order_price = $item->price_m;
-                } else {
-                    $order->order_price = $item->price_l;
-                }
-
-                $orderItem->order_name = $item->name;
+            if ($cartItem->size === 'm') {
+                $order->order_price = $item->price_m;
+            } else {
+                $order->order_price = $item->price_l;
             }
 
+            $orderItem->order_name = $item->name;
             $orderItem->save();
         }
 
 
-        $cartToppings = CartTopping::where('user_id', Auth::user()->id)->get(); //cartitemと紐付け？でも誰のカートかわかる？
+        $cartToppings = CartTopping::where('cart_item_id', $cartItems->item_id)->get(); //cartitemと紐付け？でも誰のカートかわかる？
         $topping = Topping::all();
         //$cartItems = CartItem::where('user_id', Auth::user()->id)->get();
 
