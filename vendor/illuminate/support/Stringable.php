@@ -100,6 +100,20 @@ class Stringable implements JsonSerializable, ArrayAccess
     }
 
     /**
+<<<<<<< Updated upstream
+=======
+     * Get the character at the specified index.
+     *
+     * @param  int  $index
+     * @return string|false
+     */
+    public function charAt($index)
+    {
+        return Str::charAt($this->value, $index);
+    }
+
+    /**
+>>>>>>> Stashed changes
      * Get the basename of the class path.
      *
      * @return static
@@ -471,7 +485,11 @@ class Stringable implements JsonSerializable, ArrayAccess
      */
     public function test($pattern)
     {
+<<<<<<< Updated upstream
         return $this->match($pattern)->isNotEmpty();
+=======
+        return $this->isMatch($pattern);
+>>>>>>> Stashed changes
     }
 
     /**

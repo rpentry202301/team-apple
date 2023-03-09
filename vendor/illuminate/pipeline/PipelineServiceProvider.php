@@ -16,8 +16,16 @@ class PipelineServiceProvider extends ServiceProvider implements DeferrableProvi
     public function register()
     {
         $this->app->singleton(
+<<<<<<< Updated upstream
             PipelineHubContract::class, Hub::class
         );
+=======
+            PipelineHubContract::class,
+            Hub::class
+        );
+
+        $this->app->bind('pipeline', fn ($app) => new Pipeline($app));
+>>>>>>> Stashed changes
     }
 
     /**
@@ -29,6 +37,10 @@ class PipelineServiceProvider extends ServiceProvider implements DeferrableProvi
     {
         return [
             PipelineHubContract::class,
+<<<<<<< Updated upstream
+=======
+            'pipeline',
+>>>>>>> Stashed changes
         ];
     }
 }

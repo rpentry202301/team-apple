@@ -217,6 +217,27 @@ class Str
     }
 
     /**
+<<<<<<< Updated upstream
+=======
+     * Get the character at the specified index.
+     *
+     * @param  string  $subject
+     * @param  int  $index
+     * @return string|false
+     */
+    public static function charAt($subject, $index)
+    {
+        $length = mb_strlen($subject);
+
+        if ($index < 0 ? $index < -$length : $index > $length - 1) {
+            return false;
+        }
+
+        return mb_substr($subject, $index, 1);
+    }
+
+    /**
+>>>>>>> Stashed changes
      * Determine if a given string contains a given substring.
      *
      * @param  string  $haystack

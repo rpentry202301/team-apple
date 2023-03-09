@@ -6,5 +6,8 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+<<<<<<< Updated upstream
     'Barryvdh' => array($vendorDir . '/barryvdh/reflection-docblock/src'),
+=======
+>>>>>>> Stashed changes
 );

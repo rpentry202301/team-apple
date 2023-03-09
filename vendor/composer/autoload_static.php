@@ -4,7 +4,11 @@
 
 namespace Composer\Autoload;
 
+<<<<<<< Updated upstream
 class ComposerStaticInit79fbc0c6573013aa31170e44c62c710c
+=======
+class ComposerStaticInit5be14ef42cd228b5fcd8b8c4ece5813f
+>>>>>>> Stashed changes
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
@@ -12,10 +16,19 @@ class ComposerStaticInit79fbc0c6573013aa31170e44c62c710c
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
         'a1105708a18b76903365ca1c4aa61b02' => __DIR__ . '/..' . '/symfony/translation/Resources/functions.php',
         '72579e7bd17821bb1321b87411366eae' => __DIR__ . '/..' . '/illuminate/support/helpers.php',
+<<<<<<< Updated upstream
         '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
         '8825ede83f2f289127722d4e842cf7e8' => __DIR__ . '/..' . '/symfony/polyfill-intl-grapheme/bootstrap.php',
         'e69f7f6ee287b969198c3c9d6777bd38' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/bootstrap.php',
         '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
+=======
+        'e69f7f6ee287b969198c3c9d6777bd38' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/bootstrap.php',
+        '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
+        '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
+        '8825ede83f2f289127722d4e842cf7e8' => __DIR__ . '/..' . '/symfony/polyfill-intl-grapheme/bootstrap.php',
+        '25072dd6e2470089de65ae7bf11d3109' => __DIR__ . '/..' . '/symfony/polyfill-php72/bootstrap.php',
+        'f598d06aa772fa33d905e87be6398fb1' => __DIR__ . '/..' . '/symfony/polyfill-intl-idn/bootstrap.php',
+>>>>>>> Stashed changes
         'b6b991a57620e2fb6b2f66f03fe9ddc2' => __DIR__ . '/..' . '/symfony/string/Resources/functions.php',
         'ef65a1626449d89d0811cf9befce46f0' => __DIR__ . '/..' . '/illuminate/events/functions.php',
         '35a6ad97d21e794e7e22a17d806652e4' => __DIR__ . '/..' . '/nunomaduro/termwind/src/Functions.php',
@@ -26,10 +39,13 @@ class ComposerStaticInit79fbc0c6573013aa31170e44c62c710c
         array (
             'voku\\' => 5,
         ),
+<<<<<<< Updated upstream
         'p' => 
         array (
             'phpDocumentor\\Reflection\\' => 25,
         ),
+=======
+>>>>>>> Stashed changes
         'T' => 
         array (
             'Termwind\\' => 9,
@@ -37,8 +53,15 @@ class ComposerStaticInit79fbc0c6573013aa31170e44c62c710c
         'S' => 
         array (
             'Symfony\\Polyfill\\Php80\\' => 23,
+<<<<<<< Updated upstream
             'Symfony\\Polyfill\\Mbstring\\' => 26,
             'Symfony\\Polyfill\\Intl\\Normalizer\\' => 33,
+=======
+            'Symfony\\Polyfill\\Php72\\' => 23,
+            'Symfony\\Polyfill\\Mbstring\\' => 26,
+            'Symfony\\Polyfill\\Intl\\Normalizer\\' => 33,
+            'Symfony\\Polyfill\\Intl\\Idn\\' => 26,
+>>>>>>> Stashed changes
             'Symfony\\Polyfill\\Intl\\Grapheme\\' => 31,
             'Symfony\\Polyfill\\Ctype\\' => 23,
             'Symfony\\Contracts\\Translation\\' => 30,
@@ -46,22 +69,43 @@ class ComposerStaticInit79fbc0c6573013aa31170e44c62c710c
             'Symfony\\Component\\Translation\\' => 30,
             'Symfony\\Component\\String\\' => 25,
             'Symfony\\Component\\Process\\' => 26,
+<<<<<<< Updated upstream
+=======
+            'Symfony\\Component\\Mime\\' => 23,
+            'Symfony\\Component\\HttpFoundation\\' => 33,
+>>>>>>> Stashed changes
             'Symfony\\Component\\Finder\\' => 25,
             'Symfony\\Component\\Console\\' => 26,
         ),
         'P' => 
         array (
             'Psr\\SimpleCache\\' => 16,
+<<<<<<< Updated upstream
             'Psr\\Log\\' => 8,
             'Psr\\Container\\' => 14,
             'Psr\\Cache\\' => 10,
             'PhpParser\\' => 10,
+=======
+            'Psr\\Container\\' => 14,
+        ),
+        'L' => 
+        array (
+            'Laravel\\Ui\\' => 11,
+>>>>>>> Stashed changes
         ),
         'I' => 
         array (
             'Illuminate\\View\\' => 16,
+<<<<<<< Updated upstream
             'Illuminate\\Support\\' => 19,
             'Illuminate\\Pipeline\\' => 20,
+=======
+            'Illuminate\\Validation\\' => 22,
+            'Illuminate\\Translation\\' => 23,
+            'Illuminate\\Support\\' => 19,
+            'Illuminate\\Pipeline\\' => 20,
+            'Illuminate\\Foundation\\Auth\\' => 27,
+>>>>>>> Stashed changes
             'Illuminate\\Filesystem\\' => 22,
             'Illuminate\\Events\\' => 18,
             'Illuminate\\Contracts\\' => 21,
@@ -69,6 +113,7 @@ class ComposerStaticInit79fbc0c6573013aa31170e44c62c710c
             'Illuminate\\Console\\' => 19,
             'Illuminate\\Bus\\' => 15,
         ),
+<<<<<<< Updated upstream
         'D' => 
         array (
             'Doctrine\\Inflector\\' => 19,
@@ -81,11 +126,28 @@ class ComposerStaticInit79fbc0c6573013aa31170e44c62c710c
         array (
             'Composer\\Pcre\\' => 14,
             'Composer\\ClassMapGenerator\\' => 27,
+=======
+        'E' => 
+        array (
+            'Egulias\\EmailValidator\\' => 23,
+        ),
+        'D' => 
+        array (
+            'Doctrine\\Inflector\\' => 19,
+            'Doctrine\\Common\\Lexer\\' => 22,
+        ),
+        'C' => 
+        array (
+>>>>>>> Stashed changes
             'Carbon\\' => 7,
         ),
         'B' => 
         array (
+<<<<<<< Updated upstream
             'Barryvdh\\LaravelIdeHelper\\' => 26,
+=======
+            'Brick\\Math\\' => 11,
+>>>>>>> Stashed changes
         ),
     );
 
@@ -94,11 +156,14 @@ class ComposerStaticInit79fbc0c6573013aa31170e44c62c710c
         array (
             0 => __DIR__ . '/..' . '/voku/portable-ascii/src/voku',
         ),
+<<<<<<< Updated upstream
         'phpDocumentor\\Reflection\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpdocumentor/reflection-common/src',
             1 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
         ),
+=======
+>>>>>>> Stashed changes
         'Termwind\\' => 
         array (
             0 => __DIR__ . '/..' . '/nunomaduro/termwind/src',
@@ -107,6 +172,13 @@ class ComposerStaticInit79fbc0c6573013aa31170e44c62c710c
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-php80',
         ),
+<<<<<<< Updated upstream
+=======
+        'Symfony\\Polyfill\\Php72\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-php72',
+        ),
+>>>>>>> Stashed changes
         'Symfony\\Polyfill\\Mbstring\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
@@ -115,6 +187,13 @@ class ComposerStaticInit79fbc0c6573013aa31170e44c62c710c
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer',
         ),
+<<<<<<< Updated upstream
+=======
+        'Symfony\\Polyfill\\Intl\\Idn\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-intl-idn',
+        ),
+>>>>>>> Stashed changes
         'Symfony\\Polyfill\\Intl\\Grapheme\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-intl-grapheme',
@@ -143,6 +222,17 @@ class ComposerStaticInit79fbc0c6573013aa31170e44c62c710c
         array (
             0 => __DIR__ . '/..' . '/symfony/process',
         ),
+<<<<<<< Updated upstream
+=======
+        'Symfony\\Component\\Mime\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/mime',
+        ),
+        'Symfony\\Component\\HttpFoundation\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/http-foundation',
+        ),
+>>>>>>> Stashed changes
         'Symfony\\Component\\Finder\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/finder',
@@ -155,14 +245,18 @@ class ComposerStaticInit79fbc0c6573013aa31170e44c62c710c
         array (
             0 => __DIR__ . '/..' . '/psr/simple-cache/src',
         ),
+<<<<<<< Updated upstream
         'Psr\\Log\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/log/src',
         ),
+=======
+>>>>>>> Stashed changes
         'Psr\\Container\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/container/src',
         ),
+<<<<<<< Updated upstream
         'Psr\\Cache\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/cache/src',
@@ -170,11 +264,27 @@ class ComposerStaticInit79fbc0c6573013aa31170e44c62c710c
         'PhpParser\\' => 
         array (
             0 => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser',
+=======
+        'Laravel\\Ui\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/laravel/ui/src',
+>>>>>>> Stashed changes
         ),
         'Illuminate\\View\\' => 
         array (
             0 => __DIR__ . '/..' . '/illuminate/view',
         ),
+<<<<<<< Updated upstream
+=======
+        'Illuminate\\Validation\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/illuminate/validation',
+        ),
+        'Illuminate\\Translation\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/illuminate/translation',
+        ),
+>>>>>>> Stashed changes
         'Illuminate\\Support\\' => 
         array (
             0 => __DIR__ . '/..' . '/illuminate/macroable',
@@ -186,6 +296,13 @@ class ComposerStaticInit79fbc0c6573013aa31170e44c62c710c
         array (
             0 => __DIR__ . '/..' . '/illuminate/pipeline',
         ),
+<<<<<<< Updated upstream
+=======
+        'Illuminate\\Foundation\\Auth\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/laravel/ui/auth-backend',
+        ),
+>>>>>>> Stashed changes
         'Illuminate\\Filesystem\\' => 
         array (
             0 => __DIR__ . '/..' . '/illuminate/filesystem',
@@ -210,10 +327,18 @@ class ComposerStaticInit79fbc0c6573013aa31170e44c62c710c
         array (
             0 => __DIR__ . '/..' . '/illuminate/bus',
         ),
+<<<<<<< Updated upstream
+=======
+        'Egulias\\EmailValidator\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/egulias/email-validator/src',
+        ),
+>>>>>>> Stashed changes
         'Doctrine\\Inflector\\' => 
         array (
             0 => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Inflector',
         ),
+<<<<<<< Updated upstream
         'Doctrine\\Deprecations\\' => 
         array (
             0 => __DIR__ . '/..' . '/doctrine/deprecations/lib/Doctrine/Deprecations',
@@ -237,11 +362,17 @@ class ComposerStaticInit79fbc0c6573013aa31170e44c62c710c
         'Composer\\ClassMapGenerator\\' => 
         array (
             0 => __DIR__ . '/..' . '/composer/class-map-generator/src',
+=======
+        'Doctrine\\Common\\Lexer\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/doctrine/lexer/src',
+>>>>>>> Stashed changes
         ),
         'Carbon\\' => 
         array (
             0 => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon',
         ),
+<<<<<<< Updated upstream
         'Barryvdh\\LaravelIdeHelper\\' => 
         array (
             0 => __DIR__ . '/..' . '/barryvdh/laravel-ide-helper/src',
@@ -255,6 +386,11 @@ class ComposerStaticInit79fbc0c6573013aa31170e44c62c710c
             array (
                 0 => __DIR__ . '/..' . '/barryvdh/reflection-docblock/src',
             ),
+=======
+        'Brick\\Math\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/brick/math/src',
+>>>>>>> Stashed changes
         ),
     );
 
@@ -271,10 +407,16 @@ class ComposerStaticInit79fbc0c6573013aa31170e44c62c710c
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
+<<<<<<< Updated upstream
             $loader->prefixLengthsPsr4 = ComposerStaticInit79fbc0c6573013aa31170e44c62c710c::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInit79fbc0c6573013aa31170e44c62c710c::$prefixDirsPsr4;
             $loader->prefixesPsr0 = ComposerStaticInit79fbc0c6573013aa31170e44c62c710c::$prefixesPsr0;
             $loader->classMap = ComposerStaticInit79fbc0c6573013aa31170e44c62c710c::$classMap;
+=======
+            $loader->prefixLengthsPsr4 = ComposerStaticInit5be14ef42cd228b5fcd8b8c4ece5813f::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit5be14ef42cd228b5fcd8b8c4ece5813f::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit5be14ef42cd228b5fcd8b8c4ece5813f::$classMap;
+>>>>>>> Stashed changes
 
         }, null, ClassLoader::class);
     }

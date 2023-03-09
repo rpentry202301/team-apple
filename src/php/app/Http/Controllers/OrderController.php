@@ -33,11 +33,21 @@ class OrderController extends Controller
 
     private function saveOrderItems()
     {
+<<<<<<< Updated upstream
         $orderItem = new OrderItem;
         $cartItems = CartItem::where('user_id', Auth::user()->id)->get();
         $item = Item::all();
 
         foreach ($cartItems as $cartItem) {
+=======
+
+        $cartItems = CartItem::where('user_id', Auth::user()->id)->get();
+        $item = Item::all();
+
+
+        foreach ($cartItems as $cartItem) {
+            $orderItem = new OrderItem;
+>>>>>>> Stashed changes
 
             //Itemテーブルを経由しなくていける？
             $orderItem->item_id =  $cartItem->item_id;
@@ -51,17 +61,28 @@ class OrderController extends Controller
             }
 
             $orderItem->order_name = $item->name;
+<<<<<<< Updated upstream
         }
 
         $orderItem->save();
 
         $orderTopping = new OrderTopping;
+=======
+            $orderItem->save();
+        }
+
+
+>>>>>>> Stashed changes
         $cartToppings = CartTopping::where('user_id', Auth::user()->id)->get(); //cartitemと紐付け？でも誰のカートかわかる？
         $topping = Topping::all();
         //$cartItems = CartItem::where('user_id', Auth::user()->id)->get();
 
 
         foreach ($cartToppings as $cartTopping) {
+<<<<<<< Updated upstream
+=======
+            $orderTopping = new OrderTopping;
+>>>>>>> Stashed changes
 
             //Itemテーブルを経由しなくていける？
             $orderTopping->topping_id =  $cartTopping->topping_id;
@@ -73,6 +94,10 @@ class OrderController extends Controller
             } else {
                 $order->order_price = $item->price_l;
             }
+<<<<<<< Updated upstream
+=======
+            $orderTopping->save();
+>>>>>>> Stashed changes
         }
         //OrderToppingの価格をDBに格納する処理
         foreach ($cartItems as $cartItem) {
@@ -82,9 +107,14 @@ class OrderController extends Controller
             } else {
                 $orderTopping->order_topping_price = $topping->price_l;
             }
+<<<<<<< Updated upstream
         }
 
         $orderTopping->save();
+=======
+            $orderTopping->save();
+        }
+>>>>>>> Stashed changes
     }
 
 
