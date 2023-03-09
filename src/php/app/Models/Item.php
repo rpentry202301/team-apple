@@ -20,4 +20,9 @@ class Item extends Model
     {
         return $this->hasMany(Topping::class);
     }
+
+    public function cartItems()
+    {
+      return $this->hasMany(CartItem::class);
+    }
 }

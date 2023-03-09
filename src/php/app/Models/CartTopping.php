@@ -2,15 +2,32 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\CartItem;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class CartTopping extends Model
 {
     use HasFactory;
 
-    public function toppings()
+    protected $fillable = [
+        'cart_id',
+        'topping_id',
+        'topping_name',
+        'item_id',
+        'size',
+        'quantity',
+        'size_m',
+        'size_l',
+    ];
+
+    public function cartItem()
     {
-        return $this->hasMany(Topping::class);
+        return $this->belongsTo(CartItem::class);
+    }
+
+    public function topping()
+    {
+        return $this->belongsTo(Topping::class);
     }
 }
