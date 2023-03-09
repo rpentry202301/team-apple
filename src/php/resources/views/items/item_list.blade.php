@@ -7,16 +7,25 @@
 @section('content')
 <div class="row">
   <div class="col-lg-offset-3 col-lg-6 col-md-offset-2 col-md-8 col-sm-10 col-xs-12">
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
     <div class="panel panel-default">
-      <div class="panel-heading">
+    <div class="panel-heading">
         <div class="panel-title">商品を検索する</div>
       </div>
       <div class="panel-body">
 
-        <form method="post" action="/" class="form-horizontal">
+        <form  action="/search" class="form-horizontal" >
           @csrf
           <div class="form-group">
-            <label for="code" class="control-label col-sm-2">商品名</label>
+            <label for="code" class="control-label col-sm-2">キーワード</label>
             <div class="col-sm-9">
               <input type="text" name="keyword" id="keyword" class="form-control input-sm" />
             </div>
@@ -51,7 +60,7 @@
           @endforeach
         </tr>
       </tbody>
-    </table>
+     </table>
     <!-- ページングボタン -->
     <div class="text-center">
       {{ $items->withQueryString()->links() }}
