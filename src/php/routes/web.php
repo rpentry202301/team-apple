@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ItemsController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\Auth\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +18,8 @@ use App\Http\Controllers\OrderController;
 */
 
 Auth::routes();
+Route::get('logout', [LoginController::class, 'logout']);
+
 Route::get('/', [ItemsController::class, 'showItems'])->name('top');
 
 
