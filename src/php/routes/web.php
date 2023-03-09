@@ -22,6 +22,7 @@ Route::get('logout', [LoginController::class, 'logout']);
 
 Route::get('/', [ItemsController::class, 'showItems'])->name('top');
 
+
 Route::get('/search', [ItemsController::class, 'searchItems'])->name('search');
 Route::get('/item/{item}', [ItemsController::class, 'showItemDetail'])->name('item');
 
@@ -35,4 +36,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/order/complete', [OrderController::class, 'showOrderComplete'])->name('order.complete');
 });
 
+
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+

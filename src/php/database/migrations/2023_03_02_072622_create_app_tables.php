@@ -44,7 +44,7 @@ return new class extends Migration
             $table->string('destination_address_line1', 200)->nullable();
             $table->string('destination_address_line2', 200)->nullable();
             $table->string('destination_tell', 15)->nullable();
-            $table->timestamp('delivery_time');
+            $table->timestamp('delivery_time')->nullable();
             $table->integer('payment_method')->nullable();
 
             $table->timestamps();
@@ -117,11 +117,13 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('cart_id');
             $table->unsignedBigInteger('item_id');
+            $table->unsignedBigInteger('user_id');
 
             $table->timestamps();
 
             $table->foreign('cart_id')->references('id')->on('carts');
             $table->foreign('item_id')->references('id')->on('items');
+            $table->foreign('user_id')->references('id')->on('users');
         });
 
         Schema::create('cart_toppings', function (Blueprint $table) {
@@ -143,6 +145,7 @@ return new class extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('orders');
         Schema::dropIfExists('users');
         Schema::dropIfExists('items');
@@ -152,6 +155,6 @@ return new class extends Migration
         Schema::dropIfExists('carts');
         Schema::dropIfExists('cart_items');
         Schema::dropIfExists('cart_toppings');
-
+        Schema::enableForeignKeyConstraints();
     }
 };

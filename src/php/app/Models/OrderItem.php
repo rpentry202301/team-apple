@@ -11,6 +11,8 @@ class OrderItem extends Model
 {
     use HasFactory;
 
+
+
     public function item()
     {
         return $this->belongsTo(Item::class);

@@ -1,0 +1,10 @@
+{
+<<<<<<< Updated upstream
+    "require-dev": {
+        "barryvdh/laravel-ide-helper": "^2.13"
+=======
+    "require": {
+        "laravel/ui": "^4.2"
+>>>>>>> Stashed changes
+    }
+}
