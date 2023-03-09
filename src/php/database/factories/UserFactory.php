@@ -21,11 +21,15 @@ class UserFactory extends Factory
     public function definition()
     {
         return [
-            'name' => fake()->name(),
-            'email' => fake()->unique()->safeEmail(),
-            'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-            'remember_token' => Str::random(10),
+            'name' => 'ラクスピザ太郎',
+            'email' => 'pizapple@gmail.com',
+            'password' => \Hash::make('pizapple'),            'password' => /*Hash::make*/ 'pizapple',
+            'zipcode' => '160-0022',
+            'prefecture' => '東京都',
+            'municipalities' => '新宿区',
+            'address_line1' => '新宿４丁目３−２５',
+            'address_line2' => 'TOKYU REIT新宿ビル8F',
+            'telephone' => '03-6675-3638',
         ];
     }
 
