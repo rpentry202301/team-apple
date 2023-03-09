@@ -41,6 +41,7 @@
                 <span class="price">&nbsp;М&nbsp;</span>&nbsp;&nbsp;{{$item->price_m}}(税抜)
               </label>
               <label class="radio-inline">
+                
                 <input type="radio" name="size" value="L" />
                 <input type="hidden" name="size_l" value="{{$item->price_l}}">
                 <span class="price">&nbsp;Ｌ</span>&nbsp;&nbsp;{{$item->price_l}}(税抜)
@@ -66,6 +67,8 @@
               @foreach($toppings as $topping)
               <label class="checkbox-inline">
                 <input type="checkbox" value="{{$topping->id}}" id="topping" name="topping" />{{$topping->name}}
+                <input type="hidden" name="topping_m" value="{{$topping->price_m}}">
+                <input type="hidden" name="topping_l" value="{{$topping->price_l}}">
               </label>
               @endforeach
             </div>

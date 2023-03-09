@@ -14,11 +14,14 @@ class CartItem extends Model
     protected $fillable = [
             'item_id',
             'cart_id',
+            'size',
+            'quantity',
+            'order_price',
     ];
 
     public function cartToppings()
     {
-        return $this->hasMany(OrderTopping::class);
+        return $this->hasMany(CartTopping::class);
     }
 
     public function item()

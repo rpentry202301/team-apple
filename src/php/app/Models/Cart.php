@@ -19,29 +19,52 @@ class Cart extends Model
     }
 
     /**
-     * 合計金額を計算するメソッド
-     * 
+     * 合計金額を計算する
+     *
+     * @param $items カート内商品
+     * @param $toppings カート内トッピング
+     * @return $total_price 合計金額
      */
-    public function getTotalPrice()
+    public static function calculateTotalPrice($items, $toppings)
     {
-        $totalPrice = 0;
-        foreach ($this->items as $item) {
-            $totalPrice += $item->getPrice() * $item->getQuantity();
+        $total_price = 0; // 合計金額
+        $tax = 0; // 消費税
+
+        // カートに追加する商品の金額を計算する処理
+        foreach ($items as $item) {
+            if ($item->order_price == 1380) {
+                $total_price += $item->item->price_m * $item->quantity;
+            } else {
+                // dd($item);
+                $total_price += $item->item->price_l * $item->quantity;
+            }
         }
-        return $totalPrice;
+
+        // カートに追加する商品のトッピングの金額を計算する処理
+        if (count($items) != 0) {
+            foreach ($toppings as $topping) {
+                if ($topping->total_topping_price == 300) {
+                    $total_price += 300;
+                } else {
+                    $total_price += 400;
+                }
+            }
+        }
+
+        $total_price = $total_price;
+        return $total_price;
     }
 
     /**
-     * 消費税を計算するメソッド
+     * 消費税を計算する
      *
-     * @return tax 消費税
+     * @param $total_price 合計金額
+     * @return $tax 消費税
      */
-    public function calculateTax($taxRate)
+    public static function calculateTax($total_price)
     {
-        $price = $this->getTotalPrice();
-        $tax = $price * $taxRate;
+        $tax = $total_price * 0.1;
+
         return $tax;
     }
-
-    
 }

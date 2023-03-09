@@ -50,7 +50,7 @@
     <div class="row">
       <div class="table-responsive col-lg-offset-1 col-lg-10 col-md-offset-1 col-md-10 col-sm-10 col-xs-12">
         <h3 class="text-center">ショッピングカート</h3>
-        @if(!$items == empty([]))
+        @if(count($items) == 0)
         <p><strong>カートに商品が存在しません</strong></p>
         @else
         <table class="table table-striped item-list-table">
@@ -67,18 +67,18 @@
                 </div>
               </td>
               <td>
-                <span class="price">&nbsp;{{$item->size}}</span>&nbsp;&nbsp;{{$item->item->price_m}}円
+                <span class="price">&nbsp;{{$item->size}}</span>&nbsp;&nbsp;{{$item->order_price ? $item->order_price : 'No topping'}}円
                 &nbsp;&nbsp;{{$item->quantity}}個
               </td>
               <td>
-                @foreach($toppings as $topping)
-                <ul>
-                  <li>{{$topping->topping->name}}</li>
+                <ul class="list-unstyled">
+                  @foreach($item->cartToppings as $cartTopping)
+                  <li>{{ $cartTopping->topping ? $cartTopping->topping->name : 'No topping' }}</li>
                 </ul>
+              <td>
+                <div class="text-center">{{$cartTopping->total_topping_price}}円</div>
                 @endforeach
               </td>
-              <td>
-                <div class="text-center">{{$topping->total_topping_price}}円</div>
               </td>
               <td>
                 <form method="POST" action="{{route('cart.delete')}}">
