@@ -14,6 +14,7 @@
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <p class="navbar-text navbar-right">
+                    <a href="{{route('cart')}}" class="navbar-link">ショッピングカート</a>&nbsp;&nbsp;
                     <a href="/cart" class="navbar-link">ショッピングカート</a>&nbsp;&nbsp;
                     <!--注文履歴は機能実装後ルーティングを追加-->
                     <a href="order_history.html" class="navbar-link">注文履歴</a>&nbsp;&nbsp;

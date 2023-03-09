@@ -36,12 +36,13 @@
             </div>
             <div class="col-sm-12">
               <label class="radio-inline">
-                <input type="radio" name="piza-size" checked="checked"  value="m" />
+                <input type="radio" name="size" checked="checked"  value="M" />
                 <input type="hidden" name="size_m" value="{{$item->price_m}}">
                 <span class="price">&nbsp;М&nbsp;</span>&nbsp;&nbsp;{{$item->price_m}}(税抜)
               </label>
               <label class="radio-inline">
-                <input type="radio" name="piza-size" value="l" />
+                
+                <input type="radio" name="size" value="L" />
                 <input type="hidden" name="size_l" value="{{$item->price_l}}">
                 <span class="price">&nbsp;Ｌ</span>&nbsp;&nbsp;{{$item->price_l}}(税抜)
               </label>
@@ -66,6 +67,8 @@
               @foreach($toppings as $topping)
               <label class="checkbox-inline">
                 <input type="checkbox" value="{{$topping->id}}" id="topping" name="topping" />{{$topping->name}}
+                <input type="hidden" name="topping_m" value="{{$topping->price_m}}">
+                <input type="hidden" name="topping_l" value="{{$topping->price_l}}">
               </label>
               @endforeach
             </div>
@@ -118,13 +121,14 @@
     </div>
   </div>
   </div>
+  <input type="hidden" name="id" value="{{$item->id}}">
 </form>
 <!--ピザのサイズ、トッピング、数量が変更された際に合計金額を自動計算する処理-->
 <script>
-  $('input[name="piza-size"]:radio, input[name="topping"], select[name="quantity"]').change(function() {
+  $('input[name="size"]:radio, input[name="topping"], select[name="quantity"]').change(function() {
 
 //radioボタン('piza-size')でチェックされたサイズのvalueを取得
-        var elements = document.getElementsByName('piza-size');
+        var elements = document.getElementsByName('size');
         var len = elements.length;
         var checkValue = '';
 
@@ -135,10 +139,10 @@
         };
 
 //サイズに応じてピザとトッピングの本体価格を設定
-        if (checkValue === "m") {
+        if (checkValue === "M") {
           var pizaPrice = parseInt($(".bs-component").attr("data-piza-mprice"));
           var toppingPrice = 200;
-        } else if (checkValue === "l") {
+        } else if (checkValue === "L") {
           var pizaPrice = parseInt($(".bs-component").attr("data-piza-lprice"));
           var toppingPrice = 300;
         }
