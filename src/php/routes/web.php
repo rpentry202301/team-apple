@@ -23,9 +23,7 @@ Route::get('logout', [LoginController::class, 'logout']);
 Route::get('/', [ItemsController::class, 'showItems'])->name('top');
 
 
-Route::get('/search', [ItemsController::class, 'showItems'])->name('search');
-Route::get('/item/{item}', [ItemsController::class, 'showItemDetail'])->name('item');
-Route::get('/search', [ItemsController::class, 'showItems'])->name('search');
+Route::get('/search', [ItemsController::class, 'searchItems'])->name('search');
 Route::get('/item/{item}', [ItemsController::class, 'showItemDetail'])->name('item');
 
 Route::get('/cart', [CartController::class, 'showCartItems'])->name('cart');
