@@ -136,6 +136,15 @@ return new class extends Migration
             $table->foreign('cart_item_id')->references('id')->on('cart_items');
             $table->foreign('topping_id')->references('id')->on('toppings');
         });
+
+        Schema::create('addresses', function (Blueprint $table) {
+            $table->id();
+            $table->integer('zip');
+            $table->string('pref');
+            $table->string('city');
+            $table->string('town');
+            $table->timestamps();
+        });
     }
 
     /**
