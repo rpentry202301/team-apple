@@ -77,7 +77,6 @@ return new class extends Migration
 
             $table->timestamps();
 
-            $table->foreign('item_id')->references('id')->on('items');
             $table->foreign('order_id')->references('id')->on('orders');
         });
 
@@ -100,7 +99,6 @@ return new class extends Migration
 
             $table->timestamps();
 
-            $table->foreign('topping_id')->references('id')->on('toppings');
             $table->foreign('order_item_id')->references('id')->on('order_items');
         });
 

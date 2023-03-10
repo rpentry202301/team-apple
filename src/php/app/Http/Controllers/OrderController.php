@@ -107,6 +107,7 @@ class OrderController extends Controller
         //$cartItems = CartItem::where('user_id', Auth::user()->id)->get();
 
 
+        //orderITemとヒヒもつけるなら
         foreach ($cartToppings as $cartTopping) {
             $orderTopping = new OrderTopping;
 
