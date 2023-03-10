@@ -52,7 +52,16 @@ class OrderController extends Controller
         $order->destination_tell = $request->input('destination_tell');
         $order->delivery_time = $time;
 
-        $cart = Cart::table('user_id', Auth::user()->id)->first();
+        // 注文商品のtotal_priceを取得し代入する必要
+        
+        // $cart = Cart::where('user_id', Auth::user()->id)->first();
+        // $cart = new Cart();
+        // $totalprice = $cart->total_price();
+
+
+        $cart = Cart::where('user_id', Auth::user()->id)->first();
+        $order->total_price = $cart->total_price;
+
 
         $order->payment_method = $request->input('payment_method');
 
@@ -66,7 +75,8 @@ class OrderController extends Controller
 
         $cartItems = CartItem::where('user_id', Auth::user()->id)->get();
         $item = Item::all();
-        $order = new Order();
+        $order = Order::where('user_id', Auth::user()->id)->orderBy('id','desc')->first();
+        //desc でOrderいd主tpく
 
         foreach ($cartItems as $cartItem) {
             $orderItem = new OrderItem;
@@ -74,7 +84,7 @@ class OrderController extends Controller
 
             //Itemテーブルを経由しなくていける？
             $orderItem->item_id =  $cartItem->item_id;
-            // $orderItem->order_id = ;
+            $orderItem->order_id = $order->id;
             $orderItem->quantity =  $cartItem->quantity;
             $orderItem->size =  $cartItem->size;
 
@@ -91,7 +101,8 @@ class OrderController extends Controller
         }
 
 
-        $cartToppings = CartTopping::where('cart_item_id', $cartItems->item_id)->get(); //cartitemと紐付け？でも誰のカートかわかる？
+        
+        $cartToppings = CartTopping::where('user_id', Auth::user()->id)->get(); //cartitemと紐付け？でも誰のカートかわかる？
         $topping = Topping::all();
         //$cartItems = CartItem::where('user_id', Auth::user()->id)->get();
 
@@ -102,25 +113,26 @@ class OrderController extends Controller
             //Itemテーブルを経由しなくていける？
             $orderTopping->topping_id =  $cartTopping->topping_id;
             $orderTopping->order_item_id =  $cartTopping->cart_item_id;
-            $orderTopping->order_topping_name =  $topping->name;
+            
+            $orderTopping->order_topping_name =  $cartTopping->topping->name;//なぜうまくいく？
 
             if ($cartItem->size === 'M') {
-                $order->order_price = $item->price_m;
+                $orderTopping->order_topping_price = $cartTopping->total_topping_price;
             } else {
-                $order->order_price = $item->price_l;
+                $orderTopping->order_topping_price = $cartTopping->total_topping_price;;
             }
             $orderTopping->save();
         }
-        //OrderToppingの価格をDBに格納する処理
-        foreach ($cartItems as $cartItem) {
-            if ($cartItem->size === 'M') {
+        // //OrderToppingの価格をDBに格納する処理
+        // foreach ($cartItems as $cartItem) {
+        //     if ($cartItem->size === 'M') {
 
-                $orderTopping->order_topping_price = $topping->price_m;
-            } else {
-                $orderTopping->order_topping_price = $topping->price_l;
-            }
-            $orderTopping->save();
-        }
+        //         $orderTopping->order_topping_price = $topping->price_m;
+        //     } else {
+        //         $orderTopping->order_topping_price = $topping->price_l;
+        //     }
+        //     $orderTopping->save();
+        // }
     }
 
     public function showOrderComplete()

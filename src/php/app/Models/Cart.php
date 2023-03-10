@@ -10,7 +10,14 @@ class Cart extends Model
 {
     use HasFactory;
 
-    protected $items = [];
+    // $cartItems = CartItem::where('user_id', Auth::user()->id)->first();
+    // $cartItems = new CartItem();
+    // private $items = [
+    //     'cart_id' => $cartItems->cart_id,
+    //     'order_price' => $cartItems->order_price,
+    // ];
+    private $items =[];
+
 
     public function cartItems()
     {
@@ -66,13 +73,25 @@ class Cart extends Model
         return $tax;
     }
 
+    /**
+     * 注文商品の合計金額を計算する
+     *
+     * @return totalPrice 合計金額
+     */
     public function total_price()
     {
-      $items = $this->items;
-      $total_price = 0;
+        $order_price = 0;
+        dd($this->items);
+        foreach ($this->items as $item) {
+            $order_price += $item['order_price'];
+        }
 
-      foreach($items as $item) {
-        
-      }
+        $total_topping_price = 0;
+        dd($this->items);
+        foreach ($this->item->toppings as $topping) {
+            $total_topping_price += $topping['total_topping_price'];
+        }
+
+        $this->totalPrice = $order_price + $total_topping_price;
     }
 }

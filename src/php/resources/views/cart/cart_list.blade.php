@@ -67,13 +67,13 @@
                 </div>
               </td>
               <td>
-                <span class="price">&nbsp;{{$item->size}}</span>&nbsp;&nbsp;{{$item->order_price ? $item->order_price : 'No topping'}}円
+                <span class="price">&nbsp;{{$item->size}}</span>&nbsp;&nbsp;{{$item->order_price ? $item->order_price :
+                'No topping'}}円
                 &nbsp;&nbsp;{{$item->quantity}}個
               </td>
               <td>
-                <ul class="list-unstyled">
-                  @foreach($item->cartToppings as $cartTopping)
-                  <li>{{ $cartTopping->topping ? $cartTopping->topping->name : 'No topping' }}</li>
+                @foreach($item->cartToppings as $cartTopping)
+                <li>{{ $cartTopping->topping ? $cartTopping->topping->name : 'No topping' }}</li>
                 </ul>
               <td>
                 <div class="text-center">{{$cartTopping->total_topping_price}}円</div>

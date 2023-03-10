@@ -33,6 +33,10 @@ class CartController extends Controller
         $total_price = (int)Cart::calculateTotalPrice($items, $toppings); // 合計金額を計算
         $tax = (int)Cart::calculateTax($total_price); // 消費税を計算
         $total_price += $tax; // 消費税を合計金額に上乗せ
+        $cart = Cart::where('user_id', Auth::user()->id)->first();
+        $cart->total_price = $total_price;
+        $cart->save();
+
 
         // 商品の情報をビューに渡す
         return view('cart.cart_list', [
@@ -42,6 +46,7 @@ class CartController extends Controller
             'tax' => $tax,
         ]);
     }
+    //以上を共通化
 
     /**
      * ショッピングカートに商品を追加
@@ -67,7 +72,7 @@ class CartController extends Controller
             ->join('cart_toppings', 'cart_toppings.cart_item_id', '=', 'cart_items.id')
             ->whereIn('cart_toppings.topping_id', $topping_ids)
             ->get();
-
+ 
         $toppings = null; // トッピングがない時にnullのエラーが出てしまうため変数を定義
 
         // カートの中に同じ商品が存在する場合は数量と金額を追加し、存在しない場合は新しくCartItemテーブルを作成
@@ -96,6 +101,7 @@ class CartController extends Controller
             $item = new CartItem();
             $item->user_id = Auth::user()->id;
             $item->cart_id = $cart_id;
+            $item->user_id = Auth::user()->id;
             $item->item_id = $request->input('id');
             $item->size = $request->input('size');
             $item->quantity = $request->input('quantity');
@@ -106,23 +112,26 @@ class CartController extends Controller
             }
             $item->save();
 
-            foreach ($topping_ids as $topping_id) {
-                $topping = new CartTopping();
-                $topping->cart_item_id = $item->id;
-                $topping->user_id = Auth::user()->id;
-                $topping->topping_id = $topping_id;
-                if ($request->input('size') == 'M') {
-                    $topping->total_topping_price = $request->input('topping_m');
-                } else {
-                    $topping->total_topping_price = $request->input('topping_l');
+            if($topping_value != null)  {
+                foreach ($topping_ids as $topping_id) {
+                    $topping = new CartTopping();
+                    $topping->user_id = Auth::user()->id;
+                    $topping->cart_item_id = $item->id;
+                    $topping->topping_id = $topping_id;
+                    if ($request->input('size') == 'M') {
+                        $topping->total_topping_price = $request->input('topping_m');
+                    } else {
+                        $topping->total_topping_price = $request->input('topping_l');
+                    }
+                    $topping->save();
                 }
-                $topping->save();
             }
         }
 
         $total_price = (int)Cart::calculateTotalPrice($items, $toppings); // 合計金額を計算
         $tax = (int)Cart::calculateTax($total_price); // 消費税を計算
         $total_price += $tax; // 消費税を合計金額に上乗せ
+       
 
         // 商品の情報をビューに渡す
         return redirect(route('cart', [

@@ -33,9 +33,9 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->integer('status');
+            $table->integer('status')->default('0');
             $table->integer('total_price');
-            $table->date('order_date');
+            $table->timestamp('order_date')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->string('destination_name', 100)->nullable();
             $table->string('destination_email', 100)->nullable();
             $table->string('destination_zipcode', 8)->nullable();
@@ -60,7 +60,7 @@ return new class extends Migration
             $table->integer('price_m');
             $table->integer('price_l');
             $table->string('image_path');
-            $table->boolean('deleted');
+            $table->boolean('deleted')->default('0');
 
             $table->timestamps();
         });
@@ -73,7 +73,7 @@ return new class extends Migration
             $table->char('size');
             $table->integer('order_price');
             $table->String('order_name');
-            $table->boolean('deleted');
+            $table->boolean('deleted')->default('0');
 
             $table->timestamps();
 
@@ -96,7 +96,7 @@ return new class extends Migration
             $table->unsignedBigInteger('order_item_id');
             $table->integer('order_topping_price');
             $table->String('order_topping_name');
-            $table->boolean('deleted');
+            $table->boolean('deleted')->default('0');
 
             $table->timestamps();
 
@@ -107,6 +107,7 @@ return new class extends Migration
         Schema::create('carts', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
+            $table->integer('total_price')->default('0');
 
             $table->timestamps();
 
@@ -118,7 +119,8 @@ return new class extends Migration
             $table->unsignedBigInteger('cart_id');
             $table->unsignedBigInteger('item_id');
             $table->unsignedBigInteger('user_id');
-            $table->integer('quantity');
+            $table->integer('order_price');
+            $table->integer('quantity')->default('0');
             $table->char('size');
             $table->timestamps();
 
@@ -132,6 +134,7 @@ return new class extends Migration
             $table->unsignedBigInteger('cart_item_id');
             $table->unsignedBigInteger('topping_id');
             $table->unsignedBigInteger('user_id');
+            $table->integer('quantity')->default('0');
             $table->integer('total_topping_price');
 
             $table->timestamps();
