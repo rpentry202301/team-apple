@@ -20,22 +20,22 @@ class ToppingSeeder extends Seeder
         DB::table('toppings')->insert([
             [
                 'name' => 'Topping A',
-                'price_m' => 100,
-                'price_l' => 150,
+                'price_m' => 200,
+                'price_l' => 300,
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
                 'name' => 'Topping B',
-                'price_m' => 120,
-                'price_l' => 170,
+                'price_m' => 200,
+                'price_l' => 300,
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
                 'name' => 'Topping C',
-                'price_m' => 150,
-                'price_l' => 200,
+                'price_m' => 200,
+                'price_l' => 300,
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
