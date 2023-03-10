@@ -6,6 +6,7 @@ use App\Models\Cart;
 use App\Models\CartItem;
 use App\Models\CartTopping;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Cart\AddRequest;
 use Illuminate\Support\Facades\Session;
 use App\Http\Requests\Cart\DeleteRequest;
@@ -66,7 +67,7 @@ class CartController extends Controller
             ->join('cart_toppings', 'cart_toppings.cart_item_id', '=', 'cart_items.id')
             ->whereIn('cart_toppings.topping_id', $topping_ids)
             ->get();
-
+ 
         $toppings = null; // トッピングがない時にnullのエラーが出てしまうため変数を定義
 
         // カートの中に同じ商品が存在する場合は数量と金額を追加し、存在しない場合は新しくCartItemテーブルを作成
@@ -94,6 +95,7 @@ class CartController extends Controller
         } else {
             $item = new CartItem();
             $item->cart_id = $cart_id;
+            $item->user_id = Auth::user()->id;
             $item->item_id = $request->input('id');
             $item->size = $request->input('size');
             $item->quantity = $request->input('quantity');
@@ -104,16 +106,19 @@ class CartController extends Controller
             }
             $item->save();
 
-            foreach ($topping_ids as $topping_id) {
-                $topping = new CartTopping();
-                $topping->cart_item_id = $item->id;
-                $topping->topping_id = $topping_id;
-                if ($request->input('size') == 'M') {
-                    $topping->total_topping_price = $request->input('topping_m');
-                } else {
-                    $topping->total_topping_price = $request->input('topping_l');
+            if($topping_value != null)  {
+                foreach ($topping_ids as $topping_id) {
+                    $topping = new CartTopping();
+                    $topping->user_id = Auth::user()->id;
+                    $topping->cart_item_id = $item->id;
+                    $topping->topping_id = $topping_id;
+                    if ($request->input('size') == 'M') {
+                        $topping->total_topping_price = $request->input('topping_m');
+                    } else {
+                        $topping->total_topping_price = $request->input('topping_l');
+                    }
+                    $topping->save();
                 }
-                $topping->save();
             }
         }
 
