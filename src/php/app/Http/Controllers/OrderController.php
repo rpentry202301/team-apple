@@ -121,6 +121,7 @@ class OrderController extends Controller
             } else {
                 $orderTopping->order_topping_price = $cartTopping->total_topping_price;;
             }
+            // dd($orderTopping);
             $orderTopping->save();
         }
         // //OrderToppingの価格をDBに格納する処理

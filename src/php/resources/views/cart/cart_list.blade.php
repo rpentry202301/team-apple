@@ -38,14 +38,17 @@
 
     @include('components.cart_list')
 
-    @section('content')
+    
+
+  @section('content')
+
     @component('components.cart_list', [
     'items' => $items,
-    'toppings' => $toppings
+    'toppings' => $toppings,
+    'tax' => $tax,
+    'total_price' => $total_price
     ])
     @endcomponent
-    @endsection
-
     <div class="row">
       <div class="col-xs-offset-5 col-xs-3">
         <div class="form-group">
@@ -56,6 +59,8 @@
       </div>
     </div>
 
+  
+    @endsection
   </div>
   <!-- end container -->
   {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
