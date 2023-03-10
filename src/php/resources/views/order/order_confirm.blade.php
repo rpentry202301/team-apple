@@ -46,7 +46,72 @@
             <!-- /.container-fluid -->
         </nav>
 
-        <!-- table -->
+
+        {{-- <div class="row">
+            <div class="table-responsive col-lg-offset-1 col-lg-10 col-md-offset-1 col-md-10 col-sm-10 col-xs-12">
+                <h3 class="text-center">ショッピングカート</h3>
+                @if (count($items) == 0)
+                    <p><strong>カートに商品が存在しません</strong></p>
+                @else
+                    <table class="table table-striped item-list-table">
+                        <tbody>
+                            @foreach ($items as $item)
+                                <tr>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="center">
+                                            <img src="../images/1.jpg"
+                                                class="img-responsive img-rounded item-img-center" width="100"
+                                                height="300" /><br />
+                                            {{ $item->item->name }}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <span
+                                            class="price">&nbsp;{{ $item->size }}</span>&nbsp;&nbsp;{{ $item->order_price ? $item->order_price : 'No topping' }}円
+                                        &nbsp;&nbsp;{{ $item->quantity }}個
+                                    </td>
+                                    <td>
+                                        <ul class="list-unstyled">
+                                            @foreach ($item->cartToppings as $cartTopping)
+                                                <li>{{ $cartTopping->topping ? $cartTopping->topping->name : 'No topping' }}
+                                                </li>
+                                        </ul>
+                                    <td>
+                                        <div class="text-center">{{ $cartTopping->total_topping_price }}円</div>
+                            @endforeach
+                            </td>
+                            </td>
+                            <td>
+                                <form method="POST" action="{{ route('cart.delete') }}">
+                                    @csrf
+                                    <div class="text-center">
+                                        <input type="hidden" name="id" value="{{ $item->id }}">
+                                        <button type="submit" class="btn btn-primary">削除</button>
+                                    </div>
+                                </form>
+                            </td>
+                            </tr>
+                        </tbody>
+                @endforeach
+                </table>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-offset-2 col-xs-8">
+                <div class="form-group text-center">
+                    <span id="total-price">消費税：{{ $tax }}円</span><br />
+                    <span id="total-price">ご注文金額合計：{{ $total_price }}円 (税込)</span>
+                </div>
+            </div>
+        </div>
+        @endif --}}
+
+
+
+        {{-- <!-- table -->
         <div class="row">
             <div class="table-responsive col-lg-offset-1 col-lg-10 col-md-offset-1 col-md-10 col-sm-10 col-xs-12">
                 <h3 class="text-center">注文内容確認</h3>
@@ -147,7 +212,7 @@
                     <span id="total-price">ご注文金額合計：38,000円 (税込)</span>
                 </div>
             </div>
-        </div>
+        </div> --}}
 
         <!-- table -->
         <form action="{{ route('order.buy') }}" method="POSt">
@@ -178,7 +243,9 @@
                                     <div class="text-center">郵便番号</div>
                                 </td>
                                 <td>
-                                    <input type="text" name='destination_zipcode' />&nbsp;&nbsp;<button>住所検索</button>
+                                    <input type="text" name='destination_zipcode'
+                                        id="zip" />&nbsp;&nbsp;<button class="api-address"
+                                        type="button">住所検索</button>
                                 </td>
                             </tr>
                             <tr>
@@ -186,7 +253,7 @@
                                     <div class="text-center">都道府県</div>
                                 </td>
                                 <td>
-                                    <input type="text" name='destination_prefectures' />
+                                    <input type="text" name='destination_prefectures' id="destination_prefectures" />
                                 </td>
                             </tr>
                             <tr>
@@ -194,7 +261,8 @@
                                     <div class="text-center">市区町村</div>
                                 </td>
                                 <td>
-                                    <input type="text" name='destination_municipalities' />
+                                    <input type="text" name='destination_municipalities'
+                                        id="destination_municipalities" />
                                 </td>
                             </tr>
                             <tr>
@@ -202,7 +270,8 @@
                                     <div class="text-center">番地</div>
                                 </td>
                                 <td>
-                                    <input type="text" name='destination_address_line1' />
+                                    <input type="text" name='destination_address_line1'
+                                        id="destination_address_line1" />
                                 </td>
                             </tr>
                             <tr>
@@ -233,19 +302,18 @@
                                                     for="inputPeriod">配達日時を入力してください</label>
                                             </div>
                                             <div class="col-sm-5">
-                                                <input type="date" name="name" id="name"
+                                                <input type="date" name="delivery_date" id="name"
                                                     class="form-control input-sm" />
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-sm-12">
                                                 <label class="radio-inline">
-                                                    <input type="radio" name="responsibleCompany"
-                                                        checked="checked" />
+                                                    <input type="radio" name="delivery_time" checked="checked" />
                                                     10時
                                                 </label>
                                                 <label class="radio-inline">
-                                                    <input type="radio" name="responsibleCompany" />
+                                                    <input type="radio" name="delivery_time" value="10:00:00" />
                                                     11時
                                                 </label>
                                                 <label class="radio-inline">
@@ -360,5 +428,32 @@
     {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="../static/js/bootstrap.min.js"></script> --}}
 </body>
+<script>
+    //イベントリスナの設置：ボタンをクリックしたら反応する
+    document.querySelector('.api-address').addEventListener('click', () => {
+        //郵便番号を入力するテキストフィールドから値を取得
+        const elem = document.querySelector('#zip');
+        const zip = elem.value;
+        //fetchでAPIからJSON文字列を取得する
+        fetch('../api/address/' + zip)
+            .then((data) => data.json())
+            .then((obj) => {
+                //郵便番号が存在しない場合，空のオブジェクトが返ってくる
+                //オブジェクトが空かどうかを判定
+                if (!Object.keys(obj).length) {
+                    //オブジェクトが空の場合
+                    txt = '住所が存在しません。'
+                } else {
+                    //オブジェクトが存在する場合
+                    //住所は分割されたデータとして返ってくるので連結する
+                    txt = obj.pref + obj.city + obj.town;
+                }
+                //住所を入力するテキストフィールドに文字列を書き込む
+                document.querySelector('#destination_prefectures').value = obj.pref;
+                document.querySelector('#destination_municipalities').value = obj.city;
+                document.querySelector('#destination_address_line1').value = obj.town;
+            });
+    });
+</script>
 
 </html>
