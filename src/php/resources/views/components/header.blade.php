@@ -39,7 +39,7 @@
 
 
 
-<nav class="border border-dark navbar p-5 bg-transparent navbar-light" , style="background:rgba(255,255,255,1);"
+{{-- <nav class="border border-dark navbar p-5 bg-transparent navbar-light" , style="background:rgba(255,255,255,1);"
     id="navi">
     <img class="float-left" alt="main log" src="../images/logo.png" width="100" height="100" />
     <span class="text text-dark" , style="font-family: Hannotate SC;"><i class="fas fa-calendar"></i>pizapple</span>
@@ -65,4 +65,32 @@
             </p>
         </div>
     </div>
+</nav> --}}
+
+<nav class="navbar">
+<div class="container-fluid">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbarEexample1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <img class="float-left" alt="main log" src="../images/logo.png" width="120" height="120" />
+    </div>
+
+    <div class="collapse navbar-collapse" id="navbarEexample1">
+        <ul class="nav navbar-nav">
+            <li><a href="#">メニューＡ</a></li>
+            <li class="active"><a href="#">メニューＢ</a></li>
+            <li><a href="#">メニューＣ</a></li>
+            <li><a href="#">メニューＣ</a></li>
+        </ul>
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="太郎">
+        </div>
+    </div>
+
+</div>
 </nav>

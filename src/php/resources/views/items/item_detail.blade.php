@@ -7,7 +7,6 @@
 @section('content')
 
 <div id="youtube-wrap">
-  
 
 <div id="youtube-wrap">
   <div id="youtube" data-property="{
@@ -17,7 +16,7 @@
 			loop: 1,
 			mute: true,
 			startAt: 0,
-			opacity: 1,
+			opacity: 0.5,
 			showControls: false,
 			showYTLogo: false
 	}"></div>
