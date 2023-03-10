@@ -8,40 +8,12 @@ use App\Models\CartTopping;
 use Illuminate\Http\Request;
 use App\Http\Requests\Cart\AddRequest;
 use Illuminate\Support\Facades\Session;
+use App\Http\Controllers\BaseController;
 use App\Http\Requests\Cart\DeleteRequest;
 
 
-class CartController extends Controller
+class CartController extends BaseController
 {
-    /**
-     * ショッピングカートの中身を表示
-     * @return view ショッピングカートの一覧
-     */
-    public function showCartItems()
-    {
-        // セッションからカート情報を取得する
-        $cart_id = Session::get('cart');
-        $toppings = null;
-
-        // カートの中からセッションの情報に入っているcart_idを持つCartItemテーブルを取得
-        $items = CartItem::where('cart_id', $cart_id)->get();
-        if (count($items) > 0) {
-            $toppings = CartTopping::where('cart_item_id', $items->first()->id)->get();
-        }
-
-        $total_price = (int)Cart::calculateTotalPrice($items, $toppings); // 合計金額を計算
-        $tax = (int)Cart::calculateTax($total_price); // 消費税を計算
-        $total_price += $tax; // 消費税を合計金額に上乗せ
-
-        // 商品の情報をビューに渡す
-        return view('cart.cart_list', [
-            'items' => $items,
-            'toppings' => $toppings,
-            'total_price' => $total_price,
-            'tax' => $tax,
-        ]);
-    }
-
     /**
      * ショッピングカートに商品を追加
      * @param AddRequest $request リクエスト
@@ -128,23 +100,5 @@ class CartController extends Controller
             'total_price' => $total_price,
             'tax' => $tax
         ]));
-    }
-
-    /**
-     * ショッピングカートの商品を削除
-     * @param DeleteRequest $request リクエスト
-     * @return view カート画面
-     */
-    public function deleteCartItems(DeleteRequest $request)
-    {
-        // 商品のidを取得する
-        $item_id = $request['id'];
-
-        // 関連するCartToppingsテーブルのレコードを削除する
-        CartTopping::where('cart_item_id', $item_id)->delete();
-        CartItem::where('id', $item_id)->delete();
-
-        // カート画面にリダイレクト
-        return redirect(route('cart'));
     }
 }
