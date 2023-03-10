@@ -10,7 +10,7 @@ class Cart extends Model
 {
     use HasFactory;
 
-    protected $items = [];
+    private $items = [];
     protected $totalPrice = 0;
 
     public function cartItems()
@@ -66,25 +66,5 @@ class Cart extends Model
         $tax = $total_price * 0.1;
 
         return $tax;
-    }
-
-    /**
-     * 注文商品の合計金額を計算する
-     *
-     * @return totalPrice 合計金額
-     */
-    public function total_price()
-    {
-        $order_price = 0;
-        foreach ($this->items as $item) {
-            $order_price += $item['order_price'];
-        }
-
-        $total_topping_price = 0;
-        foreach ($this->item->toppings as $topping) {
-            $total_topping_price += $topping['total_topping_price'];
-        }
-
-        $this->totalPrice = $order_price + $total_topping_price;
     }
 }

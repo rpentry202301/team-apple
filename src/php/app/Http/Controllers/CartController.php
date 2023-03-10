@@ -33,6 +33,9 @@ class CartController extends Controller
         $total_price = (int)Cart::calculateTotalPrice($items, $toppings); // 合計金額を計算
         $tax = (int)Cart::calculateTax($total_price); // 消費税を計算
         $total_price += $tax; // 消費税を合計金額に上乗せ
+        $cart = Cart::where('user_id', Auth::user()->id)->first();
+        $cart->total_price = $total_price;
+        $cart->save();
 
         // 商品の情報をビューに渡す
         return view('cart.cart_list', [
@@ -125,6 +128,9 @@ class CartController extends Controller
         $total_price = (int)Cart::calculateTotalPrice($items, $toppings); // 合計金額を計算
         $tax = (int)Cart::calculateTax($total_price); // 消費税を計算
         $total_price += $tax; // 消費税を合計金額に上乗せ
+        $cart = Cart::where('user_id', Auth::user()->id)->first();
+        $cart->total_price = $total_price;
+        $cart->save();
 
         // 商品の情報をビューに渡す
         return redirect(route('cart', [
