@@ -10,7 +10,7 @@ class Cart extends Model
 {
     use HasFactory;
 
-    protected $items = [];
+    private $items = [];
     protected $totalPrice = 0;
 
     public function cartItems()
@@ -35,7 +35,6 @@ class Cart extends Model
             if ($item->order_price == 1380) {
                 $total_price += $item->item->price_m * $item->quantity;
             } else {
-                // dd($item);
                 $total_price += $item->item->price_l * $item->quantity;
             }
         }
@@ -43,10 +42,10 @@ class Cart extends Model
         // カートに追加する商品のトッピングの金額を計算する処理
         if (count($items) != 0) {
             foreach ($toppings as $topping) {
-                if ($topping->total_topping_price == 300) {
-                    $total_price += 300;
+                if ($topping->total_topping_price == 200) {
+                    $total_price += 200;
                 } else {
-                    $total_price += 400;
+                    $total_price += 300;
                 }
             }
         }

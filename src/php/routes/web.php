@@ -4,7 +4,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ItemsController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ContactsController;
 use App\Http\Controllers\Auth\LoginController;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -27,10 +30,10 @@ Route::get('/search', [ItemsController::class, 'searchItems'])->name('search');
 Route::get('/item/{item}', [ItemsController::class, 'showItemDetail'])->name('item');
 
 Route::get('/cart', [CartController::class, 'showCartItems'])->name('cart');
-Route::post('/cart/add', [CartController::class, 'addCartItems'])->name('cart.add');
 Route::post('/cart/delete', [CartController::class, 'DeleteCartItems'])->name('cart.delete');
 
 Route::middleware('auth')->group(function () {
+    Route::post('/cart/add', [CartController::class, 'addCartItems'])->name('cart.add');
     Route::get('/order/confirm', [OrderController::class, 'showOrderConfirm'])->name('order.confirm');
     Route::post('/order/buy', [OrderController::class, 'buyOrderItems'])->name('order.buy');
     Route::get('/order/complete', [OrderController::class, 'showOrderComplete'])->name('order.complete');
@@ -39,3 +42,8 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+Route::get('/contact', [ContactsController::class, 'index'])->name('contact.index');
+Route::post('/contact/confirm', [ContactsController::class, 'confirm'])->name('contact.confirm');
+Route::get('/contact/confirm', [ContactsController::class, 'index'])->name('contact.index');
+Route::post('/contact/thanks', [ContactsController::class, 'send'])->name('contact.send');
+Route::get('/contact/thanks', [ContactsController::class, 'index'])->name('contact.index');

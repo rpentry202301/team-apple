@@ -1,12 +1,15 @@
-<!-- <?php
+<?php
 
-        namespace App\Http\Middleware;
+namespace App\Http\Middleware;
 
-        use Closure;
-        use App\Models\Cart;
-        use App\Models\OrderItem;
-        use Illuminate\Http\Request;
-        use Illuminate\Support\Facades\Session;
+use Closure;
+use App\Models\Cart;
+use App\Models\OrderItem;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
+
+use function PHPUnit\Framework\isEmpty;
+use function PHPUnit\Framework\isNull;
 
 class CartSession
 {
@@ -23,16 +26,15 @@ class CartSession
         $cartId = Session::get('cart');
 
         // カートがセッションに存在しない場合、カートを作成する
-        if (!$cartId) {
+        if (!Session::has('cart') && $user != null) {
             $cart = new Cart();
-            if ($user) {
-                $cart->user_id = $user->id; // ログインしているユーザーのIDを設定する
-            }
+            $cart->user_id = $user->id; // ログインしているユーザーのIDを設定する
             $cart->save();
+
             $cartId = $cart->id;
             Session::put('cart', $cartId);
         }
 
-                        return $next($request);
-                }
-        }
+        return $next($request);
+    }
+}

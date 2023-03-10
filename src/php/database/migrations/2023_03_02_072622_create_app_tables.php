@@ -140,6 +140,15 @@ return new class extends Migration
             $table->foreign('topping_id')->references('id')->on('toppings');
             $table->foreign('user_id')->references('id')->on('users');
         });
+
+        Schema::create('addresses', function (Blueprint $table) {
+            $table->id();
+            $table->integer('zip');
+            $table->string('pref');
+            $table->string('city');
+            $table->string('town');
+            $table->timestamps();
+        });
     }
 
     /**
