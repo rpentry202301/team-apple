@@ -10,6 +10,7 @@ class Cart extends Model
 {
     use HasFactory;
 
+
     private $items = [];
     protected $totalPrice = 0;
 
@@ -66,4 +67,5 @@ class Cart extends Model
 
         return $tax;
     }
+
 }

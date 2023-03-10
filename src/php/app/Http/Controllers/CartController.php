@@ -15,6 +15,7 @@ use App\Http\Requests\Cart\DeleteRequest;
 
 class CartController extends BaseController
 {
+
      * ショッピングカートに商品を追加
      * @param AddRequest $request リクエスト
      * @return view カート画面
@@ -65,6 +66,7 @@ class CartController extends BaseController
             }
         } else {
             $item = new CartItem();
+            $item->user_id = Auth::user()->id;
             $item->cart_id = $cart_id;
             $item->user_id = Auth::user()->id;
             $item->item_id = $request->input('id');
@@ -96,6 +98,7 @@ class CartController extends BaseController
         $total_price = (int)Cart::calculateTotalPrice($items, $toppings); // 合計金額を計算
         $tax = (int)Cart::calculateTax($total_price); // 消費税を計算
         $total_price += $tax; // 消費税を合計金額に上乗せ
+
         $cart = Cart::where('user_id', Auth::user()->id)->first();
         $cart->total_price = $total_price;
         $cart->save();

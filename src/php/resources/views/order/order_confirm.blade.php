@@ -309,37 +309,38 @@
                                         <div class="row">
                                             <div class="col-sm-12">
                                                 <label class="radio-inline">
-                                                    <input type="radio" name="delivery_time" checked="checked" />
+                                                    <input type="radio" name="delivery_time"
+                                                        checked="checked" value="10:00:00" />
                                                     10時
                                                 </label>
                                                 <label class="radio-inline">
-                                                    <input type="radio" name="delivery_time" value="10:00:00" />
+                                                    <input type="radio" name="delivery_time" value="11:00:00" />
                                                     11時
                                                 </label>
                                                 <label class="radio-inline">
-                                                    <input type="radio" name="responsibleCompany" />
+                                                    <input type="radio" name="delivery_time" value="12:00:00" />
                                                     12時 </label><br />
                                                 <label class="radio-inline">
-                                                    <input type="radio" name="responsibleCompany" />
+                                                    <input type="radio" name="delivery_time" value="13:00:00" />
                                                     13時
                                                 </label>
                                                 <label class="radio-inline">
-                                                    <input type="radio" name="responsibleCompany" />
+                                                    <input type="radio" name="delivery_time" value="14:00:00" />
                                                     14時
                                                 </label>
                                                 <label class="radio-inline">
-                                                    <input type="radio" name="responsibleCompany" />
+                                                    <input type="radio" name="delivery_time" value="15:00:00" />
                                                     15時 </label><br />
                                                 <label class="radio-inline">
-                                                    <input type="radio" name="responsibleCompany" />
+                                                    <input type="radio" name="delivery_time" value="16:00:00" />
                                                     16時
                                                 </label>
                                                 <label class="radio-inline">
-                                                    <input type="radio" name="responsibleCompany" />
+                                                    <input type="radio" name="delivery_time" value="17:00:00" />
                                                     17時
                                                 </label>
                                                 <label class="radio-inline">
-                                                    <input type="radio" name="responsibleCompany" />
+                                                    <input type="radio" name="delivery_time" value="18:00:00" />
                                                     18時 </label><br />
                                             </div>
                                         </div>
