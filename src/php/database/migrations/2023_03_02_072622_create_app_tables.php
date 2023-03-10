@@ -44,7 +44,7 @@ return new class extends Migration
             $table->string('destination_address_line1', 200)->nullable();
             $table->string('destination_address_line2', 200)->nullable();
             $table->string('destination_tell', 15)->nullable();
-            $table->timestamp('delivery_time')->nullable();
+            $table->timestamp('delivery_time');
             $table->integer('payment_method')->nullable();
 
             $table->timestamps();
@@ -70,7 +70,7 @@ return new class extends Migration
             $table->unsignedBigInteger('item_id');
             $table->unsignedBigInteger('order_id');
             $table->integer('quantity');
-            $table->char('size'); //charなのでエラー出るかもしれません
+            $table->char('size');
             $table->integer('order_price');
             $table->String('order_name');
             $table->boolean('deleted');
@@ -118,7 +118,8 @@ return new class extends Migration
             $table->unsignedBigInteger('cart_id');
             $table->unsignedBigInteger('item_id');
             $table->unsignedBigInteger('user_id');
-
+            $table->integer('quantity');
+            $table->char('size');
             $table->timestamps();
 
             $table->foreign('cart_id')->references('id')->on('carts');
@@ -130,11 +131,14 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('cart_item_id');
             $table->unsignedBigInteger('topping_id');
+            $table->unsignedBigInteger('user_id');
+            $table->integer('total_topping_price');
 
             $table->timestamps();
 
             $table->foreign('cart_item_id')->references('id')->on('cart_items');
             $table->foreign('topping_id')->references('id')->on('toppings');
+            $table->foreign('user_id')->references('id')->on('users');
         });
 
         Schema::create('addresses', function (Blueprint $table) {
