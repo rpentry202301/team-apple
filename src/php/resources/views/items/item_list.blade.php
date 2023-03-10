@@ -68,3 +68,12 @@
   </div>
 </div>
 @endsection
+
+<a id="P2" class="player"
+  data-property="{videoURL:'FjpNjpGs0u8',containment:'body',autoPlay:true, mute:true, startAt:0, opacity:1, showYTLogo:false, showControls:false}"></a>
+
+<script>
+  jQuery(function(){
+  jQuery( '.player' ).mb_YTPlayer();
+  });
+</script>
