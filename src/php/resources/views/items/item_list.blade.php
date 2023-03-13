@@ -16,13 +16,13 @@
         </ul>
     </div>
     @endif
-    <div class="panel panel-default">
+    {{-- <div class="panel panel-default">
     <div class="panel-heading">
         <div class="panel-title">商品を検索する</div>
       </div>
       <div class="panel-body">
 
-        <form  action="/search" class="form-horizontal" >
+        <form  action="/search" class="form-horizontal" >     
           @csrf
           <div class="form-group">
             <label for="code" class="control-label col-sm-2">キーワード</label>
@@ -40,7 +40,7 @@
           </div>
         </form>
       </div>
-    </div>
+    </div> --}}
   </div>
 </div>
 <div class="row">
@@ -60,7 +60,7 @@
           @endforeach
         </tr>
       </tbody>
-     </table>
+      </table>
     <!-- ページングボタン -->
     <div class="text-center">
       {{ $items->withQueryString()->links() }}

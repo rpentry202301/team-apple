@@ -4,7 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Models\Item;
 use App\Models\Topping;
+use App\Models\User;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
+use App\Models\Models\PrimaryCategory;
+use App\Models\Models\SecondaryCategory;
+use Illuminate\Support\Facades\Validator;
+use App\Http\Requests\KeyWordRequest;
+
+
 
 class ItemsController extends Controller
 {
@@ -18,12 +29,34 @@ class ItemsController extends Controller
      * @return 商品一覧画面
      */
 
-    public function showItems(Request $request)
+    public function showItems(KeyWordRequest $request)
     {
 
         $query = Item::query();
 
 
+        // カテゴリで絞り込み
+        if ($request->filled('category')) {
+            list($categoryType, $categoryID) = explode(':', $request->input('category'));
+
+            if ($categoryType === 'primary') {
+                $query->whereHas('secondaryCategories', function ($query) use ($categoryID) {
+                    $query->where('primary_category_id', $categoryID);
+                });
+            } else if ($categoryType === 'secondary') {
+                $query->where('secondary_category_id', $categoryID);
+            }
+
+            //キーワード検索
+            if ($request->filled('keyword')) {
+                $keyword = '%' . $this->escape($request->input('keyword')) . '%';
+                $query->where(function ($query) use ($keyword) {
+                    $query->where('name', 'LIKE', $keyword);
+                    $query->orWhere('description', 'LIKE', $keyword);
+                });
+            }
+        }
+        //
         $items = $query->orderBy('price_m', 'asc')
             ->paginate(4);
 
@@ -45,36 +78,6 @@ class ItemsController extends Controller
             ['\\\\', '\\%', '\\_'],
             $value
         );
-    }
-
-    public function searchItems(Request $request)
-    {
-
-        $query = Item::query();
-
-        $validated = $request->validate([
-            'keyword' => 'required|max:100',
-        ],
-        [
-            'keyword.required' => 'キーワードは必須です。',
-            'keyword.max' => 'キーワードは最大100文字です',
-     ]);
-
-
-        //キーワード検索機能の実装
-        if ($request->filled('keyword')) {
-            $keyword = '%' . $this->escape($request->input('keyword')) . '%';
-            $query->where(function ($query) use ($keyword) {
-                $query->where('name', 'LIKE', $keyword);
-                $query->orWhere('description', 'LIKE', $keyword);
-            });
-        }
-
-        $items = $query->orderBy('price_m', 'asc')
-            ->paginate(5);
-
-        return view('items.item_list')
-            ->with('items', $items);
     }
 
     /**
