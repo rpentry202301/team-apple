@@ -3,7 +3,30 @@
 /* ========================================
     ヘッダーの設定
    ======================================== */
-
 .navbar {
-    height: 400px; /* 好きな高さを指定 */
+    height: 100px; /* 好きな高さを指定 */
+    background-color: black !important;
+}
+
+a.navbar-link{
+    font-family: 'League Gothic', sans-serif;
+    font-family: 'Rajdhani', sans-serif;
+    font-family: 'Secular One', sans-serif;
+    font-size: larger;
+    padding-top: 100px !important;
+    color: white !important;
+}
+
+.navbar-text{
+    margin-left:700px !important;
+    margin-top: 40px;
+}
+
+.header-logo{
+    margin-top: -5px !important;
+    margin-bottom: 100px !important;
+}
+
+.panel-body{
+    margin: auto !important;
 }
