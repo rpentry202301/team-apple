@@ -28,7 +28,7 @@
                                 @foreach ($categories as $category)
                                     {{-- <option value="primary:{{$category->id}}" class="font-weight-bold" {{ $defaults['category'] == "primary:" . $category->id ? 'selected' : ''}}>{{$category->name}}</option> --}}
                                     @foreach ($category->secondaryCategories as $secondary)
-                                <option value="secondary:{{$secondary->id}}" {{ $defaults['category'] == "secondary:" . $secondary->id ? 'selected' : ''}}> {{$secondary->name}}</option>
+                                         <option value="secondary:{{$secondary->id}}">　{{$secondary->name}}</option>
                                 @endforeach
                                 @endforeach
                             </select>
