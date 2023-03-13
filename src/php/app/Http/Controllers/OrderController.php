@@ -12,13 +12,23 @@ use App\Models\Topping;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use App\Http\Controllers\BaseController;
 
-class OrderController extends Controller
+class OrderController extends BaseController
 {
+
+    
 
     public function showOrderConfirm()
     {
-        return view('order.order_confirm');
+        $cartItems = $this->getCartItems();
+        $data = [
+            'items' => $cartItems['items'],
+            'toppings' => $cartItems['toppings'],
+            'total_price' => $cartItems['total_price'],
+            'tax' => $cartItems['tax'],
+        ];
+        return view('order.order_confirm', $data);
     }
 
     public function buyOrderItems()
@@ -107,6 +117,7 @@ class OrderController extends Controller
         //$cartItems = CartItem::where('user_id', Auth::user()->id)->get();
 
 
+        //orderITemとヒヒもつけるなら
         foreach ($cartToppings as $cartTopping) {
             $orderTopping = new OrderTopping;
 
