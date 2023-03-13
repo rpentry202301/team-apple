@@ -26,5 +26,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ItemSeeder::class);
         $this->call(ToppingSeeder::class);
         $this->call(UserSeeder::class);
+        //$this->call(AddressSeeder::class);
+
     }
 }
