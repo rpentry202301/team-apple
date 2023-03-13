@@ -106,7 +106,7 @@
     <div class="row">
       <div class="col-xs-offset-2 col-xs-10">
         <div class="form-group">
-          <span>合計金額は</span><span id="total-price">{{$item->price_m}}</span><span>円です</span>
+          <span>この商品の合計金額は</span><span id="total-price">{{$item->price_m}}</span><span>円です</span>
         </div>
       </div>
     </div>
