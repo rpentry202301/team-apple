@@ -41,10 +41,10 @@ class Header extends Component
 
 
         //検索条件の取得
-        $defaults = [
-            'category' => Request::input('category', ''),
-            'keyword' => Request::input('keyword'),
-        ];
+         $defaults = [
+             'category' => Request::input('category', ''),
+             'keyword'  => Request::input('keyword', ''),
+         ];
 
         //検索条件をViewに返す
         return view('components.header')
