@@ -36,6 +36,7 @@ class OrderController extends BaseController
         $request = BuyRequest::capture();
         $this->saveDeliveryInformation($request);
         $this->saveOrderItems();
+        // $this->deleteCart();
 
         return view('order.order_complete');
     }
@@ -109,8 +110,6 @@ class OrderController extends BaseController
             $orderItem->order_name = $cartItem->item->name;
             $orderItem->save();
         }
-
-
         
         $cartToppings = CartTopping::where('user_id', Auth::user()->id)->get(); //cartitemと紐付け？でも誰のカートかわかる？
         $topping = Topping::all();
@@ -132,19 +131,25 @@ class OrderController extends BaseController
             } else {
                 $orderTopping->order_topping_price = $cartTopping->total_topping_price;;
             }
-            // dd($orderTopping);
-            $orderTopping->save();
-        }
-        // //OrderToppingの価格をDBに格納する処理
-        // foreach ($cartItems as $cartItem) {
-        //     if ($cartItem->size === 'M') {
 
-        //         $orderTopping->order_topping_price = $topping->price_m;
-        //     } else {
-        //         $orderTopping->order_topping_price = $topping->price_l;
-        //     }
-        //     $orderTopping->save();
-        // }
+            //カートの中身とセッション情報の削除
+            CartTopping::where('user_id', Auth::user()->id)->delete();
+            CartItem::where('user_id', Auth::user()->id)->delete();
+            Cart::where('user_id', Auth::user()->id)->delete();
+
+            session()->forget('cart');
+
+            $orderTopping->save();
+
+        }
+
+    }
+
+    public function deleteCart()
+    {
+      
+
+
     }
 
     public function showOrderComplete()
