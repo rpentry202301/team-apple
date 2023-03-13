@@ -18,4 +18,5 @@ class PrimaryCategory extends Model
     {
         return $this->hasMany(Item::class);
     }
+
 }

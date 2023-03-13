@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+
         $this->call(PrimaryCategorySeeder::class);
         $this->call(SecondaryCategorySeeder::class);
         $this->call(ItemSeeder::class);

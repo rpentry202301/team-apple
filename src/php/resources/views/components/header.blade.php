@@ -51,7 +51,6 @@
                     <p class="navbar-text navbar-right">
                         <a href="{{route('cart')}}" class="navbar-link">ショッピングカート</a>&nbsp;&nbsp;
                         <!--注文履歴は機能実装後ルーティングを追加-->
-
                     <a href="order_history.html" class="navbar-link">注文履歴</a>&nbsp;&nbsp;
 
                     @guest

@@ -26,6 +26,7 @@ class KeyWordRequest extends FormRequest
         return [
 
             'keyword' => ['max:100'],
+
         ];
     }
 

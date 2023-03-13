@@ -16,4 +16,5 @@ class SecondaryCategory extends Model
     {
         return $this->hasMany(Item::class);
     }
+
 }

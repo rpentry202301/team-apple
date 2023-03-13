@@ -49,6 +49,7 @@ class ItemsController extends Controller
 
             if ($categoryType === 'primary') {
                 $query->whereHas('secondaryCategory', function ($query) use ($categoryID) {
+
                     $query->where('primary_category_id', $categoryID);
                 });
             } else if ($categoryType === 'secondary') {
