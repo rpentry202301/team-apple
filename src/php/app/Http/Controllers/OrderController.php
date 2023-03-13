@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Http\Controllers;
+
 use App\Http\Requests\Order\BuyRequest;
 use App\Models\Cart;
 use App\Models\CartItem;
@@ -17,7 +19,7 @@ use App\Http\Controllers\BaseController;
 class OrderController extends BaseController
 {
 
-    
+
 
     public function showOrderConfirm()
     {
@@ -43,15 +45,44 @@ class OrderController extends BaseController
 
     private function saveDeliveryInformation(BuyRequest $request)
     {
+        $validated = $request->validate(
+            [
+                'destination_name' => 'required|max:100',
+                'destination_email' => 'required|max:100',
+                'destination_zipcode' => 'required|max:7',
+                'destination_zipcode' => 'required|min:7',
+                'destination_prefectures' => 'required|max:100',
+                'destination_municipalities' => 'required|max:100',
+                'destination_address_line1' => 'required|max:100',
+                // 'destination_address_line2' => 'required|max:100',
+                'destination_tell' => 'required|max:15',
+
+            ],
+            [
+                'destination_name.required' => 'お名前を入力してください。',
+                'destination_name.max' => 'お名前は最大100文字です',
+                'destination_email.required' => 'メールアドレスを入力してください。',
+                'destination_email.max' => 'メールアドレスは最大100文字です',
+                'destination_zipcode.required' => '郵便番号を入力してください。',
+                'destination_zipcode.min' => '郵便番は7文字です',
+                'destination_zipcode.max' => '郵便番は最大7文字です',
+                'destination_prefectures.required' => '都道府県を入力してください。',
+                'destination_prefectures.max' => '都道府県は最大100文字です',
+                'destination_municipalities.required' => '市区町村を入力してください。',
+                'destination_municipalities.max' => '市区町村は最大100文字です',
+                'destination_address_line1.required' => '番地を入力してください。',
+                'destination_address_line1.max' => '番地は最大100文字です',
+                // 'destination_address_line2.required' => '建物名を入力してください。',
+                // 'destination_address_line2.max' => 'お名前は最大100文字です',
+                'destination_tell.required' => '電話番号を入力してください。',
+                'destination_tell.max' => '電話番号は最大15文字です',
+            ]
+        );
+
         $order = new Order;
 
-        //ログインしたユーザIDが必要なため動作未確認の
         $user_id = Auth::id();
         $order->user_id = $user_id;
-        
-        $delivery_date = $request->input('delivery_date');
-        $delivery_time = $request->input('delivery_time');
-        $time = $delivery_date .  ' ' . $delivery_time;
 
         $order->destination_name = $request->input('destination_name');
         $order->destination_email = $request->input('destination_email');
@@ -61,14 +92,10 @@ class OrderController extends BaseController
         $order->destination_address_line1 = $request->input('destination_address_line1');
         $order->destination_address_line2 = $request->input('destination_address_line2');
         $order->destination_tell = $request->input('destination_tell');
+        $delivery_date = $request->input('delivery_date');
+        $delivery_time = $request->input('delivery_time');
+        $time = $delivery_date .  ' ' . $delivery_time;
         $order->delivery_time = $time;
-
-        // 注文商品のtotal_priceを取得し代入する必要
-        
-        // $cart = Cart::where('user_id', Auth::user()->id)->first();
-        // $cart = new Cart();
-        // $totalprice = $cart->total_price();
-
 
         $cart = Cart::where('user_id', Auth::user()->id)->first();
         $order->total_price = $cart->total_price;
@@ -86,21 +113,18 @@ class OrderController extends BaseController
 
         $cartItems = CartItem::where('user_id', Auth::user()->id)->get();
         $item = Item::all();
-        $order = Order::where('user_id', Auth::user()->id)->orderBy('id','desc')->first();
-        //desc でOrderいd主tpく
+        $order = Order::where('user_id', Auth::user()->id)->orderBy('id', 'desc')->first();
 
         foreach ($cartItems as $cartItem) {
             $orderItem = new OrderItem;
-            
 
-            //Itemテーブルを経由しなくていける？
             $orderItem->item_id =  $cartItem->item_id;
             $orderItem->order_id = $order->id;
             $orderItem->quantity =  $cartItem->quantity;
             $orderItem->size =  $cartItem->size;
 
 
-            
+
             if ($cartItem->size === 'M') {
                 $orderItem->order_price = $cartItem->order_price;
             } else {
@@ -110,21 +134,17 @@ class OrderController extends BaseController
             $orderItem->order_name = $cartItem->item->name;
             $orderItem->save();
         }
-        
+
         $cartToppings = CartTopping::where('user_id', Auth::user()->id)->get(); //cartitemと紐付け？でも誰のカートかわかる？
         $topping = Topping::all();
-        //$cartItems = CartItem::where('user_id', Auth::user()->id)->get();
 
-
-        //orderITemとヒヒもつけるなら
         foreach ($cartToppings as $cartTopping) {
             $orderTopping = new OrderTopping;
 
-            //Itemテーブルを経由しなくていける？
             $orderTopping->topping_id =  $cartTopping->topping_id;
             $orderTopping->order_item_id =  $cartTopping->cart_item_id;
-            
-            $orderTopping->order_topping_name =  $cartTopping->topping->name;//なぜうまくいく？
+
+            $orderTopping->order_topping_name =  $cartTopping->topping->name;
 
             if ($cartItem->size === 'M') {
                 $orderTopping->order_topping_price = $cartTopping->total_topping_price;
@@ -140,16 +160,11 @@ class OrderController extends BaseController
             session()->forget('cart');
 
             $orderTopping->save();
-
         }
-
     }
 
     public function deleteCart()
     {
-      
-
-
     }
 
     public function showOrderComplete()

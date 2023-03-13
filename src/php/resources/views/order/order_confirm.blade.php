@@ -47,21 +47,20 @@
         </nav>
 
 
- @include('components.cart_list')
+        @include('components.cart_list')
 
-    
 
-  @section('content')
 
-    @component('components.cart_list', [
-    'items' => $items,
-    'toppings' => $toppings,
-    'tax' => $tax,
-    'total_price' => $total_price
-    ])
-    @endcomponent
-    @endsection
-{{-- 
+        @section('content')
+            @component('components.cart_list', [
+                'items' => $items,
+                'toppings' => $toppings,
+                'tax' => $tax,
+                'total_price' => $total_price,
+            ])
+            @endcomponent
+        @endsection
+        {{-- 
 @extends('layouts.app')
 
 @section('content')
@@ -84,54 +83,96 @@
                         <tbody>
                             <tr>
                                 <td>
+
                                     <div class="text-center">お名前</div>
                                 </td>
                                 <td>
-                                    <input type="text" name='destination_name' />
+                                    @if ($errors->has('destination_name'))
+                                        <div style="color: red">
+                                            <strong>{{ $errors->first('destination_name') }}
+                                        </div>
+                                    @endif
+                                    <input type="text" name='destination_name'
+                                        value="{{ old('destination_name') }}" />
                                 </td>
+
                             </tr>
                             <tr>
                                 <td>
+
                                     <div class="text-center">メールアドレス</div>
                                 </td>
                                 <td>
-                                    <input type="text" name='destination_email' />
+                                    @if ($errors->has('destination_email'))
+                                        <div style="color: red">
+                                            <strong>{{ $errors->first('destination_email') }}
+                                        </div>
+                                    @endif
+                                    <input type="text" name='destination_email'
+                                        value="{{ old('destination_email') }}" />
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <div class="text-center">郵便番号</div>
+
+                                    <div class="text-center">郵便番号 (例：0001111)</div>
                                 </td>
                                 <td>
-                                    <input type="text" name='destination_zipcode'
-                                        id="zip" />&nbsp;&nbsp;<button class="api-address"
-                                        type="button">住所検索</button>
+                                    @if ($errors->has('destination_zipcode'))
+                                        <div style="color: red">
+                                            <strong>{{ $errors->first('destination_zipcode') }}
+                                        </div>
+                                    @endif
+                                    <input type="text" name='destination_zipcode' id="zip"
+                                        value="{{ old('destination_zipcode') }}" />&nbsp;&nbsp;<button
+                                        class="api-address" type="button">住所検索</button>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
+
                                     <div class="text-center">都道府県</div>
                                 </td>
                                 <td>
-                                    <input type="text" name='destination_prefectures' id="destination_prefectures" />
+                                    @if ($errors->has('destination_prefectures'))
+                                        <div style="color: red">
+                                            <strong>{{ $errors->first('destination_prefectures') }}
+                                        </div>
+                                    @endif
+                                    <input type="text" name='destination_prefectures' id="destination_prefectures"
+                                        value="{{ old('destination_prefectures') }}" />
                                 </td>
                             </tr>
                             <tr>
                                 <td>
+
                                     <div class="text-center">市区町村</div>
                                 </td>
                                 <td>
+                                    @if ($errors->has('destination_municipalities'))
+                                        <div style="color: red">
+                                            <strong>{{ $errors->first('destination_municipalities') }}
+                                        </div>
+                                    @endif
                                     <input type="text" name='destination_municipalities'
-                                        id="destination_municipalities" />
+                                        id="destination_municipalities"
+                                        value="{{ old('destination_municipalities') }}" />
                                 </td>
                             </tr>
                             <tr>
                                 <td>
+
                                     <div class="text-center">番地</div>
                                 </td>
                                 <td>
+                                    @if ($errors->has('destination_address_line1'))
+                                        <div style="color: red">
+                                            <strong>{{ $errors->first('destination_address_line1') }}
+                                        </div>
+                                    @endif
                                     <input type="text" name='destination_address_line1'
-                                        id="destination_address_line1" />
+                                        id="destination_address_line1"
+                                        value="{{ old('destination_address_line1') }}" />
                                 </td>
                             </tr>
                             <tr>
@@ -139,15 +180,23 @@
                                     <div class="text-center">建物名</div>
                                 </td>
                                 <td>
-                                    <input type="text" name='destination_address_line2' />
+                                    <input type="text" name='destination_address_line2'
+                                        value="{{ old('destination_address_line2') }}" />
                                 </td>
                             </tr>
                             <tr>
                                 <td>
+
                                     <div class="text-center">電話番号</div>
                                 </td>
                                 <td>
-                                    <input type="text" name="destination_tell" />
+                                    @if ($errors->has('destination_tell'))
+                                        <div style="color: red">
+                                            <strong>{{ $errors->first('destination_tell') }}
+                                        </div>
+                                    @endif
+                                    <input type="text" name="destination_tell"
+                                        value="{{ old('destination_tell') }}" />
                                 </td>
                             </tr>
                             <tr>
@@ -169,8 +218,8 @@
                                         <div class="row">
                                             <div class="col-sm-12">
                                                 <label class="radio-inline">
-                                                    <input type="radio" name="delivery_time"
-                                                        checked="checked" value="10:00:00" />
+                                                    <input type="radio" name="delivery_time" checked="checked"
+                                                        value="10:00:00" />
                                                     10時
                                                 </label>
                                                 <label class="radio-inline">
@@ -289,6 +338,8 @@
     {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="../static/js/bootstrap.min.js"></script> --}}
 </body>
+
+{{-- 郵便番号から住所を取得する処理 --}}
 <script>
     //イベントリスナの設置：ボタンをクリックしたら反応する
     document.querySelector('.api-address').addEventListener('click', () => {
