@@ -1,9 +1,12 @@
 <?php
 
 namespace App\Providers;
+
+use App\Http\Livewire\LikeButton;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
-use Illuminate\Pagination\Paginator;
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -24,5 +27,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Paginator::useBootstrap();
+        Blade::component('like-button', \App\View\Components\LikeButton::class);
     }
 }

@@ -57,9 +57,7 @@
             <a href="/item/{{$item->id}}">{{$item->name}}</a><br />
             <span class="price">&nbsp;М&nbsp;</span>&nbsp;&nbsp;{{$item->price_m}}(税抜)<br />
             <span class="price">&nbsp;Ｌ</span>&nbsp;&nbsp;{{$item->price_l}}(税抜)<br />
-            @livewireScripts
-            @livewireStyles
-            <livewire:like-button>
+            <x-like-button :item="$item" />
             <div class="row justify-content-center">
               <p>いいね数：{{ $item->users()->count() }}</p>
             </div>
