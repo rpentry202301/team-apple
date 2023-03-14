@@ -42,6 +42,7 @@ class BaseController extends Controller
 
         $cart = Cart::where('user_id', Auth::user()->id)->first();
         $cart->total_price = $total_price;
+        $cart->save();
 
         return [
             'items' => $items,
