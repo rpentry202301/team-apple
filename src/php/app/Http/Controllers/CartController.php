@@ -12,9 +12,23 @@ use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\BaseController;
 use App\Http\Requests\Cart\DeleteRequest;
 
-
 class CartController extends BaseController
 {
+
+    public function showCartItems()
+    {
+        $cartItems = $this->getCartItems();
+        $items = [
+            'items' => $cartItems['items'],
+            'toppings' => $cartItems['toppings'],
+            'total_price' => $cartItems['total_price'],
+            'tax' => $cartItems['tax'],
+        ];
+
+        return view('cart.cart_list', $items);
+    }
+
+
     /** 
      * ショッピングカートに商品を追加
      * @param AddRequest $request リクエスト
@@ -31,7 +45,7 @@ class CartController extends BaseController
         } else {
             $topping_ids = [$topping_value];
         }
-        
+
         // カートに紐づくCartItemテーブルのコレクションを取得
         $items = CartItem::where('cart_id', $cart_id)
             ->where('item_id', $request->input('id'))
@@ -39,7 +53,7 @@ class CartController extends BaseController
             ->join('cart_toppings', 'cart_toppings.cart_item_id', '=', 'cart_items.id')
             ->whereIn('cart_toppings.topping_id', $topping_ids)
             ->get();
- 
+
         $toppings = null; // トッピングがない時にnullのエラーが出てしまうため変数を定義
 
         // カートの中に同じ商品が存在する場合は数量と金額を追加し、存在しない場合は新しくCartItemテーブルを作成
@@ -79,7 +93,7 @@ class CartController extends BaseController
             }
             $item->save();
 
-            if($topping_value != null)  {
+            if ($topping_value != null) {
                 foreach ($topping_ids as $topping_id) {
                     $topping = new CartTopping();
                     $topping->user_id = Auth::user()->id;

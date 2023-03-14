@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 use App\Mail\ContactsSendmail;
+use App\Mail\OrderConfirmationMail;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Mail;
 
 class ContactsController extends Controller
 {
@@ -71,9 +72,9 @@ class ContactsController extends Controller
         // 送信ボタンの場合、送信処理
 
         // ユーザにメールを送信
-        \Mail::to($inputs['email'])->send(new ContactsSendmail($inputs));
-        // 自分にメールを送信
-        \Mail::to('mgasv61856@yahoo.co.jp')->send(new ContactsSendmail($inputs));
+        Mail::to($inputs['email'])->send(new ContactsSendmail($inputs));
+        // 自分(管理者)にメールを送信
+        Mail::to('mgasv61856@yahoo.co.jp')->send(new ContactsSendmail($inputs));
 
         // 二重送信対策のためトークンを再発行
        // $request->session()->regenerateToken();
@@ -82,4 +83,14 @@ class ContactsController extends Controller
         return view('contact.thanks');
     }
 }
+
+public function sendOrderConfirmMail($order,$orderItem){
+    //ユーザーの登録メールアドレスにメールを送信
+    Mail::to($order->user->email)->send(new OrderConfirmationMail($order, $orderItem));
+    //お届け先のメールアドレスに送信
+    Mail::to($order->destination_email)->send(new OrderConfirmationMail($order, $orderItem));
+    //自分（管理者）にメールを送信
+    Mail::to('mgasv61856@yahoo.co.jp')->send(new OrderConfirmationMail($order, $orderItem));
+
+    }
 }
