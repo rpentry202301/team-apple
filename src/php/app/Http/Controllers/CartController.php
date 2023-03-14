@@ -15,6 +15,21 @@ use App\Http\Requests\Cart\DeleteRequest;
 
 class CartController extends BaseController
 {
+
+    public function showCartItems()
+    {
+        $cartItems = $this->getCartItems();
+        $items = [
+            'items' => $cartItems['items'],
+            'toppings' => $cartItems['toppings'],
+            'total_price' => $cartItems['total_price'],
+            'tax' => $cartItems['tax'],
+        ];
+
+        return view('cart.cart_list', $items);
+    }
+
+    
     /** 
      * ショッピングカートに商品を追加
      * @param AddRequest $request リクエスト

@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -54,7 +55,7 @@ class ContactsSendmail extends Mailable
         // メールの設定
         return $this
             ->from('s.nomura.wk@gmail.com')
-            ->subject('pizapple【公式】')
+            ->subject('pizapple【公式】:お問い合わせ内容確認メール')
             ->view('contact.mail')
             ->with([
                 'email' => $this->email,
@@ -63,3 +64,15 @@ class ContactsSendmail extends Mailable
             ]);
     }
 }
+
+
+
+
+// //クーポン機能の下書き
+// $couponCode = CouponUser::DB->where('user_id', Auth::user->id())->CouponCode
+// $inputCode = $request['couponcode'];
+
+// if($couponcode){
+//         if($couponcode == $inputCode)
+// }
+// else{}

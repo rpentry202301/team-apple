@@ -1,17 +1,20 @@
 <?php
 namespace App\Http\Controllers;
-use App\Http\Requests\Order\BuyRequest;
+
 use App\Models\Cart;
-use App\Models\CartItem;
-use App\Models\CartTopping;
 use App\Models\Item;
 use App\Models\Order;
-use App\Models\OrderItem;
-use App\Models\OrderTopping;
 use App\Models\Topping;
+use App\Models\CartItem;
+use App\Models\OrderItem;
+use App\Models\CartTopping;
+use App\Models\OrderTopping;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\Order\BuyRequest;
 use Illuminate\Support\Facades\Session;
+use App\Http\Controllers\ContactsController;
 
 class OrderController extends Controller
 {
@@ -20,13 +23,11 @@ class OrderController extends Controller
     {
         return view('order.order_confirm');
     }
-
     public function buyOrderItems()
     {
         $request = BuyRequest::capture();
         $this->saveDeliveryInformation($request);
         $this->saveOrderItems();
-
         return view('order.order_complete');
     }
 
@@ -66,56 +67,58 @@ class OrderController extends Controller
         $order->payment_method = $request->input('payment_method');
 
         $order->save();
-
+        
+        //注文完了メールを送信する処理を追加
+        
         //return redirect()->route('order.complete');
     }
-
+    
     private function saveOrderItems()
     {
-
+        
         $cartItems = CartItem::where('user_id', Auth::user()->id)->get();
         $item = Item::all();
         $order = Order::where('user_id', Auth::user()->id)->orderBy('id','desc')->first();
         //desc でOrderいd主tpく
-
+        
         foreach ($cartItems as $cartItem) {
             $orderItem = new OrderItem;
             
-
+            
             //Itemテーブルを経由しなくていける？
             $orderItem->item_id =  $cartItem->item_id;
             $orderItem->order_id = $order->id;
             $orderItem->quantity =  $cartItem->quantity;
             $orderItem->size =  $cartItem->size;
-
-
+            
+            
             
             if ($cartItem->size === 'M') {
                 $orderItem->order_price = $cartItem->order_price;
             } else {
                 $orderItem->order_price = $cartItem->order_price;
             }
-
+            
             $orderItem->order_name = $cartItem->item->name;
             $orderItem->save();
         }
-
-
+        
+        
         
         $cartToppings = CartTopping::where('user_id', Auth::user()->id)->get(); //cartitemと紐付け？でも誰のカートかわかる？
         $topping = Topping::all();
         //$cartItems = CartItem::where('user_id', Auth::user()->id)->get();
-
-
+        
+        
         foreach ($cartToppings as $cartTopping) {
             $orderTopping = new OrderTopping;
-
+            
             //Itemテーブルを経由しなくていける？
             $orderTopping->topping_id =  $cartTopping->topping_id;
             $orderTopping->order_item_id =  $cartTopping->cart_item_id;
             
             $orderTopping->order_topping_name =  $cartTopping->topping->name;//なぜうまくいく？
-
+            
             if ($cartItem->size === 'M') {
                 $orderTopping->order_topping_price = $cartTopping->total_topping_price;
             } else {
@@ -126,18 +129,31 @@ class OrderController extends Controller
         }
         // //OrderToppingの価格をDBに格納する処理
         // foreach ($cartItems as $cartItem) {
-        //     if ($cartItem->size === 'M') {
+            //     if ($cartItem->size === 'M') {
+                
+                //         $orderTopping->order_topping_price = $topping->price_m;
+                //     } else {
+                    //         $orderTopping->order_topping_price = $topping->price_l;
+                    //     }
+                    //     $orderTopping->save();
+                    // }
+                    $this->couponMailSend($order);
+                }
+                
+                public function showOrderComplete()
+                {
+                    return view('order.order_complete');
+                }
+                
+                private function  couponMailSend($order)
+                {
 
-        //         $orderTopping->order_topping_price = $topping->price_m;
-        //     } else {
-        //         $orderTopping->order_topping_price = $topping->price_l;
-        //     }
-        //     $orderTopping->save();
-        // }
-    }
+                    //クーポンを保存するメソッド
+                    //注文完了メールを送信する処理
 
-    public function showOrderComplete()
-    {
-        return view('order.order_complete');
-    }
+                    $orderItems = DB::table('order_items')->where('order_id', $order->id)->get();
+                    $contactsController = new ContactsController();
+                    $contactsController->sendOrderConfirmMail($order, $orderItems);
+              }
+
 }
