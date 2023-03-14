@@ -6,9 +6,12 @@ use App\Models\Cart;
 use App\Models\CartItem;
 use App\Models\CartTopping;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use App\Http\Requests\Cart\DeleteRequest;
 use Illuminate\Support\Facades\Auth;
+
+
 
 class BaseController extends Controller
 {
@@ -51,6 +54,9 @@ class BaseController extends Controller
             'tax' => $tax,
         ];
     }
+
+    // }
+
 
     /**
      * ショッピングカートの商品を削除

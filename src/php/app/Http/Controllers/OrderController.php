@@ -2,18 +2,22 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Http\Requests\Order\BuyRequest;
 use App\Models\Cart;
-use App\Models\CartItem;
-use App\Models\CartTopping;
 use App\Models\Item;
 use App\Models\Order;
-use App\Models\OrderItem;
-use App\Models\OrderTopping;
 use App\Models\Topping;
+use App\Models\CartItem;
+use App\Models\OrderItem;
+use App\Models\CartTopping;
+use App\Models\OrderTopping;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\Order\BuyRequest;
 use Illuminate\Support\Facades\Session;
+use App\Http\Controllers\ContactsController;
 use App\Http\Controllers\BaseController;
 use App\Models\Coupon;
 
@@ -24,12 +28,17 @@ use App\Models\User;
 class OrderController extends BaseController
 {
 
+    public function showOrderConfirm()
+    {
+        return view('order.order_confirm');
+    }
 
     public function buyOrderItems()
     {
         $request = BuyRequest::capture();
         $this->saveDeliveryInformation($request);
         $this->saveOrderItems();
+
         // $this->deleteCart();
         // $this->makeCoupon();
         $this->firstMakeCoupon();
@@ -221,33 +230,34 @@ class OrderController extends BaseController
         $order->payment_method = $request->input('payment_method');
 
         $order->save();
-
+        
+        //注文完了メールを送信する処理を追加
+        
         //return redirect()->route('order.complete');
     }
-
+    
     private function saveOrderItems()
     {
-
+        
         $cartItems = CartItem::where('user_id', Auth::user()->id)->get();
         $item = Item::all();
+      
+
         $order = Order::where('user_id', Auth::user()->id)->orderBy('id', 'desc')->first();
 
         foreach ($cartItems as $cartItem) {
             $orderItem = new OrderItem;
-
             $orderItem->item_id =  $cartItem->item_id;
             $orderItem->order_id = $order->id;
             $orderItem->quantity =  $cartItem->quantity;
             $orderItem->size =  $cartItem->size;
-
-
-
+          
             if ($cartItem->size === 'M') {
                 $orderItem->order_price = $cartItem->order_price;
             } else {
                 $orderItem->order_price = $cartItem->order_price;
             }
-
+            
             $orderItem->order_name = $cartItem->item->name;
             $orderItem->save();
         }
@@ -278,6 +288,36 @@ class OrderController extends BaseController
 
             $orderTopping->save();
         }
+        // //OrderToppingの価格をDBに格納する処理
+        // foreach ($cartItems as $cartItem) {
+            //     if ($cartItem->size === 'M') {
+                
+                //         $orderTopping->order_topping_price = $topping->price_m;
+                //     } else {
+                    //         $orderTopping->order_topping_price = $topping->price_l;
+                    //     }
+                    //     $orderTopping->save();
+                    // }
+                    $this->couponMailSend($order);
+                }
+                
+                public function showOrderComplete()
+                {
+                    return view('order.order_complete');
+                }
+                
+                private function  couponMailSend($order)
+                {
+
+                    //クーポンを保存するメソッド
+                    //注文完了メールを送信する処理
+
+                    $orderItems = DB::table('order_items')->where('order_id', $order->id)->get();
+                    $contactsController = new ContactsController();
+                    $contactsController->sendOrderConfirmMail($order, $orderItems);
+              }
+
+}
     }
 
     public function deleteCart()
