@@ -53,4 +53,9 @@ class User extends Authenticatable
     {
         return $this->belongsto(Cart::class);
     }
+
+    public function favorites()
+    {
+      return $this->belongsToMany(Item::class)->withTimestamps();
+    }
 }
