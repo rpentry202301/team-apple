@@ -8,6 +8,7 @@ use App\Models\CartTopping;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use App\Http\Requests\Cart\DeleteRequest;
+use Illuminate\Support\Facades\Auth;
 
 class BaseController extends Controller
 {
@@ -31,7 +32,7 @@ class BaseController extends Controller
         $tax = (int)Cart::calculateTax($total_price); // 消費税を計算
         $total_price += $tax; // 消費税を合計金額に上乗せ
 
-            
+
         // return view('cart.cart_list', [
         //     'items' => $items,
         //     'toppings' => $toppings,
@@ -39,13 +40,16 @@ class BaseController extends Controller
         //     'tax' => $tax,
         // ],);
 
-          return [
-        'items' => $items,
-        'toppings' => $toppings,
-        'total_price' => $total_price,
-        'tax' => $tax,
-    ];
+        $cart = Cart::where('user_id', Auth::user()->id)->first();
+        $cart->total_price = $total_price;
+        $cart->save();
 
+        return [
+            'items' => $items,
+            'toppings' => $toppings,
+            'total_price' => $total_price,
+            'tax' => $tax,
+        ];
     }
 
     /**
@@ -61,7 +65,7 @@ class BaseController extends Controller
         // 関連するCartToppingsテーブルのレコードを削除する
         CartTopping::where('cart_item_id', $item_id)->delete();
         CartItem::where('id', $item_id)->delete();
-        
+
 
         // カート画面にリダイレクト
         return redirect(route('cart'));

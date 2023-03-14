@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-カートリスト
+    カートリスト
 @endsection
 
 @section('content')

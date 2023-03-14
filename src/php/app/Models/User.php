@@ -53,4 +53,10 @@ class User extends Authenticatable
     {
         return $this->belongsto(Cart::class);
     }
+
+    // UserモデルとUserCouponモデルを関連付ける
+    public function userCoupons()
+    {
+        return $this->hasMany(UserCoupon::class);
+    }
 }

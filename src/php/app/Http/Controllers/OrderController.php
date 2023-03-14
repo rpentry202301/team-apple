@@ -15,10 +15,127 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\BaseController;
+use App\Models\Coupon;
+
+use App\Models\UserCoupon;
+use App\Models\User;
+
 
 class OrderController extends BaseController
 {
 
+
+    public function buyOrderItems()
+    {
+        $request = BuyRequest::capture();
+        $this->saveDeliveryInformation($request);
+        $this->saveOrderItems();
+        // $this->deleteCart();
+        // $this->makeCoupon();
+        $this->firstMakeCoupon();
+
+        return view('order.order_complete');
+    }
+
+    public function showDeliveryForm()
+    {
+        $items = $this->getCartItems();
+        // ログインユーザーのUserレコードを取得
+        // dd(Auth::id());
+        $user = User::where('id', Auth::id())->first();
+
+        // dd($user);
+
+        // Userレコードが存在すれば、お届け先入力フォームに渡すデータを作成
+        if ($user) {
+            $data = [
+                'zipcode' => $user->zipcode,
+                'prefecture' => $user->prefecture,
+                'municipalities' => $user->municipalities,
+            ];
+        } else {
+            $data = [
+                'zipcode' => '',
+                'prefecture' => '',
+                'municipalities' => '',
+            ];
+        }
+        //
+
+        // // else {
+        // //     $data = null;
+        // // }
+
+
+        // dd($data);
+        return view('order.order_confirm')->with('items', $items)->with('data', $data);
+
+        //この$itemsがないとボタンを押した時にエラーになるため、呼び出し、値の受け渡しはできている
+        //$itemsは渡せるのに＄dataは渡せない
+    }
+
+    public function firstMakeCoupon()
+    {
+        $coupon = Coupon::first(); //今は一つしかないため
+        $user_id = Auth::id();
+
+        //クーポンを持っているユーザの取得
+        $userCoupon = UserCoupon::where('user_id', Auth::user()->id)->first();
+
+        // 初回クーポンの付与
+        if ($userCoupon === null) {
+            $userCoupon = new UserCoupon([
+                'user_id' => $user_id,
+            ]);
+            $userCoupon->coupon_id = $coupon->id; //クーポンが一種類のみ対応
+
+            $userCoupon->save();
+        }
+
+
+        //使用処理
+        // else {
+        //     $cart = Cart::where('user_id', Auth::user()->id)->first();
+        //     $cart->total_price = ($cart->total_price * 0.9);
+
+        //     //クーポンの削除
+        //     UserCoupon::where('user_id', Auth::user()->id)->delete();
+
+        //     return redirect(route('order.confirm', $cart)); //全部渡さないといけない？
+        // }
+    }
+
+    public function secondMakeCoupon()
+    {
+        $userCoupon = UserCoupon::where('user_id', Auth::user()->id)->first();
+        if ($userCoupon->coupon_id === 1) {
+            $userCoupon = new UserCoupon([
+                'user_id' => $user_id,
+            ]);
+        }
+    }
+
+    // public function makeCoupon()
+    // {
+    //     $coupon = Coupon::all();
+    //     $user_id = Auth::id();
+
+
+    //     // ユーザーが既にクーポンを持っているかどうかを確認する
+    //     $userCoupon = UserCoupon::where('user_id', Auth::user()->id)->first();
+
+    //     //持ってる人の場合
+
+    //     //持っていない人の場合
+    //     if ($userCoupon === null) {
+    //         $userCoupon = new UserCoupon([
+    //             'user_id' => $user_id,
+    //             'coupon_id' => '1',
+    //         ]);
+    //         $userCoupon->save();
+
+    //     }
+    // }
 
 
     public function showOrderConfirm()
@@ -30,18 +147,10 @@ class OrderController extends BaseController
             'total_price' => $cartItems['total_price'],
             'tax' => $cartItems['tax'],
         ];
-        return view('order.order_confirm', $data);
+        return view('order.order_confirm')->with('items', $data);
     }
 
-    public function buyOrderItems()
-    {
-        $request = BuyRequest::capture();
-        $this->saveDeliveryInformation($request);
-        $this->saveOrderItems();
-        // $this->deleteCart();
 
-        return view('order.order_complete');
-    }
 
     private function saveDeliveryInformation(BuyRequest $request)
     {

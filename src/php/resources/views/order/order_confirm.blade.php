@@ -28,7 +28,18 @@
                     <tbody>
                         <tr>
                             <td>
-
+        {{-- {{ $data['zipcode'] }} --}}
+        <!-- table -->
+        <form action="{{ route('order.buy') }}" method="POST">
+            @csrf
+            <div class="row">
+                <div class="table-responsive col-lg-offset-3 col-lg-6 col-md-offset-1 col-md-10 col-sm-10 col-xs-12">
+                    <h3 class="text-center">お届け先情報</h3>
+                    <a href="{{ route('order.address') }}"><button type="button">お届け先所得</button></a>
+                    <table class="table table-striped item-list-table">
+                        <tbody>
+                            <tr>
+                                <td>
                                 <div class="text-center">お名前</div>
                             </td>
                             <td>
@@ -57,37 +68,38 @@
                         </tr>
                         <tr>
                             <td>
+                                    <div class="text-center">郵便番号 (例：0001111)</div>
+                                </td>
+                                <td>
+                                    @if ($errors->has('destination_zipcode'))
+                                        <div style="color: red">
+                                            <strong>{{ $errors->first('destination_zipcode') }}
+                                        </div>
+                                    @endif
+                                    {{-- {{ $data }} --}}
+                                    {{-- {{ $items }} --}}
+                                    <input type="text" name='destination_zipcode' id="zip"
+                                        value="{{ $data['zipcode'] ?? old('destination_zipcode') }}" />&nbsp;&nbsp;<button
+                                        class="api-address" type="button">住所検索</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
 
-                                <div class="text-center">郵便番号 (例：0001111)</div>
-                            </td>
-                            <td>
-                                @if ($errors->has('destination_zipcode'))
-                                <div style="color: red">
-                                    <strong>{{ $errors->first('destination_zipcode') }}
-                                </div>
-                                @endif
-                                <input type="text" name='destination_zipcode' id="zip"
-                                    value="{{ old('destination_zipcode') }}" />&nbsp;&nbsp;<button class="api-address"
-                                    type="button">住所検索</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-
-                                <div class="text-center">都道府県</div>
-                            </td>
-                            <td>
-                                @if ($errors->has('destination_prefectures'))
-                                <div style="color: red">
-                                    <strong>{{ $errors->first('destination_prefectures') }}
-                                </div>
-                                @endif
-                                <input type="text" name='destination_prefectures' id="destination_prefectures"
-                                    value="{{ old('destination_prefectures') }}" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
+                                    <div class="text-center">都道府県</div>
+                                </td>
+                                <td>
+                                    @if ($errors->has('destination_prefectures'))
+                                        <div style="color: red">
+                                            <strong>{{ $errors->first('destination_prefectures') }}
+                                        </div>
+                                    @endif
+                                    <input type="text" name='destination_prefectures' id="destination_prefectures"
+                                        value="{{ $data['prefecture'] ?? old('destination_prefectures') }}" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
 
                                 <div class="text-center">市区町村</div>
                             </td>
