@@ -47,172 +47,31 @@
         </nav>
 
 
-        {{-- <div class="row">
-            <div class="table-responsive col-lg-offset-1 col-lg-10 col-md-offset-1 col-md-10 col-sm-10 col-xs-12">
-                <h3 class="text-center">ショッピングカート</h3>
-                @if (count($items) == 0)
-                    <p><strong>カートに商品が存在しません</strong></p>
-                @else
-                    <table class="table table-striped item-list-table">
-                        <tbody>
-                            @foreach ($items as $item)
-                                <tr>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="center">
-                                            <img src="../images/1.jpg"
-                                                class="img-responsive img-rounded item-img-center" width="100"
-                                                height="300" /><br />
-                                            {{ $item->item->name }}
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <span
-                                            class="price">&nbsp;{{ $item->size }}</span>&nbsp;&nbsp;{{ $item->order_price ? $item->order_price : 'No topping' }}円
-                                        &nbsp;&nbsp;{{ $item->quantity }}個
-                                    </td>
-                                    <td>
-                                        <ul class="list-unstyled">
-                                            @foreach ($item->cartToppings as $cartTopping)
-                                                <li>{{ $cartTopping->topping ? $cartTopping->topping->name : 'No topping' }}
-                                                </li>
-                                        </ul>
-                                    <td>
-                                        <div class="text-center">{{ $cartTopping->total_topping_price }}円</div>
-                            @endforeach
-                            </td>
-                            </td>
-                            <td>
-                                <form method="POST" action="{{ route('cart.delete') }}">
-                                    @csrf
-                                    <div class="text-center">
-                                        <input type="hidden" name="id" value="{{ $item->id }}">
-                                        <button type="submit" class="btn btn-primary">削除</button>
-                                    </div>
-                                </form>
-                            </td>
-                            </tr>
-                        </tbody>
-                @endforeach
-                </table>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-xs-offset-2 col-xs-8">
-                <div class="form-group text-center">
-                    <span id="total-price">消費税：{{ $tax }}円</span><br />
-                    <span id="total-price">ご注文金額合計：{{ $total_price }}円 (税込)</span>
-                </div>
-            </div>
-        </div>
-        @endif --}}
+        @include('components.cart_list')
 
 
 
-        {{-- <!-- table -->
-        <div class="row">
-            <div class="table-responsive col-lg-offset-1 col-lg-10 col-md-offset-1 col-md-10 col-sm-10 col-xs-12">
-                <h3 class="text-center">注文内容確認</h3>
-                <table class="table table-striped item-list-table">
-                    <tbody>
-                        <tr>
-                            <th>
-                                <div class="text-center">商品名</div>
-                            </th>
-                            <th>
-                                <div class="text-center">サイズ、価格(税抜)、数量</div>
-                            </th>
-                            <th>
-                                <div class="text-center">トッピング、価格(税抜)</div>
-                            </th>
-                            <th>
-                                <div class="text-center">小計</div>
-                            </th>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="center">
-                                    <img src="../images/1.jpg" class="img-responsive img-rounded item-img-center"
-                                        width="100" height="300" /><br />
-                                    じゃがバターベーコン
-                                </div>
-                            </td>
-                            <td>
-                                <span class="price">&nbsp;Ｌ</span>&nbsp;&nbsp;2,380円
-                                &nbsp;&nbsp;1個
-                            </td>
-                            <td>
-                                <ul>
-                                    <li>ピーマン300円</li>
-                                    <li>オニオン300円</li>
-                                    <li>あらびきソーセージ300円</li>
-                                </ul>
-                            </td>
-                            <td>
-                                <div class="text-center">3,280円</div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="center">
-                                    <img src="../images/1.jpg" class="img-responsive img-rounded item-img-center"
-                                        width="100" height="300" /><br />
-                                    じゃがバターベーコン
-                                </div>
-                            </td>
-                            <td>
-                                <span class="price">&nbsp;Ｌ</span>&nbsp;&nbsp;2,380円
-                                &nbsp;&nbsp;1個
-                            </td>
-                            <td>
-                                <ul>
-                                    <li>ピーマン300円</li>
-                                    <li>オニオン300円</li>
-                                    <li>あらびきソーセージ300円</li>
-                                </ul>
-                            </td>
-                            <td>
-                                <div class="text-center">3,280円</div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="center">
-                                    <img src="../images/1.jpg" class="img-responsive img-rounded item-img-center"
-                                        width="100" height="300" /><br />
-                                    じゃがバターベーコン
-                                </div>
-                            </td>
-                            <td>
-                                <span class="price">&nbsp;Ｌ</span>&nbsp;&nbsp;2,380円
-                                &nbsp;&nbsp;1個
-                            </td>
-                            <td>
-                                <ul>
-                                    <li>ピーマン300円</li>
-                                    <li>オニオン300円</li>
-                                    <li>あらびきソーセージ300円</li>
-                                </ul>
-                            </td>
-                            <td>
-                                <div class="text-center">3,280円</div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+        @section('content')
+            @component('components.cart_list', [
+                'items' => $items,
+                'toppings' => $toppings,
+                'tax' => $tax,
+                'total_price' => $total_price,
+            ])
+            @endcomponent
+        @endsection
+        {{-- 
+@extends('layouts.app')
 
-        <div class="row">
-            <div class="col-xs-offset-2 col-xs-8">
-                <div class="form-group text-center">
-                    <span id="total-price">消費税：8,000円</span><br />
-                    <span id="total-price">ご注文金額合計：38,000円 (税込)</span>
-                </div>
-            </div>
-        </div> --}}
+@section('content')
+    @include('components.cart_list', [
+        'items' => $items,
+        'toppings' => $toppings,
+        'tax' => $tax,
+        'total_price' => $total_price
+    ])
+@endsection --}}
+
 
         <!-- table -->
         <form action="{{ route('order.buy') }}" method="POSt">
@@ -224,54 +83,96 @@
                         <tbody>
                             <tr>
                                 <td>
+
                                     <div class="text-center">お名前</div>
                                 </td>
                                 <td>
-                                    <input type="text" name='destination_name' />
+                                    @if ($errors->has('destination_name'))
+                                        <div style="color: red">
+                                            <strong>{{ $errors->first('destination_name') }}
+                                        </div>
+                                    @endif
+                                    <input type="text" name='destination_name'
+                                        value="{{ old('destination_name') }}" />
                                 </td>
+
                             </tr>
                             <tr>
                                 <td>
+
                                     <div class="text-center">メールアドレス</div>
                                 </td>
                                 <td>
-                                    <input type="text" name='destination_email' />
+                                    @if ($errors->has('destination_email'))
+                                        <div style="color: red">
+                                            <strong>{{ $errors->first('destination_email') }}
+                                        </div>
+                                    @endif
+                                    <input type="text" name='destination_email'
+                                        value="{{ old('destination_email') }}" />
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <div class="text-center">郵便番号</div>
+
+                                    <div class="text-center">郵便番号 (例：0001111)</div>
                                 </td>
                                 <td>
-                                    <input type="text" name='destination_zipcode'
-                                        id="zip" />&nbsp;&nbsp;<button class="api-address"
-                                        type="button">住所検索</button>
+                                    @if ($errors->has('destination_zipcode'))
+                                        <div style="color: red">
+                                            <strong>{{ $errors->first('destination_zipcode') }}
+                                        </div>
+                                    @endif
+                                    <input type="text" name='destination_zipcode' id="zip"
+                                        value="{{ old('destination_zipcode') }}" />&nbsp;&nbsp;<button
+                                        class="api-address" type="button">住所検索</button>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
+
                                     <div class="text-center">都道府県</div>
                                 </td>
                                 <td>
-                                    <input type="text" name='destination_prefectures' id="destination_prefectures" />
+                                    @if ($errors->has('destination_prefectures'))
+                                        <div style="color: red">
+                                            <strong>{{ $errors->first('destination_prefectures') }}
+                                        </div>
+                                    @endif
+                                    <input type="text" name='destination_prefectures' id="destination_prefectures"
+                                        value="{{ old('destination_prefectures') }}" />
                                 </td>
                             </tr>
                             <tr>
                                 <td>
+
                                     <div class="text-center">市区町村</div>
                                 </td>
                                 <td>
+                                    @if ($errors->has('destination_municipalities'))
+                                        <div style="color: red">
+                                            <strong>{{ $errors->first('destination_municipalities') }}
+                                        </div>
+                                    @endif
                                     <input type="text" name='destination_municipalities'
-                                        id="destination_municipalities" />
+                                        id="destination_municipalities"
+                                        value="{{ old('destination_municipalities') }}" />
                                 </td>
                             </tr>
                             <tr>
                                 <td>
+
                                     <div class="text-center">番地</div>
                                 </td>
                                 <td>
+                                    @if ($errors->has('destination_address_line1'))
+                                        <div style="color: red">
+                                            <strong>{{ $errors->first('destination_address_line1') }}
+                                        </div>
+                                    @endif
                                     <input type="text" name='destination_address_line1'
-                                        id="destination_address_line1" />
+                                        id="destination_address_line1"
+                                        value="{{ old('destination_address_line1') }}" />
                                 </td>
                             </tr>
                             <tr>
@@ -279,15 +180,23 @@
                                     <div class="text-center">建物名</div>
                                 </td>
                                 <td>
-                                    <input type="text" name='destination_address_line2' />
+                                    <input type="text" name='destination_address_line2'
+                                        value="{{ old('destination_address_line2') }}" />
                                 </td>
                             </tr>
                             <tr>
                                 <td>
+
                                     <div class="text-center">電話番号</div>
                                 </td>
                                 <td>
-                                    <input type="text" name="destination_tell" />
+                                    @if ($errors->has('destination_tell'))
+                                        <div style="color: red">
+                                            <strong>{{ $errors->first('destination_tell') }}
+                                        </div>
+                                    @endif
+                                    <input type="text" name="destination_tell"
+                                        value="{{ old('destination_tell') }}" />
                                 </td>
                             </tr>
                             <tr>
@@ -309,8 +218,8 @@
                                         <div class="row">
                                             <div class="col-sm-12">
                                                 <label class="radio-inline">
-                                                    <input type="radio" name="delivery_time"
-                                                        checked="checked" value="10:00:00" />
+                                                    <input type="radio" name="delivery_time" checked="checked"
+                                                        value="10:00:00" />
                                                     10時
                                                 </label>
                                                 <label class="radio-inline">
@@ -429,6 +338,8 @@
     {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="../static/js/bootstrap.min.js"></script> --}}
 </body>
+
+{{-- 郵便番号から住所を取得する処理 --}}
 <script>
     //イベントリスナの設置：ボタンをクリックしたら反応する
     document.querySelector('.api-address').addEventListener('click', () => {

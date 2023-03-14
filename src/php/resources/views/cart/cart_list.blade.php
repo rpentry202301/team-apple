@@ -52,6 +52,7 @@
     <div class="row">
       <div class="col-xs-offset-5 col-xs-3">
         <div class="form-group">
+          <a href="cart_list.html" class="btn btn-success btn-block">商品一覧に戻る</a>
           <form action="{{route('order.confirm')}}">
             <input class="form-control btn btn-warning btn-block" type="submit" value="注文に進む" />
           </form>

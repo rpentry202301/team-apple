@@ -17,14 +17,18 @@
           <li>{{ $error }}</li>
           @endforeach
         </ul>
+
       </div>
       @endif
       <!-- <div class="panel-heading">
+
         <div class="panel-title">商品を検索する</div>
       </div>
 
+
       <div class="panel-body">
         <form action="/search" class="form-horizontal">
+
           @csrf
           <div class="form-group">
             <label for="code" class="control-label col-sm-2">キーワード</label>
@@ -43,6 +47,7 @@
         </form>
       </div> -->
     </div>
+
   </div>
 </div>
 <div class="row ">
@@ -55,6 +60,7 @@
             <span >
             <a href="/item/{{$item->id}}">
               <img src="../images/{{$item->id}}.jpg" class="img-responsive img-rounded item-img-center" width="200" height="600" /> </a><br />
+
               <a href="/item/{{$item->id}}">{{$item->name}}</a><br />
               <span class="price">&nbsp;М&nbsp;</span>&nbsp;&nbsp;{{$item->price_m}}(税抜)<br />
               <span class="price">&nbsp;Ｌ</span>&nbsp;&nbsp;{{$item->price_l}}(税抜)<br />
@@ -64,6 +70,7 @@
           </tr>
         </tbody>
       </table>
+
     </div>
   </div>
   <!-- ページングボタン -->

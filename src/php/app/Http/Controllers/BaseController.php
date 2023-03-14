@@ -15,7 +15,7 @@ class BaseController extends Controller
      * ショッピングカートの中身を表示
      * @return view ショッピングカートの一覧
      */
-    protected function showCartItems()
+    public function getCartItems()
     {
         // セッションからカート情報を取得する
         $cart_id = Session::get('cart');
@@ -31,13 +31,21 @@ class BaseController extends Controller
         $tax = (int)Cart::calculateTax($total_price); // 消費税を計算
         $total_price += $tax; // 消費税を合計金額に上乗せ
 
-        // 商品の情報をビューに渡す
-        return view('cart.cart_list', [
-            'items' => $items,
-            'toppings' => $toppings,
-            'total_price' => $total_price,
-            'tax' => $tax,
-        ]);
+            
+        // return view('cart.cart_list', [
+        //     'items' => $items,
+        //     'toppings' => $toppings,
+        //     'total_price' => $total_price,
+        //     'tax' => $tax,
+        // ],);
+
+          return [
+        'items' => $items,
+        'toppings' => $toppings,
+        'total_price' => $total_price,
+        'tax' => $tax,
+    ];
+
     }
 
     /**
@@ -53,6 +61,7 @@ class BaseController extends Controller
         // 関連するCartToppingsテーブルのレコードを削除する
         CartTopping::where('cart_item_id', $item_id)->delete();
         CartItem::where('id', $item_id)->delete();
+        
 
         // カート画面にリダイレクト
         return redirect(route('cart'));
