@@ -34,26 +34,26 @@ class ItemsController extends Controller
 
         $query = Item::query();
 
+        //キーワード検索
+        if ($request->filled('keyword')) {
+            $keyword = '%' . $this->escape($request->input('keyword')) . '%';
+            $query->where(function ($query) use ($keyword) {
+                $query->where('name', 'LIKE', $keyword);
+                $query->orWhere('description', 'LIKE', $keyword);
+            });
+        }
 
         // カテゴリで絞り込み
         if ($request->filled('category')) {
             list($categoryType, $categoryID) = explode(':', $request->input('category'));
 
             if ($categoryType === 'primary') {
-                $query->whereHas('secondaryCategories', function ($query) use ($categoryID) {
+                $query->whereHas('secondaryCategory', function ($query) use ($categoryID) {
+
                     $query->where('primary_category_id', $categoryID);
                 });
             } else if ($categoryType === 'secondary') {
                 $query->where('secondary_category_id', $categoryID);
-            }
-
-            //キーワード検索
-            if ($request->filled('keyword')) {
-                $keyword = '%' . $this->escape($request->input('keyword')) . '%';
-                $query->where(function ($query) use ($keyword) {
-                    $query->where('name', 'LIKE', $keyword);
-                    $query->orWhere('description', 'LIKE', $keyword);
-                });
             }
         }
         //

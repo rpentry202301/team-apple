@@ -11,4 +11,10 @@ class SecondaryCategory extends Model
     {
         return $this->belongsTo(PrimaryCategory::class);
     }
+
+    public function items()
+    {
+        return $this->hasMany(Item::class);
+    }
+
 }

@@ -24,34 +24,33 @@
                         <span class="input-group">
                             {{-- <span class="input-group-prepend"> --}}
                                 <select class="custom-select" name="category">
-                                    <option value="">カテゴリー検索</option>
+                                    <option value="" selected>カテゴリー検索</option>
                                 @foreach ($categories as $category)
-                                    {{-- <option value="primary:{{$category->id}}" class="font-weight-bold" {{ $defaults['category'] == "primary:" . $category->id ? 'selected' : ''}}>{{$category->name}}</option> --}}
+                                    <option value="primary:{{$category->id}}" class="font-weight-bold" {{ $defaults['category'] == "primary:" . $category->id ? 'selected' : ''}}>{{$category->name}}</option>
                                     @foreach ($category->secondaryCategories as $secondary)
-                                         <option value="secondary:{{$secondary->id}}">　{{$secondary->name}}</option>
+                                <option value="secondary:{{$secondary->id}}" {{ $defaults['category'] == "secondary:" . $secondary->id ? 'selected' : ''}}> {{$secondary->name}}</option>
                                 @endforeach
                                 @endforeach
                             </select>
+                        </span>
                         {{-- </span> --}}
-                    </span>
-                            <!--キーワード検索-->
-                            <input type="text" name="keyword" class="form-control" aria-label="Text input with dropdown button" placeholder="キーワード検索">
-                            {{-- <input type="text" name="keyword" class="form-control" value="{{$defaults['keyword']}}" aria-label="Text input with dropdown button" placeholder="キーワード検索">                         --}}
-                            <span class="input-group-append">
-                                <button type="submit" class="btn btn-outline-dark">検索<i class="fas fa-search"></i></button>
-                                <button type="reset" value="クリア" class="btn btn-default">クリア <i class="fas fa-search"></i></button>
+                        <!--キーワード検索-->
+                        <input type="text" name="keyword" class="form-control" aria-label="Text input with dropdown button" placeholder="キーワード検索">
+                        {{-- <input type="text" name="keyword" class="form-control" value="{{$defaults['keyword']}}" aria-label="Text input with dropdown button" placeholder="キーワード検索">                         --}}
+                        {{-- <span class="input-group-append"> --}}
+                            <button type="submit" class="btn btn-outline-dark">検索<i class="fas fa-search"></i></button>
+                            <button type="reset" value="クリア" class="btn btn-default">クリア <i class="fas fa-search"></i></button>
                             </span>
-                    </form>
-                    </ul>
-                    </span>
+                        </span>
                     </span>
                 </span>
-                <span></span>
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <p class="navbar-text navbar-right">
-                    <a href="{{route('cart')}}" class="navbar-link">ショッピングカート</a>&nbsp;&nbsp;
-                    <!--注文履歴は機能実装後ルーティングを追加-->
-
+                <span></span>                 
+            </form>
+        </ul>
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <p class="navbar-text navbar-right">
+                        <a href="{{route('cart')}}" class="navbar-link">ショッピングカート</a>&nbsp;&nbsp;
+                        <!--注文履歴は機能実装後ルーティングを追加-->
                     <a href="order_history.html" class="navbar-link">注文履歴</a>&nbsp;&nbsp;
 
                     @guest
