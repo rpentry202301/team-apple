@@ -50,11 +50,36 @@
                                 @endif
                                 <input type="text" name='destination_name' value="{{ old('destination_name') }}" />
                             </td>
+                                    <div class="text-center">お名前</div>
+                                </td>
+                                <td>
+                                    @if ($errors->has('destination_name'))
+                                        <div style="color: red">
+                                            <strong>{{ $errors->first('destination_name') }}
+                                        </div>
+                                    @endif
+                                    <input type="text" name='destination_name'
+                                        value="{{ $data['name'] ?? old('destination_name') }}" />
+                                </td>
 
-                        </tr>
-                        <tr>
-                            <td>
+                            </tr>
+                            <tr>
+                                <td>
 
+                                    <div class="text-center">メールアドレス</div>
+                                </td>
+                                <td>
+                                    @if ($errors->has('destination_email'))
+                                        <div style="color: red">
+                                            <strong>{{ $errors->first('destination_email') }}
+                                        </div>
+                                    @endif
+                                    <input type="text" name='destination_email'
+                                        value="{{ $data['email'] ?? old('destination_email') }}" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
                                 <div class="text-center">メールアドレス</div>
                             </td>
                             <td>
@@ -100,67 +125,69 @@
                             </tr>
                             <tr>
                                 <td>
+                                    <div class="text-center">市区町村</div>
+                                </td>
+                                <td>
+                                    @if ($errors->has('destination_municipalities'))
+                                        <div style="color: red">
+                                            <strong>{{ $errors->first('destination_municipalities') }}
+                                        </div>
+                                    @endif
+                                    <input type="text" name='destination_municipalities'
+                                        id="destination_municipalities"
+                                        value="{{ $data['municipalities'] ?? old('destination_municipalities') }}" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
 
-                                <div class="text-center">市区町村</div>
-                            </td>
-                            <td>
-                                @if ($errors->has('destination_municipalities'))
-                                <div style="color: red">
-                                    <strong>{{ $errors->first('destination_municipalities') }}
-                                </div>
-                                @endif
-                                <input type="text" name='destination_municipalities' id="destination_municipalities"
-                                    value="{{ old('destination_municipalities') }}" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
+                                    <div class="text-center">番地</div>
+                                </td>
+                                <td>
+                                    @if ($errors->has('destination_address_line1'))
+                                        <div style="color: red">
+                                            <strong>{{ $errors->first('destination_address_line1') }}
+                                        </div>
+                                    @endif
+                                    <input type="text" name='destination_address_line1'
+                                        id="destination_address_line1"
+                                        value="{{ $data['address_line1'] ?? old('destination_address_line1') }}" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="text-center">建物名</div>
+                                </td>
+                                <td>
+                                    <input type="text" name='destination_address_line2'
+                                        value="{{ $data['address_line2'] ?? old('destination_address_line2') }}" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
 
-                                <div class="text-center">番地</div>
-                            </td>
-                            <td>
-                                @if ($errors->has('destination_address_line1'))
-                                <div style="color: red">
-                                    <strong>{{ $errors->first('destination_address_line1') }}
-                                </div>
-                                @endif
-                                <input type="text" name='destination_address_line1' id="destination_address_line1"
-                                    value="{{ old('destination_address_line1') }}" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="text-center">建物名</div>
-                            </td>
-                            <td>
-                                <input type="text" name='destination_address_line2'
-                                    value="{{ old('destination_address_line2') }}" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-
-                                <div class="text-center">電話番号</div>
-                            </td>
-                            <td>
-                                @if ($errors->has('destination_tell'))
-                                <div style="color: red">
-                                    <strong>{{ $errors->first('destination_tell') }}
-                                </div>
-                                @endif
-                                <input type="text" name="destination_tell" value="{{ old('destination_tell') }}" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="text-center">配達日時</div>
-                            </td>
-                            <td>
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <label class="control-label" style="color: red"
-                                                for="inputPeriod">配達日時を入力してください</label>
+                                    <div class="text-center">電話番号</div>
+                                </td>
+                                <td>
+                                    @if ($errors->has('destination_tell'))
+                                        <div style="color: red">
+                                            <strong>{{ $errors->first('destination_tell') }}
+                                        </div>
+                                    @endif
+                                    <input type="text" name="destination_tell"
+                                        value="{{ $data['telephone'] ?? old('destination_tell') }}" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="text-center">配達日時</div>
+                                </td>
+                                <td>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <label class="control-label" style="color: red"
+                                                    for="inputPeriod">配達日時を入力してください</label>
                                         </div>
                                         <div class="col-sm-5">
                                             <input type="date" name="delivery_date" id="name"

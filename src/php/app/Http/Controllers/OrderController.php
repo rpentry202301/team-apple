@@ -49,15 +49,23 @@ class OrderController extends BaseController
         // Userレコードが存在すれば、お届け先入力フォームに渡すデータを作成
         if ($user) {
             $data = [
+                'name' => $user->name,
+                'email' => $user->email,
                 'zipcode' => $user->zipcode,
                 'prefecture' => $user->prefecture,
                 'municipalities' => $user->municipalities,
+                'address_line1' => $user->address_line1,
+                'address_line2' => $user->address_line2,
+                'telephone' => $user->telephone,
             ];
         } else {
             $data = [
                 'zipcode' => '',
                 'prefecture' => '',
                 'municipalities' => '',
+                'address_line1' => '',
+                'address_line2' => '',
+                'telephone' => '',
             ];
         }
         //
