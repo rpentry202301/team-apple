@@ -47,19 +47,18 @@
         </nav>
 
 
-        @include('components.cart_list')
-
+        {{-- @include('components.cart_list')
 
 
         @section('content')
             @component('components.cart_list', [
-                'items' => $items,
-                'toppings' => $toppings,
-                'tax' => $tax,
-                'total_price' => $total_price,
-            ])
+    'items' => $items,
+    // 'toppings' => $toppings,
+    // 'tax' => $tax,
+    // 'total_price' => $total_price,
+])
             @endcomponent
-        @endsection
+        @endsection --}}
         {{-- 
 @extends('layouts.app')
 
@@ -72,13 +71,14 @@
     ])
 @endsection --}}
 
-
+        {{-- {{ $data['zipcode'] }} --}}
         <!-- table -->
-        <form action="{{ route('order.buy') }}" method="POSt">
+        <form action="{{ route('order.buy') }}" method="POST">
             @csrf
             <div class="row">
                 <div class="table-responsive col-lg-offset-3 col-lg-6 col-md-offset-1 col-md-10 col-sm-10 col-xs-12">
                     <h3 class="text-center">お届け先情報</h3>
+                    <a href="{{ route('order.address') }}"><button type="button">お届け先所得</button></a>
                     <table class="table table-striped item-list-table">
                         <tbody>
                             <tr>
@@ -123,8 +123,10 @@
                                             <strong>{{ $errors->first('destination_zipcode') }}
                                         </div>
                                     @endif
+                                    {{-- {{ $data }} --}}
+                                    {{-- {{ $items }} --}}
                                     <input type="text" name='destination_zipcode' id="zip"
-                                        value="{{ old('destination_zipcode') }}" />&nbsp;&nbsp;<button
+                                        value="{{ $data['zipcode'] ?? old('destination_zipcode') }}" />&nbsp;&nbsp;<button
                                         class="api-address" type="button">住所検索</button>
                                 </td>
                             </tr>
@@ -140,7 +142,7 @@
                                         </div>
                                     @endif
                                     <input type="text" name='destination_prefectures' id="destination_prefectures"
-                                        value="{{ old('destination_prefectures') }}" />
+                                        value="{{ $data['prefecture'] ?? old('destination_prefectures') }}" />
                                 </td>
                             </tr>
                             <tr>
