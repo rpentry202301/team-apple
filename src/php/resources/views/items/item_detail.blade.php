@@ -6,6 +6,7 @@
 
 @section('content')
 
+<<<<<<< Updated upstream
 <div id="youtube-wrap">
   <div id="youtube" data-property="{
       videoURL: 'https://www.youtube.com/watch?v=3231gqH9Wao',
@@ -22,6 +23,33 @@
     <form action="/cart/add" method="post" name="cart_list">
       @csrf
       <div class="row">
+=======
+<<<<<<< Updated upstream
+=======
+<div id="youtube-wrap">
+<iframe width="1750" height="500" src="https://www.youtube.com/embed/3231gqH9Wao?autoplay=1&mute=1&loop=1" frameborder="0"
+  allow="autoplay; encrypted-media" allowfullscreen></iframe>
+<!--   
+
+<div id="youtube-wrap">
+  <div id="youtube" data-property="{
+			videoURL: 'https://www.youtube.com/watch?v=3231gqH9Wao',
+			containment: '#youtube-wrap',
+			autoPlay: true,
+			loop: 1,
+			mute: true,
+			startAt: 0,
+			opacity: 1,
+			showControls: false,
+			showYTLogo: false
+	}"></div>
+</div> -->
+
+>>>>>>> Stashed changes
+<form action="/cart/add" method="post" name="cart_list">
+  @csrf
+  <div class="row">
+>>>>>>> Stashed changes
         <div class=" col-xs-offset-2 col-xs-8 ">
           <h3 class="text-center">商品詳細</h3>
           <div class="row">
