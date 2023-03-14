@@ -93,7 +93,7 @@
                                         </div>
                                     @endif
                                     <input type="text" name='destination_name'
-                                        value="{{ old('destination_name') }}" />
+                                        value="{{ $data['name'] ?? old('destination_name') }}" />
                                 </td>
 
                             </tr>
@@ -109,7 +109,7 @@
                                         </div>
                                     @endif
                                     <input type="text" name='destination_email'
-                                        value="{{ old('destination_email') }}" />
+                                        value="{{ $data['email'] ?? old('destination_email') }}" />
                                 </td>
                             </tr>
                             <tr>
@@ -158,7 +158,7 @@
                                     @endif
                                     <input type="text" name='destination_municipalities'
                                         id="destination_municipalities"
-                                        value="{{ old('destination_municipalities') }}" />
+                                        value="{{ $data['municipalities'] ?? old('destination_municipalities') }}" />
                                 </td>
                             </tr>
                             <tr>
@@ -174,7 +174,7 @@
                                     @endif
                                     <input type="text" name='destination_address_line1'
                                         id="destination_address_line1"
-                                        value="{{ old('destination_address_line1') }}" />
+                                        value="{{ $data['address_line1'] ?? old('destination_address_line1') }}" />
                                 </td>
                             </tr>
                             <tr>
@@ -183,7 +183,7 @@
                                 </td>
                                 <td>
                                     <input type="text" name='destination_address_line2'
-                                        value="{{ old('destination_address_line2') }}" />
+                                        value="{{ $data['address_line2'] ?? old('destination_address_line2') }}" />
                                 </td>
                             </tr>
                             <tr>
@@ -198,7 +198,7 @@
                                         </div>
                                     @endif
                                     <input type="text" name="destination_tell"
-                                        value="{{ old('destination_tell') }}" />
+                                        value="{{ $data['telephone'] ?? old('destination_tell') }}" />
                                 </td>
                             </tr>
                             <tr>
