@@ -15,10 +15,50 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\BaseController;
+use App\Models\Coupon;
+use App\Models\UserCoupon;
 
 class OrderController extends BaseController
 {
 
+    public function buyOrderItems()
+    {
+        $request = BuyRequest::capture();
+        $this->saveDeliveryInformation($request);
+        $this->saveOrderItems();
+        // $this->deleteCart();
+        $this->makeCoupon();
+
+        return view('order.order_complete');
+    }
+
+    public function makeCoupon()
+    {
+        $coupon = Coupon::first(); //今は一つしかないため
+        $user_id = Auth::id();
+
+        //クーポンを持っているユーザの取得
+        $userCoupon = UserCoupon::where('user_id', Auth::user()->id)->first();
+
+        if ($userCoupon === null) {
+            $userCoupon = new UserCoupon([
+                'user_id' => $user_id,
+            ]);
+            if ($coupon) {
+                $userCoupon->coupon_id = $coupon->id;
+            } //なんで上のif文では動かない？
+            $userCoupon->save();
+        } else {
+            $cart = Cart::where('user_id', Auth::user()->id)->first();
+            $cart->total_price = ($cart->total_price * 0.9);
+
+            //クーポンの削除s
+            UserCoupon::where('user_id', Auth::user()->id)->delete();
+
+            return redirect(route('order.confirm', $cart)); //全部渡さないといけない？
+
+        }
+    }
 
 
     public function showOrderConfirm()
@@ -33,15 +73,7 @@ class OrderController extends BaseController
         return view('order.order_confirm', $data);
     }
 
-    public function buyOrderItems()
-    {
-        $request = BuyRequest::capture();
-        $this->saveDeliveryInformation($request);
-        $this->saveOrderItems();
-        // $this->deleteCart();
 
-        return view('order.order_complete');
-    }
 
     private function saveDeliveryInformation(BuyRequest $request)
     {
