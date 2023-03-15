@@ -6,7 +6,7 @@
 
 @section('content')
 <div class="container">
-    <div class="col-lg-offset-2 col-lg-7" style="margin-top: 250px">
+    <div class="col-lg-offset-2 col-lg-8" style="margin-top: 30px">
         <div class="font-weight-bold text-center border-bottom pb-3" style="font-size: 24px">ログイン</div>
 
         <form method="POST" action="{{ route('login') }}" class="p-5">
@@ -48,16 +48,13 @@
             </div>
 
             <div class="form-group mb-0">
-                <button type="submit" class="btn btn-block btn-secondary">
+                <button type="submit" class="btn btn-block btn-primary">
                     ログイン
                 </button>
             </div>
             <div class="mt-3">
                 アカウントをお持ちでない方は<a href="{{ route('register') }}">こちら</a>
             </div>
-            {{-- <div class="mt-1">
-                パスワードをお忘れの方は<a href="{{ route('password.request') }}">こちら</a>
-            </div> --}}
         </form>
     </div>
 </div>

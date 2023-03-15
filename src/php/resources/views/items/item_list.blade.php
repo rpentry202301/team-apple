@@ -6,6 +6,21 @@
 
 @section('content')
 
+{{-- フラッシュメッセージ始まり --}}
+{{-- 成功の時 --}}
+@if (session('successMessage'))
+<div class="alert text-center">
+  {{ session('successMessage') }}
+</div>
+@endif
+{{-- 失敗の時 --}}
+@if (session('errorMessage'))
+<div class="alert alert-danger text-center">
+  {{ session('errorMessage') }}
+</div>
+@endif
+{{-- フラッシュメッセージ終わり --}}
+
 <img src="../images/dark-g675565016_1920.jpg" width="1200" height="300" class="top-image" >
 
   <div class="row">
@@ -57,6 +72,10 @@
               <a href="/item/{{$item->id}}">{{$item->name}}</a><br />
               <span class="price">&nbsp;М&nbsp;</span>&nbsp;&nbsp;{{$item->price_m}}(税抜)<br />
               <span class="price">&nbsp;Ｌ</span>&nbsp;&nbsp;{{$item->price_l}}(税抜)<br />
+              <x-like-button :item="$item" />
+              <div class="row justify-content-center">
+                <p>いいね数：{{ $item->users()->count() }}</p>
+              </div>
             </th>
             </span>
             @endforeach

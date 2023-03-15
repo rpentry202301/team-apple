@@ -15,12 +15,8 @@
   <link href="../css/coupon_only.css" rel="stylesheet">
   <link href="../css/item_list.css" rel="stylesheet">
   <link href="../css/item_detail.css" rel="stylesheet">
-  <!-- <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=League+Gothic&family=Rajdhani:wght@700&family=Secular+One&display=swap" rel="stylesheet">  -->
-  <!-- <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=League+Gothic&family=Rajdhani:wght@700&family=Secular+One&display=swap" rel="stylesheet"> -->
+  <link href="../css/order_confirm.css" rel="stylesheet">
+  <link href="../css/index.css" rel="stylesheet">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c" rel="stylesheet">

@@ -1,5 +1,22 @@
 @charset "UTF-8";
 
+body.order_confirm {
+  background-image: url("../images/vegitable.jpg");
+  background-size: cover;
+  background-position: center;
+  width: 1500px;
+  height: 1300px;
+  background-repeat: no-repeat;
+}
+
+td {
+  background-color: black !important;
+}
+
+input {
+  color: black !important;
+}
+
 .order-confirm-delivery-info {
   margin: 0 200px 0 200px;
 }
