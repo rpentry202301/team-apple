@@ -1,0 +1,13 @@
+@charset "UTF-8";
+
+/* ========================================
+    問い合わせ内容
+   ======================================== */
+
+select.title {
+  background-color: dimgray!important;
+}
+
+textarea {
+  color: black !important;
+}

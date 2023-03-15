@@ -5,6 +5,8 @@
 @endsection
 
 @section('content')
+{{-- <img src="../images/vegitable.jpg" style="background-size: auto" width="1500" height="1200"> --}}
+<body class="order_confirm">
 <div class="container">
     <!-- table -->
     <form action="{{ route('order.buy') }}" method="POST">
@@ -61,7 +63,7 @@
                                 {{-- {{ $items }} --}}
                                 <input type="text" name='destination_zipcode' id="zip"
                                     value="{{ $data['zipcode'] ?? old('destination_zipcode') }}" />&nbsp;&nbsp;<button
-                                    class="api-address" type="button">住所検索</button>
+                                    class="btn-primary api-address" type="button">住所検索</button>
                             </td>
                         </tr>
                         <tr>
@@ -140,10 +142,6 @@
                             <td>
                                 <div class="form-group">
                                     <div class="row">
-                                        <div class="col-sm-12">
-                                            <label class="control-label" style="color: red"
-                                                for="inputPeriod">配達日時を入力してください
-                                        </div>
                                         <div class="col-sm-5">
                                             <input type="date" name="delivery_date" id="name"
                                                 class="form-control input-sm" />
@@ -263,12 +261,13 @@
         <div class="row">
             <div class="col-xs-offset-4 col-xs-4">
                 <div class="form-group">
-                    <input class="form-control btn btn-warning btn-block" type="submit" value="この内容で注文する" />
+                    <input class="form-control btn btn-info btn-block" type="submit" value="この内容で注文する" />
                 </div>
             </div>
         </div>
     </form>
 </div>
+</body>
 <!-- end container -->
 {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="../static/js/bootstrap.min.js"></script> --}}
