@@ -29,6 +29,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/order/confirm', [OrderController::class, 'showOrderConfirm'])->name('order.confirm');
     Route::post('/order/buy', [OrderController::class, 'buyOrderItems'])->name('order.buy');
     Route::get('/order/complete', [OrderController::class, 'showOrderComplete'])->name('order.complete');
+    Route::get('/order/confirm_in_order', [OrderController::class, 'showDeliveryForm'])->name('order.address');
 });
 
 // トップページに遷移

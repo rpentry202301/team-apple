@@ -8,7 +8,6 @@
     background-color: black !important;
 }
 
-<<<<<<< Updated upstream
 a.navbar-link{
     font-family: 'League Gothic', sans-serif;
     font-family: 'Rajdhani', sans-serif;
@@ -16,12 +15,6 @@ a.navbar-link{
     font-size: larger;
     padding-top: 100px !important;
     color: white !important;
-=======
-<<<<<<< Updated upstream
-.header {
-  display: flex; /* ヘッダロゴと右側のリンクを横並びにする */
-  /* justify-content: flex-end; 右寄せにしたい場合*/
->>>>>>> Stashed changes
 }
 
 .navbar-text{
@@ -37,12 +30,3 @@ a.navbar-link{
 .panel-body{
     margin: auto !important;
 }
-=======
-   #navbar-custom {
-    height: 100px; /* 好きな高さを指定 */
-}
-
-.navbar {
-    height: 300px; /* 適切な高さに変更してください */
-  }
->>>>>>> Stashed changes
