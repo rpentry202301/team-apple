@@ -1,11 +1,12 @@
 <?php
 
 namespace App\Providers;
-use Illuminate\Pagination\Paginator;
 
+use Illuminate\Pagination\Paginator;
 use App\Http\Livewire\LikeButton;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use Payjp\Payjp;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -27,6 +28,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Paginator::useBootstrap();
+        Payjp::setApiKey(config('payjp.secret_key'));
         Blade::component('like-button', \App\View\Components\LikeButton::class);
     }
 }
