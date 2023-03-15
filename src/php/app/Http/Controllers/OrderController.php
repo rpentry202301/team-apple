@@ -47,13 +47,13 @@ class OrderController extends BaseController
 
     public function showDeliveryForm()
     {
-        $cartItems = $this->getCartItems();
-        $items = [
-            'items' => $cartItems['items'],
-            'toppings' => $cartItems['toppings'],
-            'total_price' => $cartItems['total_price'],
-            'tax' => $cartItems['tax'],
-        ];
+        // $cartItems = $this->getCartItems();
+        // $items = [
+        //     'items' => $cartItems['items'],
+        //     'toppings' => $cartItems['toppings'],
+        //     'total_price' => $cartItems['total_price'],
+        //     'tax' => $cartItems['tax'],
+        // ];
         // ログインユーザーのUserレコードを取得
         $user = User::where('id', Auth::id())->first();
 
@@ -81,7 +81,7 @@ class OrderController extends BaseController
         }
 
 
-        return view('order.order_confirm')->with('items', $items)->with('data', $data);
+        return view('order.order_confirm')->with('data', $data);
 
         //この$itemsがないとボタンを押した時にエラーになるため、呼び出し、値の受け渡しはできている
         //$itemsは渡せるのに＄dataは渡せない
@@ -153,14 +153,14 @@ class OrderController extends BaseController
 
     public function showOrderConfirm()
     {
-        $cartItems = $this->getCartItems();
-        $data = [
-            'items' => $cartItems['items'],
-            'toppings' => $cartItems['toppings'],
-            'total_price' => $cartItems['total_price'],
-            'tax' => $cartItems['tax'],
-        ];
-        return view('order.order_confirm', $data);
+        // $cartItems = $this->getCartItems();
+        // $data = [
+        //     'items' => $cartItems['items'],
+        //     'toppings' => $cartItems['toppings'],
+        //     'total_price' => $cartItems['total_price'],
+        //     'tax' => $cartItems['tax'],
+        // ];
+        return view('order.order_confirm');
     }
 
 
@@ -315,17 +315,9 @@ class OrderController extends BaseController
         $contactsController = new ContactsController();
         $contactsController->sendOrderConfirmMail($order, $orderItems);
     }
-}
 
 
-        //クーポンを保存するメソッド
-        //注文完了メールを送信する処理
 
-
-        $orderItems = DB::table('order_items')->where('order_id', $order->id)->get();
-        $contactsController = new ContactsController();
-        $contactsController->sendOrderConfirmMail($order, $orderItems);
-    }
 
 
     public function couponAdaptation(Request $request)

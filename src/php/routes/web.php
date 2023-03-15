@@ -26,9 +26,10 @@ Route::post('/cart/delete', [CartController::class, 'DeleteCartItems'])->name('c
 // 要ログイン(カートに商品を追加、注文確認、注文、注文完了)
 Route::middleware('auth')->group(function () {
     Route::post('/cart/add', [CartController::class, 'addCartItems'])->name('cart.add');
+    Route::post('/order/confirm', [OrderController::class, 'showOrderConfirm'])->name('order.confirm');
     Route::get('/order/confirm', [OrderController::class, 'showOrderConfirm'])->name('order.confirm');
     Route::post('/order/buy', [OrderController::class, 'buyOrderItems'])->name('order.buy');
-    Route::post('/order/confirm', [PaymentController::class, 'payment'])->name('payment');
+    // Route::post('/order/complete', [PaymentController::class, 'payment'])->name('payment');
     Route::get('/order/complete', [OrderController::class, 'showOrderComplete'])->name('order.complete');
     Route::get('/order/confirm_in_order', [OrderController::class, 'showDeliveryForm'])->name('order.address');
 });

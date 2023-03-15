@@ -6,6 +6,7 @@ use App\Models\CartItem;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
+
 class Cart extends Model
 {
     use HasFactory;
@@ -33,14 +34,18 @@ class Cart extends Model
 
         // カートに追加する商品の金額を計算する処理
         foreach ($items as $item) {
-            if ($item->order_price == 1380) {
+            if ($item->size === 'M') {
                 $total_price += $item->item->price_m * $item->quantity;
+                // dd($total_price);
             } else {
                 $total_price += $item->item->price_l * $item->quantity;
             }
         }
 
+        
+
         // カートに追加する商品のトッピングの金額を計算する処理
+        // dd($toppings);
         if (count($items) != 0) {
             foreach ($toppings as $topping) {
                 if ($topping->total_topping_price == 200) {
@@ -51,8 +56,11 @@ class Cart extends Model
             }
         }
 
-        $total_price = $total_price;
+        // $total_price = $total_price;
+
+        dd($total_price);
         return $total_price;
+
     }
 
     /**

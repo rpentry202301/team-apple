@@ -9,6 +9,7 @@
         <table class="table table-striped item-list-table">
             <tbody>
                 @foreach ($items as $item)
+                <input type="hidden" name="id" value="{{$item->id}}">
                 <tr>
                 </tr>
                 <tr>

@@ -9,6 +9,11 @@ body.order_confirm {
   background-repeat: no-repeat;
 }
 
+.coupon-link {
+  margin-top: 50px !important;
+  margin-left: 100px !important;
+}
+
 td {
   background-color: black !important;
 }

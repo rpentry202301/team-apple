@@ -15,11 +15,14 @@
 'tax' => $tax,
 'total_price' => $total_price
 ])
+
 @endcomponent
 <div class="row">
   <div class="col-xs-offset-4 col-xs-4">
     <div class="form-group">
-      <form action="{{route('order.confirm')}}">
+      <form action="{{route('order.confirm')}}" method="POST">
+        @csrf
+        
         <input class="form-control btn btn-info btn-bloc" type="submit" value="注文に進む" />
       </form>
     </div>

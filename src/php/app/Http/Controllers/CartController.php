@@ -15,18 +15,7 @@ use App\Http\Requests\Cart\DeleteRequest;
 class CartController extends BaseController
 {
 
-    public function showCartItems()
-    {
-        $cartItems = $this->getCartItems();
-        $items = [
-            'items' => $cartItems['items'],
-            'toppings' => $cartItems['toppings'],
-            'total_price' => $cartItems['total_price'],
-            'tax' => $cartItems['tax'],
-        ];
-
-        return view('cart.cart_list', $items);
-    }
+    // c
 
 
     /** 
@@ -112,10 +101,12 @@ class CartController extends BaseController
         $total_price = (int)Cart::calculateTotalPrice($items, $toppings); // 合計金額を計算
         $tax = (int)Cart::calculateTax($total_price); // 消費税を計算
         $total_price += $tax; // 消費税を合計金額に上乗せ
-
+        
+        
         $cart = Cart::where('user_id', Auth::user()->id)->first();
         $cart->total_price = $total_price;
         $cart->save();
+        // dd($total_price);
 
         // 商品の情報をビューに渡す
         return redirect(route('cart', [
@@ -124,5 +115,8 @@ class CartController extends BaseController
             'total_price' => $total_price,
             'tax' => $tax
         ]));
+
+        
+
     }
 }

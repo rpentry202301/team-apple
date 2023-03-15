@@ -13,8 +13,19 @@ return new class extends Migration
      */
     public function up()
     {
+        Schema::create('item_user', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('item_id');
+            $table->timestamps();
+        
+            // $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            // $table->foreign('item_id')->references('id')->on('items')->onDelete('cascade');
+        
+            $table->unique(['user_id', 'item_id']);
+        });
         Schema::create('users', function (Blueprint $table) {
-
+            
             $table->id();
             $table->string('name', 100);
             $table->string('email', 100)->unique();
@@ -45,12 +56,12 @@ return new class extends Migration
             $table->string('destination_address_line1', 200)->nullable();
             $table->string('destination_address_line2', 200)->nullable();
             $table->string('destination_tell', 15)->nullable();
-            $table->timestamp('delivery_time');
+            $table->timestamp('delivery_time')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->integer('payment_method')->nullable();
 
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('users');
+            // $table->foreign('user_id')->references('id')->on('users');
         });
 
         Schema::create('items', function (Blueprint $table) {
@@ -79,7 +90,7 @@ return new class extends Migration
 
             $table->timestamps();
 
-            $table->foreign('order_id')->references('id')->on('orders');
+            // $table->foreign('order_id')->references('id')->on('orders');
         });
 
         Schema::create('toppings', function (Blueprint $table) {
@@ -101,7 +112,7 @@ return new class extends Migration
 
             $table->timestamps();
 
-            $table->foreign('order_item_id')->references('id')->on('order_items');
+            // $table->foreign('order_item_id')->references('id')->on('order_items');
         });
 
         Schema::create('carts', function (Blueprint $table) {
@@ -111,7 +122,7 @@ return new class extends Migration
 
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('users');
+            // $table->foreign('user_id')->references('id')->on('users');
         });
 
         Schema::create('cart_items', function (Blueprint $table) {
@@ -124,11 +135,11 @@ return new class extends Migration
             $table->char('size');
             $table->timestamps();
 
-            $table->foreign('cart_id')->references('id')->on('carts');
-            $table->foreign('item_id')->references('id')->on('items');
-            $table->foreign('user_id')->references('id')->on('users');
+            // $table->foreign('cart_id')->references('id')->on('carts');
+            // $table->foreign('item_id')->references('id')->on('items');
+            // $table->foreign('user_id')->references('id')->on('users');
         });
-
+        
         Schema::create('cart_toppings', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('cart_item_id');
@@ -139,9 +150,9 @@ return new class extends Migration
 
             $table->timestamps();
 
-            $table->foreign('cart_item_id')->references('id')->on('cart_items');
-            $table->foreign('topping_id')->references('id')->on('toppings');
-            $table->foreign('user_id')->references('id')->on('users');
+            // $table->foreign('cart_item_id')->references('id')->on('cart_items');
+            // $table->foreign('topping_id')->references('id')->on('toppings');
+            // $table->foreign('user_id')->references('id')->on('users');
         });
 
         Schema::create('addresses', function (Blueprint $table) {
@@ -153,17 +164,6 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::create('item_user', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('item_id');
-            $table->timestamps();
-
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('item_id')->references('id')->on('items')->onDelete('cascade');
-
-            $table->unique(['user_id', 'item_id']);
-        });
     }
 
     /**

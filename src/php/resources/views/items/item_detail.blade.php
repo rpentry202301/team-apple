@@ -19,7 +19,7 @@
       showYTLogo: false
     }"></div>
     
-    <form action="/cart/add" method="post" name="cart_list">
+    <form action="{{route('cart.add')}}" method="post" name="cart_list">
       @csrf
       <div class="row">
         <div class=" col-xs-offset-2 col-xs-8 ">

@@ -1,12 +1,14 @@
 <?php
 
 namespace App\Http\Middleware;
+// namespace App\Http\Controllers\PaymentController;
 
 use Closure;
 use App\Models\Cart;
 use App\Models\OrderItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use App\Http\Controllers\PaymentController;
 
 use function PHPUnit\Framework\isEmpty;
 use function PHPUnit\Framework\isNull;

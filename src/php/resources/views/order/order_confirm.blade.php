@@ -11,47 +11,50 @@
     <!-- table -->
     <!-- クーポン適応機能を実装 -->
     <i class="fa-regular fa-ticket">
-    <a href="{{route('order.coupon-only')}}">クーポンをお持ちの方はこちら</a>
-    </i>
-      <form action="{{ route('order.buy') }}" method="POST">
-        @csrf
-        <div class="row">
-            <div class="table-responsive col-lg-offset-3 col-lg-6 col-md-offset-1 col-md-10 col-sm-10 col-xs-12">
-                <h3 class="text-center">お届け先情報</h3>
-                <a href="{{ route('order.address') }}"><button type="button">お届け先所得</button></a>
-                <table class="table table-striped item-list-table">
-                    <tbody>
-                        <tr>
-                            <td>
-                                
-                                <div class="text-center">お名前</div>
-                            </td>
-                            <td>
-                                @if ($errors->has('destination_name'))
-                                <div style="color: red">
-                                    <strong>{{ $errors->first('destination_name') }}
-                                </div>
-                                @endif
-                                <input type="text" name='destination_name'
-                                    value="{{ $data['name'] ?? old('destination_name') }}" />
-                            </td>
-                            ​
-                        </tr>
-                        <tr>
-                            <td>
-                                ​
-                                <div class="text-center">メールアドレス</div>
-                            </td>
-                            <td>
-                                @if ($errors->has('destination_email'))
-                                <div style="color: red">
-                                    <strong>{{ $errors->first('destination_email') }}
-                                </div>
-                                @endif
-                                <input type="text" name='destination_email'
-                                    value="{{ $data['email'] ?? old('destination_email') }}" />
-                            </td>
-                        </tr>
+        </i>
+        <div class="coupon-link">
+        
+            
+            </div>
+            <form action="{{ route('order.buy') }}" method="POST">
+                @csrf
+                <div class="row">
+                    <div class="table-responsive col-lg-offset-3 col-lg-6 col-md-offset-1 col-md-10 col-sm-10 col-xs-12">
+                        <h3 class="text-center">お届け先情報</h3>
+                        <a href="{{ route('order.address') }}"><button type="button">お届け先所得</button></a>
+                        <table class="table table-striped item-list-table">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        
+                                        <div class="text-center">お名前</div>
+                                    </td>
+                                    <td>
+                                        @if ($errors->has('destination_name'))
+                                        <div style="color: red">
+                                            <strong>{{ $errors->first('destination_name') }}
+                                                </div>
+                                                @endif
+                                                <input type="text" name='destination_name'
+                                                value="{{ $data['name'] ?? old('destination_name') }}" />
+                                            </td>
+                                            ​
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                ​
+                                                <div class="text-center">メールアドレス</div>
+                                            </td>
+                                            <td>
+                                                @if ($errors->has('destination_email'))
+                                                <div style="color: red">
+                                                    <strong>{{ $errors->first('destination_email') }}
+                                                        </div>
+                                                        @endif
+                                                        <input type="text" name='destination_email'
+                                                        value="{{ $data['email'] ?? old('destination_email') }}" />
+                                                    </td>
+                                                </tr>
                         <tr>
                             <td>
                                 ​
@@ -249,7 +252,7 @@
           <div id="order-button">
           <div class="row">
             <div class="col-xs-offset-4 col-xs-4">
-
+            <a id="" href="{{ route('order.coupon-only') }}">クーポンをお持ちの方はこちら</a>
               <div class="form-group">
                 <input class="form-control btn btn-warning btn-block" type="submit" value="この内容で注文する" />
               </div>
