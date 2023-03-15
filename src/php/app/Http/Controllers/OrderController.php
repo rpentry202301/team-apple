@@ -15,7 +15,6 @@ use App\Models\OrderTopping;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Requests\Order\BuyRequest;
 use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\ContactsController;
 use App\Http\Controllers\BaseController;
@@ -27,11 +26,6 @@ use App\Models\User;
 
 class OrderController extends BaseController
 {
-
-    public function showOrderConfirm()
-    {
-        return view('order.order_confirm');
-    }
 
     public function buyOrderItems()
     {
@@ -48,7 +42,13 @@ class OrderController extends BaseController
 
     public function showDeliveryForm()
     {
-        $items = $this->getCartItems();
+        $cartItems = $this->getCartItems();
+        $items = [
+            'items' => $cartItems['items'],
+            'toppings' => $cartItems['toppings'],
+            'total_price' => $cartItems['total_price'],
+            'tax' => $cartItems['tax'],
+        ];
         // ログインユーザーのUserレコードを取得
         // dd(Auth::id());
         $user = User::where('id', Auth::id())->first();
@@ -122,15 +122,15 @@ class OrderController extends BaseController
         // }
     }
 
-    public function secondMakeCoupon()
-    {
-        $userCoupon = UserCoupon::where('user_id', Auth::user()->id)->first();
-        if ($userCoupon->coupon_id === 1) {
-            $userCoupon = new UserCoupon([
-                'user_id' => $user_id,
-            ]);
-        }
-    }
+    // public function secondMakeCoupon()
+    // {
+    //     $userCoupon = UserCoupon::where('user_id', Auth::user()->id)->first();
+    //     if ($userCoupon->coupon_id === 1) {
+    //         $userCoupon = new UserCoupon([
+    //             'user_id' => $user_id,
+    //         ]);
+    //     }
+    // }
 
     // public function makeCoupon()
     // {
@@ -164,7 +164,7 @@ class OrderController extends BaseController
             'total_price' => $cartItems['total_price'],
             'tax' => $cartItems['tax'],
         ];
-        return view('order.order_confirm')->with('items', $data);
+        return view('order.order_confirm', $data);
     }
 
 
@@ -318,14 +318,13 @@ class OrderController extends BaseController
               }
 
 }
-    }
 
-    public function deleteCart()
-    {
-    }
+    // public function deleteCart()
+    // {
+    // }
 
-    public function showOrderComplete()
-    {
-        return view('order.order_complete');
-    }
-}
+    // public function showOrderComplete()
+    // {
+    //     return view('order.order_complete');
+    // }
+

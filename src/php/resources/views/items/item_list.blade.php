@@ -22,7 +22,6 @@
       <!-- <div class="panel-heading">
         <div class="panel-title">商品を検索する</div>
       </div>
-
       <div class="panel-body">
         <form action="/search" class="form-horizontal">
           @csrf

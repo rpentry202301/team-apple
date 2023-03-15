@@ -23,6 +23,11 @@ class Item extends Model
 
     public function cartItems()
     {
-      return $this->hasMany(CartItem::class);
+        return $this->hasMany(CartItem::class);
+    }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class)->withTimestamps();
     }
 }
