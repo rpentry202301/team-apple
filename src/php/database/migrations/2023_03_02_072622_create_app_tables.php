@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('address_line1', 200);
             $table->string('address_line2', 200);
             $table->string('telephone', 15);
+            $table->string('payjp_customer_id')->nullable()->comment('payjp顧客ID');
             $table->rememberToken();
 
             $table->timestamps();
@@ -61,6 +62,7 @@ return new class extends Migration
             $table->integer('price_l');
             $table->string('image_path');
             $table->boolean('deleted')->default('0');
+            $table->timestamp('bought_at')->nullable();
 
             $table->timestamps();
         });

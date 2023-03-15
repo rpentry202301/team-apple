@@ -216,62 +216,64 @@
                                 </div>
                             </td>
                         </tr>
-                        <tr>
-                            <td>
-                                <div class="text-center">クレジットカード決済</div>
-                            </td>
-                            <td align="center">
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <label class="radio-inline">
-                                            <input type="radio" name="responsibleCompany" checked="checked" />
-                                            クレジットカード </label><br /><br />
-                                    </div>
-                                </div>
-                            </td>
-
-                        </tr>
-                        <tr>
-                            <td colspan="2">
-                                <div class="row">
-                                    <div class="col-8 offset-2">
-                                        <div class="card-form-alert alert alert-danger" role="alert"
-                                            style="display: none">
-                                        </div>
-                                        <div class="form-group mt-3">
-                                            <label for="number-form">カード番号</label>
-                                            <div id="number-form" class="form-control">
-                                                <!-- ここにカード番号入力フォームが生成されます -->
-                                            </div>
-                                        </div>
-                                        <div class="form-group mt-3">
-                                            <label for="expiry-form">有効期限</label>
-                                            <div id="expiry-form" class="form-control">
-                                                <!-- ここに有効期限入力フォームが生成されます -->
-                                            </div>
-                                        </div>
-                                        <div class="form-group mt-3">
-                                            <label for="expiry-form">セキュリティコード</label>
-                                            <div id="cvc-form" class="form-control">
-                                                <!-- ここにCVC入力フォームが生成されます -->
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+<tr>
+  <td>
+      <div class="text-center">クレジットカード決済</div>
+  </td>
+  <td align="center">
+      <div class="row">
+          <div class="col-sm-12">
+            <label class="radio-inline">
+              <input type="radio" name="responsibleCompany" value="クレジットカード" />
+              クレジットカード </label><br /><br />
             </div>
+            <div id="credit-card-info" style="display: none;">
+              {{-- クレジットカード入力フォーム --}}
+              <script
+                src="https://checkout.pay.jp/"
+                class="payjp-button"
+                data-key="{{ config('payjp.public_key') }}"
+                data-text="カード情報を入力"
+                data-submit-text="購入する"
+              ></script>
+          </div>
         </div>
-        <div class="row">
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div id="order-button">
+          <div class="row">
             <div class="col-xs-offset-4 col-xs-4">
-                <div class="form-group">
-                    <input class="form-control btn btn-warning btn-block" type="submit" value="この内容で注文する" />
-                </div>
+              <div class="form-group">
+                <input class="form-control btn btn-warning btn-block" type="submit" value="この内容で注文する" />
+              </div>
             </div>
-        </div>
-    </form>
-</div>
+          </div>
+        </form>
+      </div>
+    </div>
 <!-- end container -->
 {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="../static/js/bootstrap.min.js"></script> --}}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+  $(document).ready(function() {
+    $('input[name=responsibleCompany]').change(function() {
+        if ($(this).val() === 'クレジットカード') {
+            $('#credit-card-info').show();
+            $('#order-button').hide();
+        } else {
+            $('#credit-card-info').hide();
+            $('#order-button').show();
+            
+        }
+    });
+});
+</script>
 
 {{-- 郵便番号から住所を取得する処理 --}}
 <script>
