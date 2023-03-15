@@ -6,7 +6,7 @@
 
 @section('content')
 <div class="container">
-    <div class="col-lg-offset-2 col-lg-7" style="margin-top: 250px">
+    <div class="col-lg-offset-2 col-lg-7" style="margin-top: 30px">
         <div class="font-weight-bold text-center border-bottom pb-3" style="font-size: 24px">ログイン</div>
 
         <form method="POST" action="{{ route('login') }}" class="p-5">
