@@ -12,6 +12,7 @@
   <link href="../css/footer.css" rel="stylesheet">
   <link href="../css/app.css" rel="stylesheet">
   <link href="../css/common.css" rel="stylesheet">
+  <link href="../css/coupon_only.css" rel="stylesheet">
   <link href="../css/item_list.css" rel="stylesheet">
   <link href="../css/item_detail.css" rel="stylesheet">
   <link href="../css/order_confirm.css" rel="stylesheet">

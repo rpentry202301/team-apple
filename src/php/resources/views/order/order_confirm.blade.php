@@ -9,7 +9,11 @@
 <body class="order_confirm">
 <div class="container">
     <!-- table -->
-    <form action="{{ route('order.buy') }}" method="POST">
+    <!-- クーポン適応機能を実装 -->
+    <i class="fa-regular fa-ticket">
+    <a href="{{route('order.coupon-only')}}">クーポンをお持ちの方はこちら</a>
+    </i>
+      <form action="{{ route('order.buy') }}" method="POST">
         @csrf
         <div class="row">
             <div class="table-responsive col-lg-offset-3 col-lg-6 col-md-offset-1 col-md-10 col-sm-10 col-xs-12">
@@ -19,7 +23,7 @@
                     <tbody>
                         <tr>
                             <td>
-                                ​
+                                
                                 <div class="text-center">お名前</div>
                             </td>
                             <td>
