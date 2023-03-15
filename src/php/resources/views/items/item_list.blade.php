@@ -9,20 +9,20 @@
   <div class="col-lg-offset-3 col-lg-6 col-md-offset-2 col-md-8 col-sm-10 col-xs-12">
     @if ($errors->any())
     <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
+      <ul>
+        @foreach ($errors->all() as $error)
+        <li>{{ $error }}</li>
+        @endforeach
+      </ul>
     </div>
     @endif
-    <div class="panel panel-default">
-    <div class="panel-heading">
+    {{-- <div class="panel panel-default">
+      <div class="panel-heading">
         <div class="panel-title">商品を検索する</div>
       </div>
       <div class="panel-body">
 
-        <form  action="/search" class="form-horizontal" >
+        <form action="/search" class="form-horizontal">
           @csrf
           <div class="form-group">
             <label for="code" class="control-label col-sm-2">キーワード</label>
@@ -40,7 +40,7 @@
           </div>
         </form>
       </div>
-    </div>
+    </div> --}}
   </div>
 </div>
 <div class="row">
@@ -52,15 +52,20 @@
           @foreach ($items as $item)
           <th>
             <a href="/item/{{$item->id}}">
-              <img src="../images/{{$item->id}}.jpg" class="img-responsive img-rounded item-img-center" width="200" height="600" /> </a><br />
+              <img src="../images/{{$item->id}}.jpg" class="img-responsive img-rounded item-img-center" width="200"
+                height="600" /> </a><br />
             <a href="/item/{{$item->id}}">{{$item->name}}</a><br />
             <span class="price">&nbsp;М&nbsp;</span>&nbsp;&nbsp;{{$item->price_m}}(税抜)<br />
             <span class="price">&nbsp;Ｌ</span>&nbsp;&nbsp;{{$item->price_l}}(税抜)<br />
+            <x-like-button :item="$item" />
+            <div class="row justify-content-center">
+              <p>いいね数：{{ $item->users()->count() }}</p>
+            </div>
           </th>
           @endforeach
         </tr>
       </tbody>
-     </table>
+    </table>
     <!-- ページングボタン -->
     <div class="text-center">
       {{ $items->withQueryString()->links() }}

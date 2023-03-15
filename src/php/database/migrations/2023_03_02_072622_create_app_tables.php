@@ -150,6 +150,18 @@ return new class extends Migration
             $table->string('town');
             $table->timestamps();
         });
+
+        Schema::create('item_user', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('item_id');
+            $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('item_id')->references('id')->on('items')->onDelete('cascade');
+
+            $table->unique(['user_id', 'item_id']);
+        });
     }
 
     /**
@@ -169,6 +181,7 @@ return new class extends Migration
         Schema::dropIfExists('carts');
         Schema::dropIfExists('cart_items');
         Schema::dropIfExists('cart_toppings');
+        Schema::dropIfExists('item_user');
         Schema::enableForeignKeyConstraints();
     }
 };
