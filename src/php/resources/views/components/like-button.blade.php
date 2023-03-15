@@ -1,3 +1,4 @@
+@auth
 @if($item->users()->where('user_id', Auth::id())->exists())
 <form action="{{route('unfavorites', $item)}}" method="POST">
     @csrf
@@ -13,3 +14,4 @@
     </button>
 </form>
 @endif
+@endauth

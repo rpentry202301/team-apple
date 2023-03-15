@@ -1,7 +1,7 @@
 <div class="row">
     <nav class="border border-dark navbar p-5 bg-transparent navbar-default" id="navbar-custom">
         <div class="container-fluid">
-            <div class="navbar-header">
+            <div class="navbar-header" style="height: 100px">
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
                         data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -12,19 +12,26 @@
                 </div>
                 <span class="pizapple-logo">
                     <a href="/"> <img class="header-logo" alt="main logo" src="../images/pizapple - MarkMaker Logo.png"
-                            href="/" width="300" height="120" /></a>
+                            href="/" width="270" height="120" /></a>
                 </span>
                 <span class="navbar-text navbar-right">
-                    <a href="{{route('cart')}}" class="navbar-link text-center">ShoppingCart</a>&nbsp;&nbsp;
                     <!--注文履歴は機能実装後ルーティングを追加-->
-                    <a href="order_history.html" class="navbar-link">OrderHistory</a>&nbsp;&nbsp;
                     @guest
-                    <a href="/login" class="navbar-link">Login</a>&nbsp;&nbsp;
+                    <span style="background:none; border:none; color: red"><i class="fas fa-sign-in-alt"></i></span>
+                    <a href="/login" class="navbar-link" style="margin-right: 80px">Login</a>&nbsp;&nbsp;
+                    <span style="background:none; border:none; color: red"><i class="fas fa-envelope"></i></span>
+                    <a href="{{route('contact.index')}}" class="navbar-link">ContactUs</a>&nbsp;&nbsp;
                     @endguest
                     @auth
+                    <span style="background:none; border:none; color: red"><i class="fas fa-book-open"></i></span>
+                    <a href="order_history.html" class="navbar-link">OrderHistory</a>&nbsp;&nbsp;
+                    <span style="background:none; border:none; color: red"><i class="fas fa-shopping-cart"></i></span>
+                    <a href="{{route('cart')}}" class="navbar-link text-center">ShoppingCart</a>&nbsp;&nbsp;
+                    <span style="background:none; border:none; color: red"><i class="fas fa-envelope"></i></span>
+                    <a href="{{route('contact.index')}}" class="navbar-link">ContactUs</a>&nbsp;&nbsp;
+                    <span style="background:none; border:none; color: red"><i class="fas fa-sign-out-alt"></i></span>
                     <a href="{{route('logout')}}" class="navbar-link">Logout</a>
                     @endauth
-                    <a href="{{route('contact.index')}}" class="navbar-link">ContactUs</a>&nbsp;&nbsp;
                     <!-- <form action="/search" class="form-horizontal"> -->
                     @csrf
                 </span>
