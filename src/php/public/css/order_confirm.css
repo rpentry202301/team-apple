@@ -19,3 +19,7 @@
 .order-confirm-payment-method-radio {
   margin-right: 10px;
 }
+
+ #coupon-message{
+  color: black !important;
+ }

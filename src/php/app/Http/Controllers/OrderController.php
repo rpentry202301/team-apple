@@ -19,7 +19,6 @@ use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\ContactsController;
 use App\Http\Controllers\BaseController;
 use App\Models\Coupon;
-
 use App\Models\UserCoupon;
 use App\Models\User;
 
@@ -230,18 +229,18 @@ class OrderController extends BaseController
         $order->payment_method = $request->input('payment_method');
 
         $order->save();
-        
+
         //注文完了メールを送信する処理を追加
-        
+
         //return redirect()->route('order.complete');
     }
-    
+
     private function saveOrderItems()
     {
-        
+
         $cartItems = CartItem::where('user_id', Auth::user()->id)->get();
         $item = Item::all();
-      
+
 
         $order = Order::where('user_id', Auth::user()->id)->orderBy('id', 'desc')->first();
 
@@ -251,13 +250,13 @@ class OrderController extends BaseController
             $orderItem->order_id = $order->id;
             $orderItem->quantity =  $cartItem->quantity;
             $orderItem->size =  $cartItem->size;
-          
+
             if ($cartItem->size === 'M') {
                 $orderItem->order_price = $cartItem->order_price;
             } else {
                 $orderItem->order_price = $cartItem->order_price;
             }
-            
+
             $orderItem->order_name = $cartItem->item->name;
             $orderItem->save();
         }
@@ -290,41 +289,112 @@ class OrderController extends BaseController
         }
         // //OrderToppingの価格をDBに格納する処理
         // foreach ($cartItems as $cartItem) {
-            //     if ($cartItem->size === 'M') {
-                
-                //         $orderTopping->order_topping_price = $topping->price_m;
-                //     } else {
-                    //         $orderTopping->order_topping_price = $topping->price_l;
-                    //     }
-                    //     $orderTopping->save();
-                    // }
-                    $this->couponMailSend($order);
+        //     if ($cartItem->size === 'M') {
+
+        //         $orderTopping->order_topping_price = $topping->price_m;
+        //     } else {
+        //         $orderTopping->order_topping_price = $topping->price_l;
+        //     }
+        //     $orderTopping->save();
+        // }
+        $this->couponMailSend($order);
+    }
+
+    public function showOrderComplete()
+    {
+        return view('order.order_complete');
+    }
+
+    private function  couponMailSend($order)
+    {
+
+        //クーポンを保存するメソッド
+        //注文完了メールを送信する処理
+
+        $orderItems = DB::table('order_items')->where('order_id', $order->id)->get();
+        $contactsController = new ContactsController();
+        $contactsController->sendOrderConfirmMail($order, $orderItems);
+    }
+
+
+    public function couponAdaptation(Request $request)
+    {
+        //利用可能なクーポンと現在のカート内の商品の合計金額を取得
+        $availableCoupons = DB::table('user_coupons')->where('user_id', Auth::user()->id)->first();
+        $totalPrice = DB::table('carts')->where('user_id', Auth::user()->id)->orderBy('id', 'desc')->first()->total_price;
+
+        //利用可能なクーポンが存在するか否かで分岐
+        if ($availableCoupons) {
+
+            $couponId = $availableCoupons->coupon_id;
+            $couponCode = DB::table('coupons')->where('id', $couponId)->first()->code;
+            $inputCouponCode = $request->input('coupon_code');
+            //クーポンコードが正しいか否かで分岐
+            if ($couponCode == $inputCouponCode) {
+
+                $usedTimes = DB::table('user_coupons')->where('user_id', Auth::user()->id)->first()->count;
+                //利用回数の上限を超えていないかで分岐
+                if ($usedTimes == 0) {
+
+                    //クーポン適応処理
+                    $discountRate = DB::table('coupons')->where('id', $couponId)->first()->discount_rate;
+                    $discountRate = (int)$discountRate;
+                    $discountPrice = $totalPrice * ($discountRate*0.01);
+                    $discountPrice = (int)$discountPrice;
+                    $totalPrice = $totalPrice - $discountPrice;
+
+                    // $currentTotalPrice= DB::table('carts')->where('user_id', Auth::user()->id)->orderBy('id','desc')->first();
+
+                    $userId = Auth::id();
+                    Cart::where('user_id', $userId)->update([
+                        'total_price' => $totalPrice,
+                    ]);
+
+                    $usedTimes += 1;
+                    UserCoupon::where('user_id', $userId)->where('coupon_id', $couponId)->update([
+                        'count' => $usedTimes,
+                    ]);
+
+                    $discountMessage =  (string)$discountPrice ;
+                    return view('order.coupon-only')->with([
+                        'totalPrice' =>$totalPrice,
+                        'message' => '20%引きクーポンが適応されました！',
+                        'discountMessage' => $discountMessage,
+                    ]);
+                } else {
+                    return view('order.coupon-only')->with([
+                        'totalPrice' => $totalPrice,
+                        'message' => 'クーポンの利用回数が上限を超えています。',
+                    ]);
                 }
-                
-                public function showOrderComplete()
-                {
-                    return view('order.order_complete');
-                }
-                
-                private function  couponMailSend($order)
-                {
+            } else {
 
-                    //クーポンを保存するメソッド
-                    //注文完了メールを送信する処理
+                return view('order.coupon-only')->with([
+                    'totalPrice' => $totalPrice,
+                    'message' => 'クーポコードが違います！',]);
+            }
+        } else {
 
-                    $orderItems = DB::table('order_items')->where('order_id', $order->id)->get();
-                    $contactsController = new ContactsController();
-                    $contactsController->sendOrderConfirmMail($order, $orderItems);
-              }
+            return view('order.coupon-only')->with([
+                'totalPrice'=>$totalPrice,
+                'message'=> '適応可能なクーポンが存在しません',
+                ]);
+        }
+    }
 
+
+    public function couponOnly()
+    {
+        $totalPrice = DB::table('carts')->where('user_id', Auth::user()->id)->orderBy('id', 'desc')->first()->total_price;
+        return view("order.coupon-only")->with('totalPrice', $totalPrice);
+    }
 }
-
-    // public function deleteCart()
-    // {
-    // }
-
-    // public function showOrderComplete()
-    // {
-    //     return view('order.order_complete');
-    // }
-
+                    
+                    // public function deleteCart()
+                    // {
+                        // }
+                        
+                        // public function showOrderComplete()
+                        // {
+                            //     return view('order.order_complete');
+                            // }

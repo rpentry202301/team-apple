@@ -45,3 +45,7 @@ Route::get('/contact/thanks', [ContactsController::class, 'index'])->name('conta
 // いいねの保存と削除
 Route::post('items/{item}/favorites', [FavoriteController::class, 'store'])->name('favorites');
 Route::post('items/{item}/unfavorites', [FavoriteController::class, 'destroy'])->name('unfavorites');
+
+//クーポン適応機能
+Route::post('/order/coupon', [OrderController::class, 'couponAdaptation'])->name('order.coupon');
+Route::get('/order/coupon-only', [OrderController::class, 'couponOnly'])->name('order.coupon-only');
