@@ -2762,8 +2762,6 @@ select[multiple].form-group-lg .form-control {
   background-image: none;
   border: 1px solid transparent;
   border-radius: 4px;
-  background-color: #337ab7;
-  color: white;
 }
 .btn:focus,
 .btn:active:focus,

@@ -8,9 +8,14 @@
   width: 1920px;
 }
 
+
+.order-confirm-btn {
+  text-align: center;
+
 .bg_image {
   background-image: url(../images/blackboard-gd4fc20ce1_1920.jpg);
   height: 500px;
   width: 100%;
   margin-left: 300px;
+
 }

@@ -107,3 +107,20 @@
   background-color: #ff4500;
   border-radius: 50%; /* 角丸にする設定 */
 }
+
+.flame{
+  width: 1920px !important;
+}
+
+.top-image{
+  margin-top: -30px !important;
+  margin-left: 130px !important;
+  margin-right: 130px !important;
+}
+
+
+th{
+ background-color: black !important;
+ border-radius: 10px !important;
+ border: #ff4500 !important;
+}

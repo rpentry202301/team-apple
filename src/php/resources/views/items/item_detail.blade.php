@@ -6,126 +6,174 @@
 
 @section('content')
 
+<<<<<<< Updated upstream
+<div id="youtube-wrap">
+  <div id="youtube" data-property="{
+      videoURL: 'https://www.youtube.com/watch?v=3231gqH9Wao',
+      containment: '#youtube-wrap',
+      autoPlay: true,
+      loop: 1,
+      mute: true,
+      startAt: 0,
+      opacity: 0.5,
+      showControls: false,
+      showYTLogo: false
+    }"></div>
+    
+    <form action="/cart/add" method="post" name="cart_list">
+      @csrf
+      <div class="row">
+=======
+<<<<<<< Updated upstream
+=======
+<div id="youtube-wrap">
+<iframe width="1750" height="500" src="https://www.youtube.com/embed/3231gqH9Wao?autoplay=1&mute=1&loop=1" frameborder="0"
+  allow="autoplay; encrypted-media" allowfullscreen></iframe>
+<!--   
+
+<div id="youtube-wrap">
+  <div id="youtube" data-property="{
+			videoURL: 'https://www.youtube.com/watch?v=3231gqH9Wao',
+			containment: '#youtube-wrap',
+			autoPlay: true,
+			loop: 1,
+			mute: true,
+			startAt: 0,
+			opacity: 1,
+			showControls: false,
+			showYTLogo: false
+	}"></div>
+</div> -->
+
+>>>>>>> Stashed changes
 <form action="/cart/add" method="post" name="cart_list">
   @csrf
   <div class="row">
+>>>>>>> Stashed changes
         <div class=" col-xs-offset-2 col-xs-8 ">
-    <h3 class="text-center">商品詳細</h3>
-    <div class="row">
-      <div class="col-xs-5">
-        <img src="../images/1.jpg" class="img-responsive img-rounded item-img-center" />
-      </div>
-      <div class="col-xs-5">
-        <div class="bs-component" data-piza-mprice="{{$item->price_m}}" data-piza-lprice="{{$item->price_l}}">
-          <h4>{{$item->name}}</h4>
+          <h3 class="text-center">商品詳細</h3>
+          <div class="row">
+            <div class="col-xs-5">
+              <img src="../images/1.jpg" class="img-responsive img-rounded item-img-center" />
+            </div>
+            <div class="col-xs-5">
+              <div class="bs-component" data-piza-mprice="{{$item->price_m}}" data-piza-lprice="{{$item->price_l}}">
+                <h4>{{$item->name}}</h4>
+                <br />
+                <br />
+                <p>
+                  {{$item->description}}
+                </p>
+              </div>
+            </div>
+          </div>
           <br />
+          <div class="row">
+            <div class="col-xs-offset-2 col-xs-8">
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-sm-12">
+                    <label for="inputResponsibleCompany">サイズ</label>
+                  </div>
+                  <div class="col-sm-12">
+                    <label class="radio-inline">
+                      <input type="radio" name="size" checked="checked" value="M" />
+                      <input type="hidden" name="size_m" value="{{$item->price_m}}">
+                      <span class="price">&nbsp;М&nbsp;</span>&nbsp;&nbsp;{{$item->price_m}}(税抜)
+                    </label>
+                    <label class="radio-inline">
+                      
+                      <input type="radio" name="size" value="L" />
+                      <input type="hidden" name="size_l" value="{{$item->price_l}}">
+                      <span class="price">&nbsp;Ｌ</span>&nbsp;&nbsp;{{$item->price_l}}(税抜)
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
           <br />
-          <p>
-            {{$item->description}}
-          </p>
-        </div>
-      </div>
-    </div>
-    <br />
-    <div class="row">
-      <div class="col-xs-offset-2 col-xs-8">
-        <div class="form-group">
           <div class="row">
-            <div class="col-sm-12">
-              <label for="inputResponsibleCompany">サイズ</label>
+            <div class="col-xs-offset-2 col-xs-8">
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-sm-12">
+                    <label for="inputResponsibleCompany">
+                      トッピング：&nbsp;1つにつき
+                      <span>&nbsp;М&nbsp;</span>&nbsp;&nbsp;200円(税抜)
+                      <span>&nbsp;Ｌ</span>&nbsp;&nbsp;300円(税抜)
+                    </label>
+                  </div>
+                  <div class="col-sm-12">
+                    @foreach($toppings as $topping)
+                    <label class="checkbox-inline">
+                      <input type="checkbox" value="{{$topping->id}}" id="topping" name="topping" />{{$topping->name}}
+                      <input type="hidden" name="topping_m" value="{{$topping->price_m}}">
+                      <input type="hidden" name="topping_l" value="{{$topping->price_l}}">
+                    </label>
+                    @endforeach
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="col-sm-12">
-              <label class="radio-inline">
-                <input type="radio" name="size" checked="checked"  value="M" />
-                <input type="hidden" name="size_m" value="{{$item->price_m}}">
-                <span class="price">&nbsp;М&nbsp;</span>&nbsp;&nbsp;{{$item->price_m}}(税抜)
-              </label>
-              <label class="radio-inline">
-                
-                <input type="radio" name="size" value="L" />
-                <input type="hidden" name="size_l" value="{{$item->price_l}}">
-                <span class="price">&nbsp;Ｌ</span>&nbsp;&nbsp;{{$item->price_l}}(税抜)
-              </label>
+          </div>
+          <div class="row">
+            <div class="col-xs-offset-2 col-xs-8">
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-xs-5 col-sm-5">
+                    <label for="">数量:</label>
+                    <label class="control-label" style="color: red" for="inputError">数量を選択してください</label>
+                    <select name="quantity" class="form-control" id="quantity">
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                      <option value="6">6</option>
+                      <option value="7">7</option>
+                      <option value="8">8</option>
+                      <option value="9">9</option>
+                      <option value="10">10</option>
+                      <option value="11">11</option>
+                      <option value="12">12</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br />
+          <div class="row">
+            <div class="col-xs-offset-2 col-xs-10">
+              <div class="form-group">
+                <span>この商品の合計金額は</span><span id="total-price">{{$item->price_m}}</span><span>円です</span>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-offset-2 col-xs-3">
+              <div class="form-group">
+                <p>
+                  <input class="form-control btn btn-warning btn-block" type="submit" value="カートに入れる" />
+                </p>
+              </div>
             </div>
           </div>
         </div>
       </div>
+      <input type="hidden" name="id" value="{{$item->id}}">
+      
     </div>
-    <br />
-    <div class="row">
-      <div class="col-xs-offset-2 col-xs-8">
-        <div class="form-group">
-          <div class="row">
-            <div class="col-sm-12">
-              <label for="inputResponsibleCompany">
-                トッピング：&nbsp;1つにつき
-                <span>&nbsp;М&nbsp;</span>&nbsp;&nbsp;200円(税抜)
-                <span>&nbsp;Ｌ</span>&nbsp;&nbsp;300円(税抜)
-              </label>
-            </div>
-            <div class="col-sm-12">
-              @foreach($toppings as $topping)
-              <label class="checkbox-inline">
-                <input type="checkbox" value="{{$topping->id}}" id="topping" name="topping" />{{$topping->name}}
-                <input type="hidden" name="topping_m" value="{{$topping->price_m}}">
-                <input type="hidden" name="topping_l" value="{{$topping->price_l}}">
-              </label>
-              @endforeach
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-xs-offset-2 col-xs-8">
-        <div class="form-group">
-          <div class="row">
-            <div class="col-xs-5 col-sm-5">
-              <label for="">数量:</label>
-              <label class="control-label" style="color: red" for="inputError">数量を選択してください</label>
-              <select name="quantity" class="form-control" id="quantity">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-                <option value="11">11</option>
-                <option value="12">12</option>
-              </select>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <br />
-    <div class="row">
-      <div class="col-xs-offset-2 col-xs-10">
-        <div class="form-group">
-          <span>この商品の合計金額は</span><span id="total-price">{{$item->price_m}}</span><span>円です</span>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-xs-offset-2 col-xs-3">
-        <div class="form-group">
-          <p>
-            <input class="form-control btn btn-warning btn-block" type="submit" value="カートに入れる" />
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-  </div>
-  <input type="hidden" name="id" value="{{$item->id}}">
-</form>
-<!--ピザのサイズ、トッピング、数量が変更された際に合計金額を自動計算する処理-->
-<script>
-  $('input[name="size"]:radio, input[name="topping"], select[name="quantity"]').change(function() {
+      
+    </form>
+    
+    
+    <!--ピザのサイズ、トッピング、数量が変更された際に合計金額を自動計算する処理-->
+    <script>
+      $('#youtube').YTPlayer();
+      $('input[name="size"]:radio, input[name="topping"], select[name="quantity"]').change(function() {
+        
 
 //radioボタン('piza-size')でチェックされたサイズのvalueを取得
         var elements = document.getElementsByName('size');
@@ -169,5 +217,5 @@
 </script>
 @endsection
 </div>
-</html>
 
+</html>

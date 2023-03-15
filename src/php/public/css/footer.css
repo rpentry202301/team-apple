@@ -9,11 +9,23 @@ footer img {
 }
 
 footer p {
-  color: #b3aeb5;
+  font-size: larger !important;
   font-size: 12px;
+  padding-top: 35px !important;
+  padding-bottom: 35px !important;
 }
 
 footer {
-  padding-top: 30px;
-  padding-bottom: 20px;
+  font-family: 'League Gothic', sans-serif;
+  font-family: 'Rajdhani', sans-serif;
+  font-family: 'Secular One', sans-serif;
+  background-color: black !important;
+  color: white !important;
 }
+
+
+
+
+
+
+
