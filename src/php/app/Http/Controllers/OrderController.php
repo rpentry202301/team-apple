@@ -33,7 +33,7 @@ class OrderController extends BaseController
         $this->saveDeliveryInformation($request);
         $this->saveOrderItems();
 
-        // $this->deleteCart();
+        $this->deleteCart();
         // $this->makeCoupon();
         $this->firstMakeCoupon();
 
@@ -49,11 +49,9 @@ class OrderController extends BaseController
             'total_price' => $cartItems['total_price'],
             'tax' => $cartItems['tax'],
         ];
-        // ログインユーザーのUserレコードを取得
-        // dd(Auth::id());
+
         $user = User::where('id', Auth::id())->first();
 
-        // dd($user);
 
         // Userレコードが存在すれば、お届け先入力フォームに渡すデータを作成
         if ($user) {
@@ -77,18 +75,8 @@ class OrderController extends BaseController
                 'telephone' => '',
             ];
         }
-        //
 
-        // // else {
-        // //     $data = null;
-        // // }
-
-
-        // dd($data);
         return view('order.order_confirm')->with('items', $items)->with('data', $data);
-
-        //この$itemsがないとボタンを押した時にエラーになるため、呼び出し、値の受け渡しはできている
-        //$itemsは渡せるのに＄dataは渡せない
     }
 
     public function firstMakeCoupon()
@@ -182,6 +170,8 @@ class OrderController extends BaseController
                 'destination_address_line1' => 'required|max:100',
                 // 'destination_address_line2' => 'required|max:100',
                 'destination_tell' => 'required|max:15',
+                'delivery_date' => 'required|date|after_or_equal:now',
+
 
             ],
             [
@@ -202,6 +192,7 @@ class OrderController extends BaseController
                 // 'destination_address_line2.max' => 'お名前は最大100文字です',
                 'destination_tell.required' => '電話番号を入力してください。',
                 'destination_tell.max' => '電話番号は最大15文字です',
+                'delivery_date.after_or_equal' => '配達可能日時ではありません',
             ]
         );
 
@@ -230,18 +221,18 @@ class OrderController extends BaseController
         $order->payment_method = $request->input('payment_method');
 
         $order->save();
-        
+
         //注文完了メールを送信する処理を追加
-        
+
         //return redirect()->route('order.complete');
     }
-    
+
     private function saveOrderItems()
     {
-        
+
         $cartItems = CartItem::where('user_id', Auth::user()->id)->get();
         $item = Item::all();
-      
+
 
         $order = Order::where('user_id', Auth::user()->id)->orderBy('id', 'desc')->first();
 
@@ -251,13 +242,13 @@ class OrderController extends BaseController
             $orderItem->order_id = $order->id;
             $orderItem->quantity =  $cartItem->quantity;
             $orderItem->size =  $cartItem->size;
-          
+
             if ($cartItem->size === 'M') {
                 $orderItem->order_price = $cartItem->order_price;
             } else {
                 $orderItem->order_price = $cartItem->order_price;
             }
-            
+
             $orderItem->order_name = $cartItem->item->name;
             $orderItem->save();
         }
@@ -280,51 +271,77 @@ class OrderController extends BaseController
             }
 
             //カートの中身とセッション情報の削除
-            CartTopping::where('user_id', Auth::user()->id)->delete();
-            CartItem::where('user_id', Auth::user()->id)->delete();
-            Cart::where('user_id', Auth::user()->id)->delete();
+            // CartTopping::where('user_id', Auth::user()->id)->delete();
+            // CartItem::where('user_id', Auth::user()->id)->delete();
+            // Cart::where('user_id', Auth::user()->id)->delete();
 
-            session()->forget('cart');
+            // session()->forget('cart');
 
             $orderTopping->save();
         }
         // //OrderToppingの価格をDBに格納する処理
         // foreach ($cartItems as $cartItem) {
-            //     if ($cartItem->size === 'M') {
-                
-                //         $orderTopping->order_topping_price = $topping->price_m;
-                //     } else {
-                    //         $orderTopping->order_topping_price = $topping->price_l;
-                    //     }
-                    //     $orderTopping->save();
-                    // }
-                    $this->couponMailSend($order);
-                }
-                
-                public function showOrderComplete()
-                {
-                    return view('order.order_complete');
-                }
-                
-                private function  couponMailSend($order)
-                {
+        //     if ($cartItem->size === 'M') {
 
-                    //クーポンを保存するメソッド
-                    //注文完了メールを送信する処理
+        //         $orderTopping->order_topping_price = $topping->price_m;
+        //     } else {
+        //         $orderTopping->order_topping_price = $topping->price_l;
+        //     }
+        //     $orderTopping->save();
+        // }
+        $this->couponMailSend($order);
+    }
 
-                    $orderItems = DB::table('order_items')->where('order_id', $order->id)->get();
-                    $contactsController = new ContactsController();
-                    $contactsController->sendOrderConfirmMail($order, $orderItems);
-              }
+    public function showOrderComplete()
+    {
+        return view('order.order_complete');
+    }
 
+    private function  couponMailSend($order)
+    {
+
+        //クーポンを保存するメソッド
+        //注文完了メールを送信する処理
+
+        $orderItems = DB::table('order_items')->where('order_id', $order->id)->get();
+        $contactsController = new ContactsController();
+        $contactsController->sendOrderConfirmMail($order, $orderItems);
+    }
+
+    // public function showOrderHistory()
+    // {
+    //     $user = User::where('id', Auth::id())->first();
+    //     $orders = Order::where('user_id', Auth::id())->get();
+    //     $orderItems = OrderItem::where()
+
+
+
+    //     // $data = [
+    //     //     'userName' => $user['name'],
+    //     //     'item' => $order->orderItems->order_name,
+    //     // ];
+
+
+
+
+
+
+
+    //     return view('order.order_history')->with('orders', $orders);
+    // }
+    public function deleteCart()
+    {
+        CartTopping::where('user_id', Auth::user()->id)->delete();
+        CartItem::where('user_id', Auth::user()->id)->delete();
+        Cart::where('user_id', Auth::user()->id)->delete();
+
+        session()->forget('cart');
+    }
 }
 
-    // public function deleteCart()
-    // {
-    // }
+  
 
     // public function showOrderComplete()
     // {
     //     return view('order.order_complete');
     // }
-

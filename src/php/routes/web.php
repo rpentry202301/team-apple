@@ -38,6 +38,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/order/buy', [OrderController::class, 'buyOrderItems'])->name('order.buy');
     Route::get('/order/complete', [OrderController::class, 'showOrderComplete'])->name('order.complete');
     Route::get('/order/confirm_in_order', [OrderController::class, 'showDeliveryForm'])->name('order.address');
+    Route::get('/order/history', [OrderController::class, 'showOrderHistory'])->name('order.history');
 });
 
 
