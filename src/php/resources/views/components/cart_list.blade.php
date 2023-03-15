@@ -1,5 +1,4 @@
 @yield('cart_list')
-<!-- table -->
 
 <div class="row">
     <div class="table-responsive col-lg-offset-1 col-lg-10 col-md-offset-1 col-md-10 col-sm-10 col-xs-12">
@@ -7,11 +6,9 @@
         @if (count($items) == 0)
         <p><strong>カートに商品が存在しません</strong></p>
         @else
-        {{-- {{ dd($items['items']->first()) }} --}}
         <table class="table table-striped item-list-table">
             <tbody>
                 @foreach ($items as $item)
-                {{-- @foreach ($items['items'] as $item) --}}
                 <tr>
                 </tr>
                 <tr>
@@ -56,11 +53,11 @@
 
 <div class="row">
     <div class="col-xs-offset-2 col-xs-8">
-        <div class="form-group text-center">
-            <span id="total-price">消費税：{{ $tax }}円</span><br />
-            <span id="total-price">ご注文金額合計：{{ $total_price }}円 (税込)</span>
-            {{-- <span id="total-price">消費税：{{ $items['tax'] }}円</span><br />
-            <span id="total-price">ご注文金額合計：{{ $items['total_price'] }}円 (税込)</span> --}}
+        <div class="panel panel-default" style="background-color: black">
+            <div class="form-group text-center">
+                <span id="total-price">消費税：{{ $tax }}円</span><br />
+                <span id="total-price">ご注文金額合計：{{ $total_price }}円 (税込)</span>
+            </div>
         </div>
     </div>
 </div>

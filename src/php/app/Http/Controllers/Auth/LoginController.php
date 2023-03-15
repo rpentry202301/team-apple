@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
@@ -30,6 +31,12 @@ class LoginController extends Controller
     // protected $redirectTo = RouteServiceProvider::HOME;
     protected $redirectTo = RouteServiceProvider::TOP;
 
+    protected function authenticated(Request $request, $user)
+    {
+        return redirect($this->redirectTo)
+            ->with('successMessage', 'ログインに成功しました');
+    }
+
     /**
      * Get a validator for an incoming registration request.
      *
@@ -54,8 +61,13 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    // protected function loggedOut(Request $request)
-    // {
-    //     return redirect(route('/'));
-    // }
+    public function logout(Request $request)
+    {
+        Auth::logout();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect('/')->with('successMessage', 'ログアウトしました');
+    }
 }

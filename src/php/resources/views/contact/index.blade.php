@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-<div class="container my-5">
+<div class="container my-5" style="margin-top: 100px">
     <form method="POST" action="{{ route('contact.confirm') }}">
         @csrf
 
@@ -21,7 +21,7 @@
         <div class="form-group">
             <label>お問い合わせ種別</label>
             <br>
-            <select name="title">
+            <select class="title" name="title">
                 <option value="item-and-service">商品やサービスについて</option>
                 <option value="homepage">ホームページ</option>
                 <option value="other">その他</option>
@@ -44,7 +44,7 @@
             @endif
         </div>
         <br>
-        <button type="submit" class="btn btn-outline-primary">入力内容確認</button>
+        <button type="submit" class="btn btn-primary">入力内容確認</button>
     </form>
     @endsection
 </div>
