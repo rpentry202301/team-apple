@@ -11,9 +11,14 @@
         <div class="container">
             <!-- table -->
             <!-- クーポン適応機能を実装 -->
-            <i class="fa-regular fa-ticket">
-                <a href="{{ route('order.coupon-only') }}">クーポンをお持ちの方はこちら</a>
-            </i>
+              <i class="fas fa-ticket-alt">
+    　　　　　　<a style="color: white" href="{{route('order.coupon-only')}}">クーポンをお持ちの方はこちら</a>
+　　　　　　　　　</i><br>
+　　　　　　　　　@if(isset( $message ))
+ 　　　　　　　　 <h4>
+   　　　　　　　 <p class="text-danger" id="coupon-message">*****{{$message}}*****</p>
+  　　　　　　　　</h4>
+  　　　　　　　@endif
             <form action="{{ route('order.buy') }}" method="POST">
                 @csrf
                 <div class="row">

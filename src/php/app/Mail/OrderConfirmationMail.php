@@ -30,11 +30,11 @@ class OrderConfirmationMail extends Mailable
      *
      * @return void
      */
-    public function __construct($order, $orderItems)
+    public function __construct($order, $orderItems,$totalPrice)
     {
         $this->userName = $order->user->name;
         $this->destinationName = $order->destination_name;
-        $this->totalPrice  = $order->total_price;
+        $this->totalPrice  = $totalPrice;
         $this->orderItems = $orderItems;
         $this->destinationZipcode = $order->destination_zipcode;
         $this->destinationPrefectures = $order->destination_prefectures;

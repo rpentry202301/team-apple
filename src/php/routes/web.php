@@ -50,3 +50,4 @@ Route::post('items/{item}/unfavorites', [FavoriteController::class, 'destroy'])-
 //クーポン適応機能
 Route::post('/order/coupon', [OrderController::class, 'couponAdaptation'])->name('order.coupon');
 Route::get('/order/coupon-only', [OrderController::class, 'couponOnly'])->name('order.coupon-only');
+Route::get('/order/coupon-return',[OrderController::class, 'returnOrderConfirm'])->name('order.returnOrderConfirm');
