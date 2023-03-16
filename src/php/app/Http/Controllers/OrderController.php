@@ -315,17 +315,6 @@ class OrderController extends BaseController
         $contactsController = new ContactsController();
         $contactsController->sendOrderConfirmMail($order, $orderItems);
     }
-}
-
-
-        //クーポンを保存するメソッド
-        //注文完了メールを送信する処理
-
-
-        $orderItems = DB::table('order_items')->where('order_id', $order->id)->get();
-        $contactsController = new ContactsController();
-        $contactsController->sendOrderConfirmMail($order, $orderItems);
-    }
 
 
     public function couponAdaptation(Request $request)
