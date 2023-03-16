@@ -33,7 +33,7 @@ class Cart extends Model
 
         // カートに追加する商品の金額を計算する処理
         foreach ($items as $item) {
-            if ($item->order_price == 1380) {
+            if ($item->size == 'M') {
                 $total_price += $item->item->price_m * $item->quantity;
             } else {
                 $total_price += $item->item->price_l * $item->quantity;

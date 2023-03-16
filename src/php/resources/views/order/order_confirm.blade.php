@@ -282,7 +282,6 @@
                     } else {
                         $('#credit-card-info').hide();
                         $('#order-button').show();
-
                     }
                 });
             });
