@@ -142,12 +142,13 @@
                                     <td>
                                         <div class="form-group">
                                             <div class="row">
+                                                @if ($errors->has('delivery_date'))
+                                                    <div style="color: red; margin-left: 20px;">
+                                                        <strong>{{ $errors->first('delivery_date') }}
+                                                    </div>
+                                                @endif
                                                 <div class="col-sm-5">
-                                                    @if ($errors->has('delivery_date'))
-                                                        <div style="color: red">
-                                                            <strong>{{ $errors->first('delivery_date') }}
-                                                        </div>
-                                                    @endif
+
                                                     <input type="date" name="delivery_date" id="name"
                                                         class="form-control input-sm" value="{{ old('delivery_date') }}" />
                                                 </div>
@@ -156,7 +157,9 @@
                                                 <div class="col-sm-12">
                                                     <label class="radio-inline">
                                                         @if ($errors->has('delivery_time'))
-                                                            <div style="color: red">
+                                                            <div
+                                                                style="color:
+                                                        red">
                                                                 <strong>{{ $errors->first('delivery_time') }}
                                                             </div>
                                                         @endif
