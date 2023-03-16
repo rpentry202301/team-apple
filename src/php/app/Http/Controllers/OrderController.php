@@ -312,8 +312,9 @@ class OrderController extends BaseController
         //注文完了メールを送信する処理
 
         $orderItems = DB::table('order_items')->where('order_id', $order->id)->get();
+        $totalPrice = DB::table('carts')->where('user_id', Auth::user()->id)->orderBy('id', 'desc')->first()->total_price;
         $contactsController = new ContactsController();
-        $contactsController->sendOrderConfirmMail($order, $orderItems);
+        $contactsController->sendOrderConfirmMail($order, $orderItems,$totalPrice);
     }
 
 
@@ -356,11 +357,8 @@ class OrderController extends BaseController
                     ]);
 
                     $discountMessage =  (string)$discountPrice ;
-                    return view('order.coupon-only')->with([
-                        'totalPrice' =>$totalPrice,
-                        'message' => '20%引きクーポンが適応されました！',
-                        'discountMessage' => $discountMessage,
-                    ]);
+                    return view('order.order_confirm')->with(
+                        'message','クーポンが適応されました。',);
                 } else {
                     return view('order.coupon-only')->with([
                         'totalPrice' => $totalPrice,
@@ -383,10 +381,26 @@ class OrderController extends BaseController
     }
 
 
+
     public function couponOnly()
     {
         $totalPrice = DB::table('carts')->where('user_id', Auth::user()->id)->orderBy('id', 'desc')->first()->total_price;
-        return view("order.coupon-only")->with('totalPrice', $totalPrice);
+
+        // $availableCoupons = DB::table('user_coupons')->where('user_id', Auth::user()->id)->first();
+        $couponId = 1;
+        $discountRate = DB::table('coupons')->where('id', $couponId)->first()->discount_rate;
+        $discountRate = (int)$discountRate;
+        $discountPrice = $totalPrice * ($discountRate*0.01);
+        $discountPrice = (int)$discountPrice;
+
+        $afterDiscountPrice =  $totalPrice - $discountPrice;
+
+        return view("order.coupon-only")->with(['totalPrice' => $totalPrice, 
+        'afterDiscountPrice'=> $afterDiscountPrice]);
+    }
+
+    public function returnOrderConfirm(){
+        return view ("order.order_confirm");
     }
 }
                     

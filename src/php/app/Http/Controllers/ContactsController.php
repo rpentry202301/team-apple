@@ -74,7 +74,7 @@ class ContactsController extends Controller
         // ユーザにメールを送信
         Mail::to($inputs['email'])->send(new ContactsSendmail($inputs));
         // 自分(管理者)にメールを送信
-        Mail::to('mgasv61856@yahoo.co.jp')->send(new ContactsSendmail($inputs));
+        Mail::to('s.nomura.wk@gmail.com')->send(new ContactsSendmail($inputs));
 
         // 二重送信対策のためトークンを再発行
        // $request->session()->regenerateToken();
@@ -84,13 +84,13 @@ class ContactsController extends Controller
     }
 }
 
-public function sendOrderConfirmMail($order,$orderItem){
+public function sendOrderConfirmMail($order,$orderItem,$totalPrice){
     //ユーザーの登録メールアドレスにメールを送信
-    Mail::to($order->user->email)->send(new OrderConfirmationMail($order, $orderItem));
+    Mail::to($order->user->email)->send(new OrderConfirmationMail($order, $orderItem,$totalPrice));
     //お届け先のメールアドレスに送信
-    Mail::to($order->destination_email)->send(new OrderConfirmationMail($order, $orderItem));
+    Mail::to($order->destination_email)->send(new OrderConfirmationMail($order, $orderItem,$totalPrice));
     //自分（管理者）にメールを送信
-    Mail::to('mgasv61856@yahoo.co.jp')->send(new OrderConfirmationMail($order, $orderItem));
+    Mail::to('s.nomura.wk@gmail.com')->send(new OrderConfirmationMail($order, $orderItem, $totalPrice));
 
     }
 }
