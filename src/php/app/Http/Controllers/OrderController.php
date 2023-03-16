@@ -178,6 +178,9 @@ class OrderController extends BaseController
                 'destination_address_line1' => 'required|max:100',
                 // 'destination_address_line2' => 'required|max:100',
                 'destination_tell' => 'required|max:15',
+                'delivery_date' => 'required|max:15|date_format:Y-m-d|after_or_equal:today',
+                'delivery_time' => 'required|date_format:H:i:s|after_or_equal:' . now()->format('H:i:s'),
+
 
             ],
             [
@@ -198,6 +201,12 @@ class OrderController extends BaseController
                 // 'destination_address_line2.max' => 'お名前は最大100文字です',
                 'destination_tell.required' => '電話番号を入力してください。',
                 'destination_tell.max' => '電話番号は最大15文字です',
+                'delivery_date.after_or_equal' => '配達日は今日以降の日付を選択してください。',
+                'delivery_date.required' => '配達日時を入力してください。',
+                'delivery_time.required' => '配達時間を選択してください。',
+                'delivery_time.date_format' => '配達時間は時刻(H:i:s)形式で入力してください。',
+                'delivery_time.after_or_equal' => '現在時刻以降の時間を選択してください。',
+
             ]
         );
 
@@ -312,8 +321,9 @@ class OrderController extends BaseController
         //注文完了メールを送信する処理
 
         $orderItems = DB::table('order_items')->where('order_id', $order->id)->get();
+        $totalPrice = DB::table('carts')->where('user_id', Auth::user()->id)->orderBy('id', 'desc')->first()->total_price;
         $contactsController = new ContactsController();
-        $contactsController->sendOrderConfirmMail($order, $orderItems);
+        $contactsController->sendOrderConfirmMail($order, $orderItems,$totalPrice);
     }
 
 
@@ -339,7 +349,7 @@ class OrderController extends BaseController
                     //クーポン適応処理
                     $discountRate = DB::table('coupons')->where('id', $couponId)->first()->discount_rate;
                     $discountRate = (int)$discountRate;
-                    $discountPrice = $totalPrice * ($discountRate*0.01);
+                    $discountPrice = $totalPrice * ($discountRate * 0.01);
                     $discountPrice = (int)$discountPrice;
                     $totalPrice = $totalPrice - $discountPrice;
 
@@ -355,12 +365,11 @@ class OrderController extends BaseController
                         'count' => $usedTimes,
                     ]);
 
+
                     $discountMessage =  (string)$discountPrice ;
-                    return view('order.coupon-only')->with([
-                        'totalPrice' =>$totalPrice,
-                        'message' => '20%引きクーポンが適応されました！',
-                        'discountMessage' => $discountMessage,
-                    ]);
+                    return view('order.order_confirm')->with(
+                        'message','クーポンが適応されました。',);
+
                 } else {
                     return view('order.coupon-only')->with([
                         'totalPrice' => $totalPrice,
@@ -371,22 +380,39 @@ class OrderController extends BaseController
 
                 return view('order.coupon-only')->with([
                     'totalPrice' => $totalPrice,
-                    'message' => 'クーポコードが違います！',]);
+                    'message' => 'クーポコードが違います！',
+                ]);
             }
         } else {
 
             return view('order.coupon-only')->with([
-                'totalPrice'=>$totalPrice,
-                'message'=> '適応可能なクーポンが存在しません',
-                ]);
+                'totalPrice' => $totalPrice,
+                'message' => '適応可能なクーポンが存在しません',
+            ]);
         }
     }
+
 
 
     public function couponOnly()
     {
         $totalPrice = DB::table('carts')->where('user_id', Auth::user()->id)->orderBy('id', 'desc')->first()->total_price;
-        return view("order.coupon-only")->with('totalPrice', $totalPrice);
+
+        // $availableCoupons = DB::table('user_coupons')->where('user_id', Auth::user()->id)->first();
+        $couponId = 1;
+        $discountRate = DB::table('coupons')->where('id', $couponId)->first()->discount_rate;
+        $discountRate = (int)$discountRate;
+        $discountPrice = $totalPrice * ($discountRate*0.01);
+        $discountPrice = (int)$discountPrice;
+
+        $afterDiscountPrice =  $totalPrice - $discountPrice;
+
+        return view("order.coupon-only")->with(['totalPrice' => $totalPrice, 
+        'afterDiscountPrice'=> $afterDiscountPrice]);
+    }
+
+    public function returnOrderConfirm(){
+        return view ("order.order_confirm");
     }
 }
                     
@@ -403,4 +429,3 @@ class OrderController extends BaseController
     // {
     //     return view('order.order_complete');
     // }
-
