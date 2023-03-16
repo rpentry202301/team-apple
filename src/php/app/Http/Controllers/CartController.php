@@ -122,7 +122,7 @@ class CartController extends BaseController
             'items' => $items,
             'toppings' => $toppings,
             'total_price' => $total_price,
-            'tax' => $tax
+            'tax' => $tax,
         ]));
     }
 }

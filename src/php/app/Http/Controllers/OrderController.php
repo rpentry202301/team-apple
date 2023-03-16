@@ -281,7 +281,7 @@ class OrderController extends BaseController
             CartTopping::where('user_id', Auth::user()->id)->delete();
             CartItem::where('user_id', Auth::user()->id)->delete();
             Cart::where('user_id', Auth::user()->id)->delete();
-
+            
             session()->forget('cart');
 
             $orderTopping->save();
