@@ -14,6 +14,44 @@
                     <a href="/"> <img class="header-logo" alt="main logo" src="../images/pizapple - MarkMaker Logo.png"
                             href="/" width="270" height="120" /></a>
                 </span>
+
+                <div class="navbar-right" style="display:inline-block;vertical-align:middle;">
+                    <p class="navbar-text">
+                        <!-- カテゴリー検索 -->
+                        <span class="text-center">
+                        <span class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                            <span class="collapse navbar-collapse" id="navbarSupportedContent">
+                                <ul class="navbar-nav ml-auto">
+                                    <form class="form-inline" method="GET" action="{{ route('top') }}">
+                                        @csrf
+                            <span class="input-group">
+                                {{-- <span class="input-group-prepend"> --}}
+                                    <select class="custom-select" name="category">
+                                        <option value="" selected>カテゴリー検索</option>
+                                    @foreach ($categories as $category)
+                                        {{-- <option value="primary:{{$category->id}}" class="font-weight-bold" {{ $defaults['category'] == "primary:" . $category->id ? 'selected' : ''}}>{{$category->name}}</option> --}}
+                                        @foreach ($category->secondaryCategories as $secondary)
+                                    <option value="secondary:{{$secondary->id}}" {{ $defaults['category'] == "secondary:" . $secondary->id ? 'selected' : ''}}> {{$secondary->name}}</option>
+                                    @endforeach
+                                    @endforeach
+                                </select>
+                            </span>
+                            {{-- </span> --}}
+                            <!--キーワード検索-->
+                            <input type="text" name="keyword" class="form-control" aria-label="Text input with dropdown button" placeholder="キーワード検索">
+                            {{-- <input type="text" name="keyword" class="form-control" value="{{$defaults['keyword']}}" aria-label="Text input with dropdown button" placeholder="キーワード検索">                         --}}
+                            {{-- <span class="input-group-append"> --}}
+                                <button type="submit" class="btn btn-outline-dark">検索<i class="fas fa-search"></i></button>
+                                <button type="reset" value="クリア" class="btn btn-default">クリア <i class="fas fa-search"></i></button>
+                                </span>
+                            </span>
+                        </span>
+                    </span>
+                    <span></span>                 
+                </form>
+            </ul>
+    
+
                 <span class="navbar-text navbar-right">
                     <!--注文履歴は機能実装後ルーティングを追加-->
                     @guest

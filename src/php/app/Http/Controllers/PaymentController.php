@@ -62,9 +62,7 @@ class  PaymentController extends Controller
             ]);
 
             DB::commit();
-
             return redirect(route('payment'));
-
         } catch (\Exception $e) {
             Log::error($e);
             DB::rollback();
