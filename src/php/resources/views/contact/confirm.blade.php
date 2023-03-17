@@ -15,6 +15,7 @@
 
                 <form method="POST" action="{{ route('contact.send') }}">
                     @csrf
+                    <br>
                     <h5><label>【お客様のメールアドレス】</label></h5><br>
                     {{ $inputs['email'] }}<br>
                     <input name="email" value="{{ $inputs['email'] }}" type="hidden">
@@ -42,8 +43,7 @@
                     <br>
 
                     <button class="btn-primary" type="submit" name="action" value="back">入力内容修正</button>
-                    <button class="btn-success" type="submit" name="action" value="submit">送信する</button>
-                    <br><br><br><br><br><br><br><br><br>
+                    <button class="btn-success" type="submit" name="action" value="submit" style="margin-bottom: 180px">送信する</button>
                 </form>
 
 

@@ -2,18 +2,18 @@
 <br>
 <div>
     <h2>注文者氏名</h2>
-     {{$userName}}<br>
+    {{$userName}}様<br>
     <br>
 </div>
 <div>
     <h2>ご注文内容</h2>
     <table>
-@foreach($orderItems as $item)
+        @foreach($orderItems as $item)
         <tr>
             <th>{{$item->order_name}}</th>
             <th>{{$item->quantity}}点</th>
         </tr>
-@endforeach
+        @endforeach
     </table>
 </div>
 <div>
@@ -22,7 +22,7 @@
     <br>
 </div>
 <h2>配送先氏名</h2>
- {{$destinationName}}<br>
+{{$destinationName}}<br>
 
 <h2>配送先住所</h2>
 {{$destinationZipcode}}<br>
@@ -38,4 +38,3 @@
 【THANKYOU】<br>
 
 </html>
-

@@ -179,8 +179,8 @@ class OrderController extends BaseController
                 // 'destination_address_line2' => 'required|max:100',
                 'destination_tell' => 'required|max:15',
                 'delivery_date' => 'required|max:15|date_format:Y-m-d|after_or_equal:today',
-                'delivery_time' => 'required|date_format:H:i:s|after_or_equal:' . now()->format('H:i:s'),
-
+                // 'delivery_time' => 'required|date_format:H:i:s|after_or_equal:' . now()->format('H:i:s'),
+                'delivery_time' => 'required',
 
             ],
             [
@@ -285,27 +285,17 @@ class OrderController extends BaseController
             } else {
                 $orderTopping->order_topping_price = $cartTopping->total_topping_price;;
             }
+            $this->couponMailSend($order);
 
-            //カートの中身とセッション情報の削除
-            CartTopping::where('user_id', Auth::user()->id)->delete();
-            CartItem::where('user_id', Auth::user()->id)->delete();
-            Cart::where('user_id', Auth::user()->id)->delete();
-            
-            session()->forget('cart');
 
             $orderTopping->save();
         }
-        // //OrderToppingの価格をDBに格納する処理
-        // foreach ($cartItems as $cartItem) {
-        //     if ($cartItem->size === 'M') {
+        //カートの中身とセッション情報の削除
+        CartTopping::where('user_id', Auth::user()->id)->delete();
+        CartItem::where('user_id', Auth::user()->id)->delete();
+        Cart::where('user_id', Auth::user()->id)->delete();
 
-        //         $orderTopping->order_topping_price = $topping->price_m;
-        //     } else {
-        //         $orderTopping->order_topping_price = $topping->price_l;
-        //     }
-        //     $orderTopping->save();
-        // }
-        $this->couponMailSend($order);
+        session()->forget('cart');
     }
 
 
@@ -321,9 +311,18 @@ class OrderController extends BaseController
         //注文完了メールを送信する処理
 
         $orderItems = DB::table('order_items')->where('order_id', $order->id)->get();
-        $totalPrice = DB::table('carts')->where('user_id', Auth::user()->id)->orderBy('id', 'desc')->first()->total_price;
+        // dd(Cart::where('user_id', Auth::user()->id)->first()->total_price);
+        $totalPrice = Cart::where('user_id', Auth::user()->id)->first()->total_price;
+        // dd(DB::table('carts')->where('user_id', Auth::user()->id));
         $contactsController = new ContactsController();
-        $contactsController->sendOrderConfirmMail($order, $orderItems,$totalPrice);
+        $contactsController->sendOrderConfirmMail($order, $orderItems, $totalPrice);
+
+        //  //カートの中身とセッション情報の削除
+        // CartTopping::where('user_id', Auth::user()->id)->delete();
+        // CartItem::where('user_id', Auth::user()->id)->delete();
+        // Cart::where('user_id', Auth::user()->id)->delete();
+
+        // session()->forget('cart');
     }
 
 
@@ -356,20 +355,24 @@ class OrderController extends BaseController
                     // $currentTotalPrice= DB::table('carts')->where('user_id', Auth::user()->id)->orderBy('id','desc')->first();
 
                     $userId = Auth::id();
-                    Cart::where('user_id', $userId)->update([
-                        'total_price' => $totalPrice,
-                    ]);
+                    $discountTotalPrice = Cart::where('user_id', $userId)->first();
+                    $discountTotalPrice->total_price = $totalPrice;
+                    $discountTotalPrice->save();
 
                     $usedTimes += 1;
                     UserCoupon::where('user_id', $userId)->where('coupon_id', $couponId)->update([
                         'count' => $usedTimes,
                     ]);
 
+                    $discountPrice = $totalPrice * ($discountRate * 0.01);
+                    $discountPrice = (int)$discountPrice;
+                    $afterDiscountPrice =  $totalPrice - $discountPrice;
 
-                    $discountMessage =  (string)$discountPrice ;
-                    return view('order.order_confirm')->with(
-                        'message','クーポンが適応されました。',);
-
+                    return view('order.order_confirm')->with([
+                        'totalPrice' => $totalPrice,
+                        'discountPrice' => $discountPrice,
+                        'message' => 'クーポンが適用されました。',
+                    ]);
                 } else {
                     return view('order.coupon-only')->with([
                         'totalPrice' => $totalPrice,
@@ -402,23 +405,32 @@ class OrderController extends BaseController
         $couponId = 1;
         $discountRate = DB::table('coupons')->where('id', $couponId)->first()->discount_rate;
         $discountRate = (int)$discountRate;
-        $discountPrice = $totalPrice * ($discountRate*0.01);
+        $discountPrice = $totalPrice * ($discountRate * 0.01);
         $discountPrice = (int)$discountPrice;
 
         $afterDiscountPrice =  $totalPrice - $discountPrice;
 
-        return view("order.coupon-only")->with(['totalPrice' => $totalPrice, 
-        'afterDiscountPrice'=> $afterDiscountPrice]);
+        return view("order.coupon-only")->with([
+            'totalPrice' => $totalPrice,
+            'afterDiscountPrice' => $afterDiscountPrice
+        ]);
     }
 
-    public function returnOrderConfirm(){
-        return view ("order.order_confirm");
+    public function returnOrderConfirm(Request $request)
+    {
+
+        $total_price =  DB::table('carts')->where('user_id', Auth::user()->id)->orderBy('id', 'desc')->first()->total_price;
+
+        return view("order.order_confirm")->with(
+            'total_price',
+            $total_price
+        );
     }
 }
                     
                     // public function deleteCart()
                     // {
-                        // }
+                    //     }
                         
                         // public function showOrderComplete()
                         // {

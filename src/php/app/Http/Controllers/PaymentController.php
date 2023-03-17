@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use Payjp\Payjp;
+use Payjp\Charge;
+use Carbon\Carbon;
+use App\Models\Cart;
 use App\Models\Item;
 use App\Models\User;
 use App\Models\Order;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-use Payjp\Charge;
-use Payjp\Payjp;
+use Illuminate\Support\Facades\Auth;
 
 
 class  PaymentController extends Controller
@@ -64,7 +65,6 @@ class  PaymentController extends Controller
             DB::commit();
 
             return redirect(route('payment'));
-
         } catch (\Exception $e) {
             Log::error($e);
             DB::rollback();

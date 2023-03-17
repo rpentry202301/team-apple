@@ -5,6 +5,7 @@
 @endsection
 
 @section('content')
+<body class="confirm">
 <div class="container my-5" style="margin-top: 100px">
     <form method="POST" action="{{ route('contact.confirm') }}">
         @csrf
@@ -44,9 +45,9 @@
             @endif
         </div>
         <br>
-        <button type="submit" class="btn btn-primary">入力内容確認</button>
+        <button type="submit" class="btn btn-primary" style="margin-bottom: 120px">入力内容確認</button>
     </form>
     @endsection
 </div>
-
+</body>
 </html>
