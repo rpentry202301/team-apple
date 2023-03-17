@@ -35,7 +35,7 @@
 {{$deliveryTime}} にお届けします！<br>
 
 <h2>次回ご利用可能なクーポンコード</h2>
-【thankyou40】<br>
+【THANKYOU】<br>
 
 </html>
 
