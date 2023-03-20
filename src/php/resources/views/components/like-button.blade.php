@@ -9,7 +9,7 @@
 @else
 <form action="{{route('favorites', $item)}}" method="POST">
     @csrf
-    <button type="submit" wire:click="store" class="btn-link" style="background:none; border:none; color: blue;">
+    <button type="submit" wire:click="store" class="btn-link" style="background:none; border:none; color: skyblue;">
         <i class="fas fa-heart"></i>
     </button>
 </form>

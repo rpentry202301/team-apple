@@ -12,7 +12,7 @@
                 </div>
                 <span class="pizapple-logo">
                     <a href="/"> <img class="header-logo" alt="main logo" src="../images/pizapple - MarkMaker Logo.png"
-                            href="/" width="270" height="120" /></a>
+                            href="/" width="250" height="120" /></a>
                 </span>
                 <span class="navbar-text navbar-right">
                     <!--注文履歴は機能実装後ルーティングを追加-->
@@ -23,8 +23,6 @@
                     <a href="{{route('contact.index')}}" class="navbar-link">ContactUs</a>&nbsp;&nbsp;
                     @endguest
                     @auth
-                    <span style="background:none; border:none; color: red"><i class="fas fa-book-open"></i></span>
-                    <a href="order_history.html" class="navbar-link">OrderHistory</a>&nbsp;&nbsp;
                     <span style="background:none; border:none; color: red"><i class="fas fa-shopping-cart"></i></span>
                     <a href="{{route('cart')}}" class="navbar-link text-center">ShoppingCart</a>&nbsp;&nbsp;
                     <span style="background:none; border:none; color: red"><i class="fas fa-envelope"></i></span>

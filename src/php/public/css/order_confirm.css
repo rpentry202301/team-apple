@@ -1,42 +1,42 @@
 @charset "UTF-8";
 
 body.order_confirm {
-  background-image: url("../images/vegitable.jpg");
-  background-size: cover;
-  background-position: center;
-  width: 1500px;
-  height: 1100px;
-  background-repeat: no-repeat;
+    background-image: url("../images/vegitable.jpg");
+    background-size: cover;
+    background-position: center;
+    width: 1500px;
+    height: 700px;
+    background-repeat: no-repeat;
 }
 
 td {
-  background-color: black !important;
+    background-color: black !important;
 }
 
 input {
-  color: black !important;
+    color: black !important;
 }
 
 .order-confirm-delivery-info {
-  margin: 0 200px 0 200px;
+    margin: 0 200px 0 200px;
 }
 
 .order-confirm-delivery-datetime {
-  text-align: center;
+    text-align: center;
 }
 
 .order-confirm-delivery-time {
-  margin-right: 10px;
+    margin-right: 10px;
 }
 
 .order-confirm-payment-method {
-  text-align: center;
+    text-align: center;
 }
 
 .order-confirm-payment-method-radio {
-  margin-right: 10px;
+    margin-right: 10px;
 }
 
- #coupon-message{
-  color: red !important;
- }
+#coupon-message {
+    color: red !important;
+}

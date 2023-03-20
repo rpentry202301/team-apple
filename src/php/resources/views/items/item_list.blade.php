@@ -69,7 +69,7 @@
             <span >
             <a href="/item/{{$item->id}}">
               <img src="../images/{{$item->id}}.jpg" class="img-responsive img-rounded item-img-center" width="200" height="600" /> </a><br />
-              <a href="/item/{{$item->id}}">{{$item->name}}</a><br />
+              <a style="color: white" href="/item/{{$item->id}}">{{$item->name}}</a><br />
               <span class="price">&nbsp;М&nbsp;</span>&nbsp;&nbsp;{{$item->price_m}}(税抜)<br />
               <span class="price">&nbsp;Ｌ</span>&nbsp;&nbsp;{{$item->price_l}}(税抜)<br />
               <x-like-button :item="$item" />

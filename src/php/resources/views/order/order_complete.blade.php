@@ -1,10 +1,12 @@
 @extends('layouts.app')
 
 @section('title')
-    注文完了画面
+注文完了画面
 @endsection
 
 @section('content')
+
+<body class="order_confirm">
     <div class="container">
         <!-- table -->
         <div class="row">
@@ -25,13 +27,11 @@
             <div class="col-xs-offset-5 col-xs-2">
                 <div class="form-group">
                     <form action="{{ route('top') }}">
-                        <input class="form-control btn btn-warning btn-block" type="submit" value="トップ画面を表示する" />
+                        <input style="margin-bottom: 370px" class="form-control btn btn-warning btn-block" type="submit" value="トップ画面を表示する" />
                     </form>
                 </div>
             </div>
         </div>
     </div>
-    <!-- end container -->
-    {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script src="../static/js/bootstrap.min.js"></script> --}}
+</body>
 @endsection

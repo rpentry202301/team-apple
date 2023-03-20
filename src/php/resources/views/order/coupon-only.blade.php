@@ -28,7 +28,7 @@
           <br>
           <br>
           
-    &nbsp;&nbsp;<input class="form-control btn btn-warning btn-block" type="submit" value="クーポンを適応する" id="coupon-button" />
+    &nbsp;&nbsp;<input class="form-control btn btn-warning btn-block" type="submit" value="クーポンを適用する" id="coupon-button" />
   </form>
 
   <form action="{{route('order.returnOrderConfirm')}}">
