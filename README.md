@@ -19,6 +19,10 @@
 > cp .env.example .env
 php artisan key:generate
 
+##### DBの作成とデータの挿入
+> php artisan migrate
+php artisan db:seed
+
 ##### localhostにて接続
 > http://localhost/
 
