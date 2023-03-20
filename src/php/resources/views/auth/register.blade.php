@@ -6,7 +6,7 @@
 
 @section('content')
     <div class="container">
-        <div class="col-lg-12" style="margin-top: 60px">
+        <div class="col-lg-offset-2 col-lg-8" style="margin-top: 60px">
             <div class="font-weight-bold text-center border-bottom pb-3" style="font-size: 24px">ユーザ登録</div>
 
             <form method="POST" action="{{ route('register') }}" class="p-5">
@@ -35,7 +35,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="zipcode">郵便番号</label><button class="api-address" type="button">住所検索</button>
+                    <label for="zipcode">郵便番号</label><button class="api-address btn-primary" type="button">住所検索</button>
                     @error('zipcode')
                         <span class="invalid-feedback" role="alert">
                             <strong class="text-danger">{{ $message }}</strong>

@@ -8,12 +8,10 @@
 
 <div id="youtube-wrap">
   <div id="youtube" data-property="{
-      videoURL: 'https://www.youtube.com/watch?v=3231gqH9Wao',
+      videoURL: 'https://youtu.be/3231gqH9Wao',
       containment: '#youtube-wrap',
       autoPlay: true,
       loop: 1,
-      startAt: 20,
-      stopAt: 40,
       mute: true,
       startAt: 0,
       opacity: 0.5,
@@ -28,7 +26,7 @@
         <h3 class="text-center">商品詳細</h3>
         <div class="row">
           <div class="col-xs-5">
-            <img src="../images/1.jpg" class="img-responsive img-rounded item-img-center" />
+            <img src="../images/{{$item->id}}.jpg" class="img-responsive img-rounded item-img-center" />
           </div>
           <div class="col-xs-5">
             <div class="bs-component" data-piza-mprice="{{$item->price_m}}" data-piza-lprice="{{$item->price_l}}">
@@ -81,7 +79,8 @@
                 <div class="col-sm-12">
                   @foreach($toppings as $topping)
                   <label class="checkbox-inline">
-                    <input type="checkbox" value="{{$topping->id}}" id="topping" name="topping" />{{$topping->name}}
+                    <input class="topping" type="checkbox" value="{{$topping->id}}" id="topping"
+                      name="topping[]" />{{$topping->name}}
                     <input type="hidden" name="topping_m" value="{{$topping->price_m}}">
                     <input type="hidden" name="topping_l" value="{{$topping->price_l}}">
                   </label>
@@ -146,7 +145,7 @@
 <!--ピザのサイズ、トッピング、数量が変更された際に合計金額を自動計算する処理-->
 <script>
   $('#youtube').YTPlayer();
-      $('input[name="size"]:radio, input[name="topping"], select[name="quantity"]').change(function() {
+      $('input[name="size"]:radio, input.topping, select[name="quantity"]').change(function() {
         
 
 //radioボタン('piza-size')でチェックされたサイズのvalueを取得
@@ -171,7 +170,7 @@
 
 //checkbox('topping')の選択された項目の名前を配列に取得する
         var topping_list = [];
-        var chk1 = document.getElementsByName("topping");
+        var chk1 = document.getElementsByClassName("topping");
 
         for (let i = 0; i < chk1.length; i++) {
           if (chk1[i].checked) {

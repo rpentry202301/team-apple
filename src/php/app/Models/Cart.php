@@ -42,7 +42,7 @@ class Cart extends Model
 
         // カートに追加する商品のトッピングの金額を計算する処理
         if (count($items) != 0) {
-            foreach ($toppings as $topping) {
+            foreach ($item->cartToppings as $topping) {
                 if ($topping->total_topping_price == 200) {
                     $total_price += 200;
                 } else {
