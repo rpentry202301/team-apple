@@ -47,7 +47,8 @@ class OrderController extends BaseController
 
     public function showDeliveryForm()
     {
-        $cartItems = $this->getCartItems();
+        $cartItems = $this->onlyCouponAdaptionGetCartItems();
+
         $items = [
             'items' => $cartItems['items'],
             'toppings' => $cartItems['toppings'],
@@ -210,6 +211,9 @@ class OrderController extends BaseController
             ]
         );
 
+
+        
+
         $order = new Order;
 
         $user_id = Auth::id();
@@ -235,6 +239,8 @@ class OrderController extends BaseController
         $order->payment_method = $request->input('payment_method');
 
         $order->save();
+
+        $this->couponMailSend($order);
 
         //注文完了メールを送信する処理を追加
 
@@ -285,7 +291,8 @@ class OrderController extends BaseController
             } else {
                 $orderTopping->order_topping_price = $cartTopping->total_topping_price;;
             }
-            $this->couponMailSend($order);
+          
+            
 
 
             $orderTopping->save();
@@ -359,6 +366,15 @@ class OrderController extends BaseController
                     $discountTotalPrice->total_price = $totalPrice;
                     $discountTotalPrice->save();
 
+                    $cartModel = Cart::where('user_id', $userId)->first();
+                    $cartTotalPrice = $cartModel->total_price;
+                    $orderModel = Order::where('user_id', $userId)->first();
+                    $orderTotalPrice =  $cartTotalPrice;
+                    $orderModel->total_price = $orderTotalPrice;
+                    $orderModel->save();
+
+
+
                     $usedTimes += 1;
                     UserCoupon::where('user_id', $userId)->where('coupon_id', $couponId)->update([
                         'count' => $usedTimes,
@@ -400,7 +416,6 @@ class OrderController extends BaseController
     public function couponOnly()
     {
         $totalPrice = DB::table('carts')->where('user_id', Auth::user()->id)->orderBy('id', 'desc')->first()->total_price;
-
         // $availableCoupons = DB::table('user_coupons')->where('user_id', Auth::user()->id)->first();
         $couponId = 1;
         $discountRate = DB::table('coupons')->where('id', $couponId)->first()->discount_rate;
