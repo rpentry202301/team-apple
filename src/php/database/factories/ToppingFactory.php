@@ -17,27 +17,13 @@ class ToppingFactory extends Factory
     public function definition()
     {
         return [
-            [
-                'name' => 'ベーコン',
-                'price_m' => 300,
-                'price_l' => 400,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'name' => 'チーズ',
-                'price_m' => 300,
-                'price_l' => 400,
-                'createat' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'name' => 'トマト',
-                'price_m' => 300,
-                'price_l' => 400,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
+            'name' => $this->faker->unique()->randomElement([
+                'チーズ', 'トマト', 'ベーコン', 'ピーマン', 'コーン'
+            ]),
+            'price_m' => 300,
+            'price_l' => 400,
+            'created_at' => now(),
+            'updated_at' => now(),
         ];
     }
 }
