@@ -38,7 +38,7 @@ class CartController extends BaseController
     {
         // セッションからカート情報を取得する
         $cart_id = Session::get('cart');
-        
+
         $topping_value = $request->input('topping');
         $topping_ids = 0;
         if (is_array($topping_value)) {
@@ -51,8 +51,6 @@ class CartController extends BaseController
         $items = CartItem::where('cart_id', $cart_id)
             ->where('item_id', $request->input('id'))
             ->where('size', $request->input('size'))
-            // ->join('cart_toppings', 'cart_toppings.cart_item_id', '=', 'cart_items.id')
-            // ->whereIn('cart_toppings.topping_id', $topping_ids)
             ->get();
 
         $toppings = null; // トッピングがない時にnullのエラーが出てしまうため変数を定義
@@ -67,7 +65,7 @@ class CartController extends BaseController
                 $item->order_price += $request->input('price_l');
             }
             $item->save();
-            
+
             $toppings = CartTopping::where('cart_item_id', $items->first()->id)->get();
             if (count($toppings) > 0) {
                 foreach ($toppings as $topping) {
