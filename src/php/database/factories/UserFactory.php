@@ -22,8 +22,8 @@ class UserFactory extends Factory
     {
         return [
             'name' => 'ラクスピザ太郎',
-            'email' => 'pizapple@gmail.com',
-            'password' => \Hash::make('pizapple'),            'password' => /*Hash::make*/ 'pizapple',
+            'email' => $this->faker->unique()->email(),
+            'password' => \Hash::make('pizapple'),
             'zipcode' => '160-0022',
             'prefecture' => '東京都',
             'municipalities' => '新宿区',

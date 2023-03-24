@@ -47,6 +47,31 @@ class BaseController extends Controller
         ];
     }
 
+     public function onlyCouponAdaptionGetCartItems(){
+
+        // セッションからカート情報を取得する
+        $cart_id = Session::get('cart');
+        $toppings = null;
+
+        // カートの中からセッションの情報に入っているcart_idを持つCartItemテーブルを取得
+        $items = CartItem::where('cart_id', $cart_id)->get();
+        if (count($items) > 0) {
+            $toppings = CartTopping::where('cart_item_id', $items->first()->id)->get();
+        }
+
+        $total_price = (int)Cart::calculateTotalPrice($items, $toppings); // 合計金額を計算
+        $tax = (int)Cart::calculateTax($total_price); // 消費税を計算
+        $total_price += $tax; // 消費税を合計金額に上乗せ
+
+
+        return [
+            'items' => $items,
+            'toppings' => $toppings,
+            'total_price' => $total_price,
+            'tax' => $tax,
+        ];
+    }
+
     /**
      * ショッピングカートの商品を削除
      * @param DeleteRequest $request リクエスト
