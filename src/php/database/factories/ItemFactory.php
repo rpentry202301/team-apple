@@ -16,12 +16,28 @@ class ItemFactory extends Factory
      */
     public function definition()
     {
+        $random_image_number = rand(1, 18);
+        $image_path = $random_image_number . '.jpg';
+
         return [
-            'name' => 'じゃがバターベーコン',
-            'description' => 'This is Item A',
+            'name' => $this->faker->unique()->randomElement([
+                'マルゲリータピザ', 'ペパロニピザ', 'ハワイアンピザ', 'ミートラバーズピザ', 'スーパーデラックスピザ'
+            ]),
+            'description' => $this->faker->unique()->randomElement([
+                'トマトソースにたっぷりのチーズが乗ったピザです。',
+                'マルゲリータはシンプルで美味しいピザです。',
+                '生ハムがたっぷりのピザです。',
+                '野菜たっぷりのヘルシーなピザです。',
+                'チーズがたっぷりの濃厚なピザです。',
+                'ハワイアンピザはハムとパイナップルの相性抜群です。',
+                'ペパロニがたっぷりのアメリカンスタイルのピザです。',
+                'シーフードがたっぷりの贅沢なピザです。',
+                'チーズにサラミがたっぷりのピザです。',
+                'キノコたっぷりのベジタリアンピザです。',
+            ]),
             'price_m' => 1380,
             'price_l' => 2380,
-            'image_path' => '1.jpg',
+            'image_path' => $image_path,
             'deleted' => false,
             'created_at' => now(),
             'updated_at' => now(),
