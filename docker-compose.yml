@@ -81,10 +81,10 @@ services:
     depends_on:
       - db2
     environment:
-      - PMA_ARBITRARY=1
-      - PMA_HOSTS=db2
-      - PMA_USER=root
-      - PMA_PASSWORD=rootpass
+      - "PMA_ARBITRARY=${PMA_ARBITRARY}"
+      - "PMA_HOSTS=${PMA_HOSTS}"
+      - "PMA_USER=${PMA_USER}"
+      - "PMA_PASSWORD=${PMA_PASSWORD}"
     ports:
       - "8889:80"
     volumes:
