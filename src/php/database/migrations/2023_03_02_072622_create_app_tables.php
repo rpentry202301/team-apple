@@ -13,6 +13,28 @@ return new class extends Migration
      */
     public function up()
     {
+        Schema::create('primary_categories', function (Blueprint $table) {
+            $table->id();
+
+            $table->string('name');
+            $table->integer('sort_no');
+
+
+            $table->timestamps();
+        });
+
+        Schema::create('secondary_categories', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('primary_category_id');
+
+            $table->string('name');
+            $table->integer('sort_no');
+
+            $table->timestamps();
+
+            // $table->foreign('primary_category_id')->references('id')->on('primary_categories');
+        });
+
         Schema::create('users', function (Blueprint $table) {
 
             $table->id();
@@ -60,11 +82,13 @@ return new class extends Migration
             $table->string('description');
             $table->integer('price_m');
             $table->integer('price_l');
+            $table->unsignedBigInteger('secondary_category_id');
             $table->string('image_path');
             $table->boolean('deleted')->default('0');
             $table->timestamp('bought_at')->nullable();
 
             $table->timestamps();
+            // $table->foreign('secondary_category_id')->references('id')->on('secondary_categories');
         });
 
         Schema::create('order_items', function (Blueprint $table) {
@@ -184,6 +208,8 @@ return new class extends Migration
         Schema::dropIfExists('cart_items');
         Schema::dropIfExists('cart_toppings');
         Schema::dropIfExists('item_user');
+        Schema::dropIfExists('secondary_categories');
+        Schema::dropIfExists('primary_categories');
         Schema::enableForeignKeyConstraints();
     }
 };
