@@ -101,6 +101,7 @@ class BaseController extends Controller
         // カート画面にリダイレクト
         return redirect(route('cart'));
     }
+    //テスト
 
 
 
