@@ -35,13 +35,6 @@ class BaseController extends Controller
         $tax = (int)Cart::calculateTax($total_price); // 消費税を計算
         $total_price += $tax; // 消費税を合計金額に上乗せ
 
-        // return view('cart.cart_list', [
-        //     'items' => $items,
-        //     'toppings' => $toppings,
-        //     'total_price' => $total_price,
-        //     'tax' => $tax,
-        // ],);
-
         $cart = Cart::where('user_id', Auth::user()->id)->first();
         $cart->total_price = $total_price;
         $cart->save();
@@ -53,7 +46,6 @@ class BaseController extends Controller
             'tax' => $tax,
         ];
     }
-
 
      public function onlyCouponAdaptionGetCartItems(){
 
@@ -80,15 +72,12 @@ class BaseController extends Controller
         ];
     }
 
-    // }
-
-
     /**
      * ショッピングカートの商品を削除
      * @param DeleteRequest $request リクエスト
      * @return view カート画面
      */
-    protected function deleteCartItems(DeleteRequest $request)
+    public function deleteCartItems(DeleteRequest $request)
     {
         // 商品のidを取得する
         $item_id = $request['id'];
@@ -101,8 +90,4 @@ class BaseController extends Controller
         // カート画面にリダイレクト
         return redirect(route('cart'));
     }
-    //テスト
-
-
-
 }

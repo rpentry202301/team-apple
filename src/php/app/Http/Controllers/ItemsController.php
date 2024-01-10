@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Item;
 use App\Models\Topping;
 use Illuminate\Http\Request;
+use App\Http\Requests\KeyWordRequest;
 
 class ItemsController extends Controller
 {
@@ -18,12 +19,33 @@ class ItemsController extends Controller
      * @return 商品一覧画面
      */
 
-    public function showItems(Request $request)
+    public function showItems(KeyWordRequest $request)
     {
 
         $query = Item::query();
 
+        //キーワード検索
+        if ($request->filled('keyword')) {
+            $keyword = '%' . $this->escape($request->input('keyword')) . '%';
+            $query->where(function ($query) use ($keyword) {
+                $query->where('name', 'LIKE', $keyword);
+                $query->orWhere('description', 'LIKE', $keyword);
+            });
+        }
 
+        // カテゴリで絞り込み
+        if ($request->filled('category')) {
+            list($categoryType, $categoryID) = explode(':', $request->input('category'));
+
+            if ($categoryType === 'primary') {
+                $query->whereHas('secondaryCategory', function ($query) use ($categoryID) {
+                    $query->where('primary_category_id', $categoryID);
+                });
+            } else if ($categoryType === 'secondary') {
+                $query->where('secondary_category_id', $categoryID);
+            }
+        }
+        //
         $items = $query->orderBy('price_m', 'asc')
             ->paginate(4);
 
@@ -47,18 +69,21 @@ class ItemsController extends Controller
         );
     }
 
+
     public function searchItems(Request $request)
     {
 
         $query = Item::query();
 
-        $validated = $request->validate([
-            'keyword' => 'required|max:100',
-        ],
-        [
-            'keyword.required' => 'キーワードは必須です。',
-            'keyword.max' => 'キーワードは最大100文字です',
-     ]);
+        $validated = $request->validate(
+            [
+                'keyword' => 'required|max:100',
+            ],
+            [
+                'keyword.required' => 'キーワードは必須です。',
+                'keyword.max' => 'キーワードは最大100文字です',
+            ]
+        );
 
 
         //キーワード検索機能の実装

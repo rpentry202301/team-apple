@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Item;
+use Illuminate\Support\Facades\DB;
 
 class ItemSeeder extends Seeder
 {
@@ -15,15 +16,8 @@ class ItemSeeder extends Seeder
      */
     public function run()
     {
-        Item::factory()->create([
-            'name' => 'じゃがバターベーコン',
-            'description' => 'This is Item A',
-            'price_m' => 1380,
-            'price_l' => 2380,
-            'image_path' => '1.jpg',
-            'deleted' => false,
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
+
+        Item::factory(5)->create();
+
     }
 }

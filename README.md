@@ -6,26 +6,37 @@
 ### プロジェクトをcloneし、動作確認を行う方法
 
 ##### clone(SSH)を行う
-> git clone git@github.com:rpentry202301/team-apple.git
+```
+git clone git@github.com:rpentry202301/team-apple.git
+```
 
 ##### コンテナを立ち上げ、コンテナ内に入る
-> docker compose build
-> docker compose exec php bash
+```
+docker compose build
+docker compose exec php bash
+```
 
 ##### vendor(ライブラリ)のインストール
-> composer install
+```
+composer install
+```
 
 ##### APP_KEYの作成
-> cp .env.example .env
+```
+cp .env.example .env
 php artisan key:generate
+```
 
 ##### DBの作成とデータの挿入
-> php artisan migrate
+```
+php artisan migrate
 php artisan db:seed
+```
 
 ##### localhostにて接続
-> http://localhost/
-
+```
+http://localhost/
+```
 
 ### 基本機能
 - ユーザ登録

@@ -13,13 +13,13 @@ a.navbar-link{
     font-family: 'Rajdhani', sans-serif;
     font-family: 'Secular One', sans-serif;
     font-size: 15px;
-    padding-top: 100px !important;
+    padding-top: 0px !important;
     color: white !important;
 }
 
 .navbar-text{
-    margin-left:700px !important;
-    margin-top: 40px;
+    margin-left:100px !important;
+    margin-top: 30px;
 }
 
 .header-logo{
