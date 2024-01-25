@@ -91,3 +91,4 @@ class BaseController extends Controller
         return redirect(route('cart'));
     }
 }
+//テスト
